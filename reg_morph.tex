@@ -1,0 +1,129 @@
+%In the category of varieties the morphisms between objects have a special name
+
+To appease the critical mind of the reader, a few more concrete examples are presented to give a feeling for the previous abstract definitions. 
+
+
+Maps between geometric spaces can tell us how they relate to each other, or simplify 
+the derivation of properties for one space if they can be inherited by the existence of a map to another space,
+already satisfying them. In case of varieties the maps between them satisfy a great deal of structure.
+\begin{definition}[Morphisms between varieties]
+    Let \( X, Y \) be affine varieties, then a continuous map \( f : X \to Y \) is regular
+    if it is morphism of the corresponding affine schemes.
+\end{definition}
+
+\begin{example}
+    Let \( X = \{ (x_1, x_2) \in \mathbb{R}^2 | x_1^2 - x_2 = 0 \} \), \( Y = \{ (y_1, y_2) \in \mathbb{R}^2 | y_1 - 3 y_2 = 0 \} \)
+    and \( f : X \to Y, (x_1, x_2) \mapsto (3 x_1^2, x_2) \).
+    Clearly, the defining polynomials are irreducible and consequentially their solution sets as well, making them affine varieties.
+    To verify that there is a morphism on the scheme construction, it is helpful too look at the map that \( f \) induces on the coordinate rings,
+    which are 
+    \[ 
+        k[X] = \mathbb{R}[x_1, x_2] / \langle x_1^2 - x_2 \rangle \simeq \mathbb{R}[x_1] \oplus \mathbb{R} 
+    \]
+    and 
+    \[ 
+        k[Y] = \mathbb{R}[y_1, y_2] / \langle y_1 - 3 y_2 \rangle \simeq \mathbb{R}[y_1].
+    \]
+    Consider the map \( f^\ast : k[Y] \to k[X],\ g(y_1, y_2) \mapsto g(3x_1^2, x_2) \equiv g \mapsto g \circ f \), for which it is readily 
+    checked that this is even a homomorphism of rings. The only subtlety is that one works over quotient rings, therefore equivalent polynomials
+    should be sent to the same equivalence class in \( k[X] \), therefore suppose 
+    \( h, g \in \mathbb{R}[y_1, y_2] \setminus \langle y_1 - 3y_2 \rangle,\ r \in \mathbb{R}[y_1, y_2] \) are s.t. \( h - g = r(y_1 - 3 y_2) \),
+    then \( f^\ast(h - g) = f^\ast(r)(f^\ast(y_1) - 3 f^\ast(y_2)) = f^\ast(r)(3 x_1^2 - 3 x_2) = 3f^\ast(r)(x_1^2 - x_2) = 0 \).
+    \newline
+    The spectra of each variety are given by \( \spec{k[X]} \simeq \spec{\mathbb{R}[x_1]} \sqcup \spec{\mathbb{R}} \simeq \spec{\mathbb{R}[x_1]} \)
+    and \( \spec{k[Y]} = \spec{\mathbb{R}[y_1]} \).
+    \( f \) induces on them the map 
+    \( f^\# : \spec{\mathbb{R}[x_1]} \mapsto \spec{\mathbb{R}[y_1]} , \mathfrak{m} \mapsto \left(f^{\ast}\right)^{-1}(\mathfrak{m}) \)
+    (since the preimage of any prime ideal is again a prime ideal under a homomorphism).
+    Now take \( g \in k[Y] \) and the associated affine open \( D_g = \{ \mathfrak{p} \in \spec{k[Y]} | g \notin \mathfrak{p} \} \),
+    then for \( h \in \mathcal{O}(D_g) = \{ \frac{r}{g^n} | r \in k[Y] \} \), we extend \( f^\ast \) on \( \mathcal{O}(D_g) \)
+    via \( f^\ast(h) = f^\ast(r) \frac{1}{f^\ast(g)^n} \), which is well defined in \( \mathcal{O}(D_{f^\ast(g)}) \) in \( \mathcal{O}(k[X]) \).
+    By construction each \( \mathfrak{p} \in \mathcal{O}(D_{f^\ast(g)}) \) is sent by \( f^\# \) precisely to some \( \mathcal{O}(D_g) \).
+    That this plays well with the restrictions is again a consequence of \( f^\ast \) being a homomorphism.
+    \newline
+    \newline
+    Finally we see that the actual morphism of sheaves is \( f^\# : \spec{k[X]} \to \spec{k[Y]} \), but to really understand it, one needs the associated map
+    \( f^\ast : k[Y] \to k[X] \) on the coordinate rings. The confusing part to this, is the contravariance of the \( \text{Spec } \)-functor. Put succinctly 
+    one can show that \( \text{Hom}_{\text{Sh}}(\spec{B}, \spec{A}) \simeq \text{Hom}_{\text{Ring}}(A, B) \), so morphisms on sheaves/varieties induce 
+    maps in the opposite directions of the associated sections/coordinate rings. As in our case \( A, B \) are typically quotient rings of \( \mathbb{K}[x_1, \dots, x_n] \),
+    which already implies that the maps are polynomial in each coordinate.
+\end{example}
+
+\begin{example}[Alg. Geo. is not limited by polynomials]
+    Consider the generalized Pareto distribution \( \text{GPD}(\mu, \sigma, \xi) \), with CDF/PDF
+    \begin{align*}
+        F_{(\mu,\sigma,\xi)}(x) &= \begin{cases}
+1 - \left(1+ \frac{\xi(x-\mu)}{\sigma}\right)^{-1/\xi} & \text{for }\xi \neq 0, \\
+1 - \exp \left(-\frac{x-\mu}{\sigma}\right) & \text{for }\xi = 0,
+\end{cases} \\
+            f_{(\mu,\sigma,\xi)}(x) &= \frac{1}{\sigma}\left(1 + \frac{\xi (x-\mu)}{\sigma}\right)^{- \left(1 + 1/\xi\right)}
+    \end{align*}
+    \[
+    \]
+    with \( \mu, \xi \in \mathbb{R}, \sigma \in (0, \infty) \) and \( x \geq \mu \) if \( \xi \geq 0 \) otherwise \( \mu \leq x \leq \mu - \frac{\sigma}{\xi} \). 
+    Its first 2 moments are given for \( \xi < \frac{1}{2} \) by
+    \begin{align} \label{momentsofgpd}
+        \expv{X} &= \mu + \frac{\sigma}{1 - \xi} \\
+        \var{X} &= \frac{\sigma^2}{(1 - \xi)^2 (1 - 2\xi)}.
+    \end{align}
+    \newline
+    Suppose we are given \( \expv{X}, \var{X} \) and should find all admissable \( \mu, \xi, \sigma \) (akin to the method of moments). Ignoring for now
+    that \( \sigma \geq 0 \) (which can be incorporated after introducing semi-algebraic sets \ref{semialgset}) Equation \ref{momentsofgpd}
+    are a set of equations with rational polynomials. Transforming this into
+    \begin{align*} 
+        0  &= \mu\left(1 - \xi \right) + \sigma - \expv{X}\left(1 - \xi \right) \\
+        0  &= \sigma^2 - \var{X}(1 - \xi)^2 (1 - 2\xi) \\
+        0  &= (1 - \xi) (1 - 2\xi)y - 1
+    \end{align*}
+    defines a variety in \( \aff{\mathbb{R}}{4} \). The reason for the last equation is that we do not admit
+    solutions, where rational polynomials blow up, hence at all admissable points there exist an inverse to the denominator, 
+    represented by the dummy variable \( y \). This trick is applicable to all rational polynomials, although the last equation
+    is in general the product of all denominators (which would have been \(0 = (1 - \xi)^3 (1 - 2\xi)y - 1 \) but since reducible polynomials
+    exactly vanish if their irreducible factors do, we can neglect the exponent).
+    \newline
+    \newline
+    Now supose we are given \( \xi = \frac{6}{5} \) (close to the factor for the famous Pareto principle)
+    and \( 2 \) points of the empirical distribution function \( \{(x_0, p_0), (x_1, p_1)\} \) and should find suitable \( \mu, \sigma \) 
+    (this is for purely demonstrative purposes, the author recommends to abstain from such statistics in general).
+    The corresponding equations are:
+    \begin{align} \label{gpdfitprob}
+        p_0 &= 1 - \left(1+ \frac{\frac{6}{5}(x_0-\mu)}{\sigma}\right)^{-5/6} \\ 
+        p_1 &= 1 - \left(1+ \frac{\frac{6}{5}(x_1-\mu)}{\sigma}\right)^{-5/6}.
+    \end{align}
+        Now define two new variables \( z_1, z_2 \), which satisfy the following equations 
+    \begin{align} \label{rootutilityvars}
+        z_1^{6} &= 1 + \frac{ \frac{6}{5} (x_0-\mu)}{\sigma} \\
+        z_2^{6} &= 1 + \frac{ \frac{6}{5} (x_1-\mu)}{\sigma}
+    \end{align}
+    Using the trick from above, this is equivalent to the following polynomial system
+    \begin{align*}
+        \sigma z_1^{6} &= \sigma + \frac{6}{5} (x_0-\mu)\\ 
+        \sigma z_2^{6} &= \sigma + \frac{6}{5} (x_1-\mu) \\
+        \sigma y - 1 &= 0.
+    \end{align*}
+    Now reexpress the original system from (\ref{gpdfitprob}) via 
+    \begin{align*}
+        z_1^{5}(p_0 - 1) + 1 &= 0 \\ 
+        z_2^{5}(p_0 - 1) + 1 &= 0.
+    \end{align*}
+    We have successfully translated our original problem into an algebraic variety.
+    Additionally, the last equations for \( z_1, x_2 \) are straightforward to solve, which in turn
+    resolves the equations for \( \mu, \sigma \) in \ref{rootutilityvars}.
+    To review what was done, a general equation \( f(x_1, \dots, x_n)^\frac{a}{b} + g(x_1, \dots, x_n) = 0 \), where \( f, g \) are polynomials
+    with exponent in \( \mathbb{Q}_{>0} \) can be turned into a system of polynomials without fractional exponents,
+    by defining new variables \( z^b = f(x_1, \dots, x_n) \) and rewriting the original equation to \( z^a + g(y_1, \dots, y_n) = 0 \), this can be done for each rational exponent,
+    but often one can save some coordinates, by reducing first the number of terms with such exponents.
+    \newline
+    \newline
+    Taking a step back, the thoughtful reader might notice, that this defines a morphism between schemes. Let 
+    \[ X = \{ (x_1, \dots, x_n, z) \in \mathbb{R}^{n+1} | z_1^b - f(x_1, \dots, x_n) = 0 \} \] 
+    \[ Y = \{ (y_1, \dots, y_n, z) \in \mathbb{R}^{n+1} | z_2^a + g(y_1, \dots, y_n) = 0 \} \]
+    the corresponding morphism of coordinate rings \( k[Y] \to k[X] \) is not exactly trivial, but will send \( (y_1, \dots, y_n) \) to \( (x_1, \dots, x_n) \) 
+    and \( z_2 \) to some polynomial \( h(z_1, x_1, \dots, x_n) \) s.t. \( h(z_1, x_1, \dots, x_n) + f(x_1, \dots, x_n) = 0 \).
+    Further, there is even a geometric interpretation. 
+    Over \( \mathbb{C} \), \( z_1^b - f(x_1, \dots, x_n) = 0  \) for fixed \( (x_1, \dots, x_n) \in \mathbb{C}^n \setminus V(\langle f \rangle) \), has precisely \( b \)
+    solutions for \( z_1 \), similarly \( z_2^a + g(x_1, \dots, x_n) \) has \( a \) such roots, giving \( a \cdot b \) solutions in total.
+    However, for \( (x_1, \dots, x_n) \in V(\langle f \rangle + \langle g \rangle) \), there is only one solution, namely \( z_i = 0 \) for \( i \in \{1, 2\} \).
+    The schemes \( X, Y \) build a cover of the curves \( f(x_1, \dots, x_n), g(x_1, \dots, x_n) \) with \( a \), \( b \) respectively, branches for each point,
+    except at points in the vanishing sets of \( f, g \), where they compress down to a point. This phenomenon is referred to as tame ramification.
+\end{example}

@@ -1,0 +1,248 @@
+    \begin{subsection}{Properties, Examples and Obstructions}
+        
+    Risk measures are now a standard tool for evaluation in actuarial science as well as in financial mathematics as a whole. 
+    One of the most basic risk measures,
+    \[ 
+        \rho(X) = \mathbb{E}[X] 
+    \] 
+    dates back as early as 1709 to Nicolaus I Bernoulli’s PhD. thesis \cite{bernoulli1709dissertatio}, in which he proposed it as the fair price for insurance contracts.
+    % https://pmc.ncbi.nlm.nih.gov/articles/PMC11928225/
+    % Roman Law on the Just Price in Nicolaus Bernoulli’s Mathematics
+    Remarkably, only a few years later, Bernoulli also suggested an adjustment based on individual preferences—a concept we would now recognize as a precursor to utility theory.
+    It took several centuries, however, until Markowitz’s portfolio theory \cite{markowitzportfolio}, which introduced variance as a measure of risk, reignited the theory and 
+    led to the early development of downside risk measures such as lower partial moments. Specifically, in 1959, Markowitz (Chapter 9 \cite{markowitzsemivariance}) proposed
+    \[
+        \mathbb{E}[(|\mathbb{E}[X] - X|\mathbf{1}_{ \{\mathbb{E}[X] - X > 0 \} })^k] 
+    \] 
+    Over the following decades, various risk measures flourished, mostly under the term "premium principle", 
+    % A General Class of Three-Parameter Risk Measures Bernell K. Stone
+    of which special mentioning deserves the value-at-risk 
+    \[ 
+        \rho(X) = \text{VaR}_{\lambda}(X) = \inf \{ m \in \mathbb{R} | \pp{X + m < 0} \leq \lambda \}
+    \]
+    and the expected shortfall, or average value at risk ,
+    \[
+        \rho(X) = \text{AVR}_{\lambda}(X) = \frac{1}{\lambda} \int_{0}^\lambda \text{VaR}_{\alpha}(X) d\alpha
+    \]
+    until in 2011 Föllmer and Schied \cite{foellmerschied} put the theory on rigorous axiomatic foundations.
+    % Risk Measures and Theories of Choice Tsanakas
+    While an algebraic approach to portfolio theory is already well developed—since it is inherently an optimization problem on an intersection of hyperplanes and a conic—
+    the algebraic aspect of risk measures still offers ample room for development, to the best of the author’s knowledge. 
+    \newline
+
+    We first give some basic definitions for risk measures.
+    Let \( \mathcal{X} = \mathcal{L}^p(\Omega, \mathcal{F}, \mathbb{P}) \) or subspace thereof, 
+    for some suitable choice of \( p \).
+    \begin{definition} \label{defriskmeasure}
+    A mapping \( \rho : \mathcal{X} \to \mathbb{R} \) is called a monetary risk measure if it satisfies
+    the following conditions for all \( X, Y \in \mathcal{X} \).
+        \begin{enumerate}
+            \item Monotonicity/Antitone: If \( X \leq Y\), then \(\rho(X) \geq \rho(Y) \).
+            \item Cash invariance: If \( m \in \mathbb{R} \), then \( \rho(X + m) = \rho(X) - m \).
+        \end{enumerate}
+        It is called normalized if \( \rho(0) = 0 \), convex if \( \rho \) is a convex functional, and coherent if it is in addition positively homogenous,
+        that is \( \rho(\lambda X) = \lambda \rho(X),\ \lambda \in \mathbb{R}_{\geq 0} \).
+    \end{definition}
+    \begin{remark}
+    If we say risk measure, we mean monetary risk measure, if not otherwise stated. The concept of coherence could be referred to as a sublinear 
+    risk measure in functional analytic terminology.
+    \end{remark}
+    \begin{definition}
+        A risk measure \( \rho \) is
+        \begin{enumerate}
+            \item sensitive, if \( \rho(-X) > \rho(0) \) for \( X \in L^\infty_{+}(\Omega, \mathcal{F}, \mathbb{P}) \) and \( \pp{X > 0} > 0 \),
+            \item law-invariant, if \( \rho(X) = \rho(Y) \) for \( X \sim Y\) under \( \mathbb{P} \),
+            \item continuous from below, if \( X_n \nearrow X \implies \rho(X_n) \searrow \rho(X) \),
+            \item continuous from above, if \( X_n \searrow X \implies \rho(X_n) \nearrow \rho(X) \).
+        \end{enumerate}
+    \end{definition}
+
+    \begin{definition}[Linear cones]
+    A set \( S \) in a real vector space \( \mathcal{X} \) is a cone if \( x \in S \implies \lambda x \in S \) for \( \lambda \in \mathbb{R}_{>0} \).
+    \end{definition}
+    \begin{remark}
+       To differentiate cones as in the previous from the ones such as in Definition \ref{coneofrings}
+       we call the first linear cones and the latter algebraic cones.
+    \end{remark}
+    \begin{definition}
+        The acceptance set of a risk measure \( \rho \) is 
+        \[ \mathcal{A}_\rho = \{ X \in \mathcal{X} | \rho(X) \leq 0 \}. \]
+    \end{definition}
+    \begin{proposition} \label{acceptancesetpropisriskprop}
+        Assume \( \mathcal{A}_{\rho} \neq \emptyset \), it holds:
+        \begin{enumerate}
+            \item \( \rho(X) := \inf \{ m \in \mathbb{R} | m + X \in \mathcal{A}_{\rho} \}   \) 
+            \item \( \rho \) is a convex risk measure if and only if \( \mathcal{A}_{\rho} \) is convex.
+            \item \( \rho \) is positive homogenous if and only if \( \mathcal{A}_{\rho} \) is a cone.
+            \item \( \rho \) is coherent if and only if \( \mathcal{A}_{\rho} \) is a convex cone 
+        \end{enumerate}
+    \end{proposition}
+    \begin{proof}
+        \cite{foellmerschied} Proposition 4.6
+    \end{proof}
+    %Foellmer \& Schied 
+    
+    One might suggest that the acceptance set \( \mathcal{A}_\rho \) could correspond to an algebraic cone (Definition \ref{coneofrings}) in the ring 
+    \( L^p(\Omega, \mathcal{F}, \mathbb{P}) \) or even better an ideal. However, there are again strong obstructions to this:
+
+    \begin{proposition} \label{acceptancesetisnotideal}
+        The acceptance set \( \mathcal{A}_\rho \) of a subadditive, normalized risk measure \( \rho \) being an ideal is equivalent to 
+        \( X \in \mathcal{A}_{\rho} \iff \rho(XY) \leq 0 \)
+        for all \( Y \in L^p(\Omega, \mathcal{F}, \mathbb{P}) \).
+    \end{proposition}
+    \begin{proof}
+
+\begin{enumerate}
+    \item \( \Rightarrow \)
+    \begin{itemize}
+        \item By the definition of an ideal \( X \in \mathcal{A}_\rho \implies XY \in \mathcal{A}_\rho \) for all \( Y \in L^p(\Omega, \mathcal{F}, \mathbb{P}) \)
+            and \( XY \in \mathcal{A}_\rho \iff \rho(XY) \leq 0 \).
+    \end{itemize}
+    \item \( \Leftarrow \)
+    \begin{itemize}
+        \item We have for \( X, Y \in \mathcal{A}_{\rho} \) that \( \rho(X), \rho(Y) \leq 0  \) and by subadditivity \( \rho(X + Y) \leq \rho(X) + \rho(Y) \),
+            and due to the assumption the RHS is less than or equal to \( 0 \), so \( X + Y \in \mathcal{A}_{\rho} \). Since \( \rho \) is normalized we have
+            that \( \rho(0) = 0 \leq 0 \) so \( 0 \in \mathcal{A}_{\rho} \). As \(L^p(\Omega, \mathcal{F}, \mathbb{P}) \) is a ring, 
+            \( -1 \in L^p(\Omega, \mathcal{F}, \mathbb{P}) \) and the additive inverse of any \( X \in L^p(\Omega, \mathcal{F}, \mathbb{P}) \) is clearly
+            \( -1 \cdot X \), therefore if \( X \in \mathcal{A}_{\rho} \), by hypothesis also \( - X \in \mathcal{A}_\rho \), so \( \mathcal{A}_\rho \) is an abelian group
+            with respect to addition. The multiplicative property follows also by assumption.
+    \end{itemize}
+\end{enumerate}
+\end{proof}
+As risk measures are antitone and for any \( X \in \mathcal{A}_{\rho} \) will accept all \( Y \geq X \) in \( L^p(\Omega, \mathcal{F}, \mathbb{P}) \), 
+the multiplicative absorption property of ideals is especially problematic. As the \( Y \) accepted become quite large (only bounded due to norm restrictions
+of the \( L^p \)), we also accept every \( -Y \), a rather undesirable feature. In short, there is no such risk measure, whose \( \mathcal{A}_{\rho} \) 
+is an ideal except a special case, for which we need to adjust our definition of risk measures to the extended real numbers (see also Remark \ref{completionofriskmeasures}, 
+and is then the one, which accepts all of \( L^\infty(\Omega, \mathcal{F}, \mathbb{P}) \).
+
+
+%TODO this "equivalence" is flaky, you need also to show that any acceptance set which is an algebraic cone induces 
+\begin{proposition} \label{acceptanceisnotcone}
+        The acceptance set \( \mathcal{A}_\rho \) of a normalized, subadditive risk measure \( \rho \) being an algebraic cone in \( L^p(\Omega, \mathcal{F}, \mathbb{P}) \) 
+        is equivalent to 
+        \( X \in \mathcal{A}_{\rho} \iff \rho(XY) \leq 0 \) for all \( Y \in \mathcal{A}_{\rho} \). For any such risk measure, \( \mathcal{A}_{\rho} \) is a proper alg. cone in 
+        \( L^p(\Omega, \mathcal{F}, \mathbb{P}) \).
+    \end{proposition}
+    \begin{proof}
+        Since algebraic cones add the condition \( X \in L^p(\Omega, \mathcal{F}, \mathbb{P}) \implies X^2 \in P \) to the properties of ideals
+        and weaken the requirement of \( X \in \mathcal{A}_{\rho} \implies Y X \in \mathcal{A}_{\rho} \) only to \( Y \in \mathcal{A}_{\rho} \)
+        instead of \( Y \in  L^p(\Omega, \mathcal{F}, \mathbb{P}) \),
+        by Proposition \ref{acceptancesetisnotideal} it suffices to show that this condition holds for any risk measure. 
+        Take any \( X \in L^p(\Omega, \mathcal{F}, \mathbb{P}) \) then \( X^2 \geq 0 \) and by the inverse monotonicity of the risk measure,
+        \( \rho(X^2) \leq \rho(0) = 0 \), so \( X^2 \in \mathcal{A}_{\rho} \). Similarly \( 0 \geq -1 \), so \( 1 = \rho(-1) \geq \rho(0) = 0 \) and \( -1 \notin \mathcal{A}_{\rho} \).
+    \end{proof}
+
+    \begin{example}
+       Consider the worst-case risk measure \( \rho(X) = \text{ess sup } (-X) = - \text{ess inf } X \),
+       which is normalized and subadditive.
+       Clearly any \( X \in \mathcal{A}_{\rho} \) satisfies \( X \geq 0 \) a.s., and for \( Y \in \mathcal{A}_{\rho} \)
+       we have \( XY \geq 0 \) a.s., so \( XY \in \mathcal{A}_{\rho} \). By Propositions \ref{acceptanceisnotcone}
+       \( \mathcal{A}_{\rho} \) is an algebraic cone, the algebraic cone of almost surely positive random variables.
+       However, \( \mathcal{A}_{\rho } \) is not an ideal, because if \( X \in \mathcal{A}_{\rho} \) then \( -1 \cdot X \notin \mathcal{A}_{\rho } \).
+    \end{example}
+    More of such risk measures can easily be created if we choose as their acceptance sets linear cones contained in the cone of a.s. non-negative random variables,
+    (e.g. \( \text{ess sup }_{\omega \in S} -X(\omega) \) for fixed \( S \subseteq \Omega \)), but this 
+    makes the requirement of \( \mathcal{A}_{\rho} \) being an algebraic cone a rather strict one.
+    The reason being the purely algebraic point view on \( L^p(\Omega, \mathcal{F}, \mathbb{P}) \). We don't
+    include information about how \( \mathbb{P} \) affects the weight of some event for the random variables. While
+    \( X(\omega) = \omega^2 \) is positive for \( \Omega = \mathbb{R} \) and \( \mathcal{F} = \mathcal{B}(\mathbb{R}) \) (the Borel algebra), 
+    and \( Y(\omega) = \omega \) is only for \( \omega > 0 \), if \( \text{supp } \mathbb{P} = \mathbb{R}_{>0} \), there is no risk involved
+    in the position \( Y \). This aspect is however invisible if seeing \( L^p(\Omega, \mathcal{F}, \mathbb{P}) \) 
+    directly as something similar to \( \mathbb{R}[x_1, \dots, x_n] \).
+
+    %, in particular diversification effects are not respected (diversification is usally expresed in terms of addition
+    % but problems occur here only for multiplicative events, which don't have a real analogue in terms of portfolio holdings
+
+    \begin{example}
+        Consider the counterexample of the coherent risk measure \( \rho(X) = \mathbb{E}[-X] \), let \( X = 3 \cdot \mathbf{1}_{A} \) and \( Y = \mathbf{1}_{B} - \mathbf{1}_{A} \) 
+        with \( A, B \in \mathcal{F} \) and \( \pp{B} > \pp{A} \neq 0 \) and \( B \cap A = \emptyset \), then \( \rho(X) = -3 \cdot \pp{A} < 0 \) and \( \rho(Y) = \pp{A} - \pp{B} < 0\),
+        so both \( X,Y \) are acceptable. But \( \rho(XY) = 3 \cdot \pp{A} > 0 \), hence \( XY \notin \mathcal{A}_{\rho} \).
+        In particular, this shows that even if \( \mathcal{A}_{\rho} \) is a linear cone it is not necessarily an algebraic one.
+    \end{example}
+    One could claim that products of random variables are something not considered in a risk management setting and typically risky positions are represented by 
+    linear combinations with scalars. Against this stands however any kind of portfolio, which is subject to currency risks. For example if one is a pension insurer in Germany, 
+    who owns a large quantity of US treasuries, whose value is denoted by \( X \), they not only face the credit risk of the US government, but also fluctuations in the USD/EUR exchange rate symbolized by \( R \). The model for the domestic value would then be of the form \( RX \).
+
+    Fortunately, the situation is different, if we focus on random variables which are polynomials over an event space \( \Omega \), which is a real field or a subset thereof, 
+    or specific risk measures, which are themselves polynomials or parameterized polynomial distributions.
+    Indeed, the acceptance set already looks like the condition for some semi-algebraic set, which correspond to cones according to Example \ref{exampleconesinrings}.
+    \begin{example} \label{accsetsemialgexample}
+        Suppose \( \Omega \) is discrete and \( p_i = \mathbb{P}_{\theta}[X = x_i] \) polynomially parameterized with 
+        \( \theta \in \Theta \) via \( p_i = g_i(\theta) \).
+        Let \( \rho(X) = \mathbb{E}[-X] \) be the coherent expected value risk measure. Then the set of acceptable
+        risks is 
+        \[
+            - \sum_{i} x_i g_i(\theta) \leq 0,
+        \]
+        which is semi-algebraic set. Note that we can leave the \( x_i \) undetermined for greater flexibility.
+        The standard deviation risk measure is given by
+        \( \rho(X) = - \left( \expv{X} + \alpha \sqrt{\text{Var}[X]} \right) \)
+        the corresponding acceptance set is given by
+        \[
+            - \left( \sum_{i} x_i g_i(\theta) + \alpha\sqrt{\sum_{j} g_j(\theta)\left(x_j - \sum_{i} x_i g_i(\theta)\right)^2} \right) \ \leq 0
+        \]
+        which is not semi-algebraic. However, \( \alpha \sqrt{\var{X}} \geq 0 \) and \( \rho(X) \leq 0 \iff \expv{X} + \alpha \sqrt{\var{x}} \geq 0 \)
+        which holds iff. \( \expv{X} \geq 0 \) or \( \expv{X} \leq 0 \) and \( |\expv{X}| \leq \alpha \sqrt{\var{X}} \iff \expv{X}^2 \leq \alpha^2 \var{X}  \), 
+        which can be written as the union of two semi-algebraic sets
+        \begin{align*} 
+            - \sum_{j} g_j(\theta) x_j &\leq 0
+        \end{align*} 
+        and
+        \begin{align*} 
+            \sum_{j} g_j(\theta) x_j &\leq 0 \\
+            (1 + \alpha^2) \left(\sum_{i} x_i g_i(\theta)\right)^2 - \alpha^2 \sum_{j} g_j(\theta) x_j^2  &\leq 0 
+        \end{align*}
+        An analogue of this also underlies the Markowitz portfolio optimization.
+    \end{example}
+    While for simple models or single-variate standard distributions, this realization doesn't deliver more insight (after all their moments in terms of standard parameterizations, 
+    are well known), it can be a viable approach for mixtures or non-standard models/approximations.
+    \iffalse
+
+    \begin{theorem}
+        Let \( g : [0, 1] \to [0, 1] \) be a monotone function with \( g(0) = 0, g(1) = 1 \). 
+        The function \[ 
+            c_g : \mathcal{F} \to [0, 1],\ A \mapsto  g(\mathbb{P}[A]),
+        \]
+        is referred to as the distortion of \( \mathbb{P} \) by \( g \) or short distortion.
+        Any distortion is in the norm dual of \( L^\infty(\Omega, \mathcal{F}, \mathbb{P}) \)
+        that is \( \text{ba}(\Omega, \mathcal{F}, \mathbb{P}) \).
+    \end{theorem}
+    \begin{proof}
+        
+    \end{proof}
+    \begin{theorem}
+        Let \( c_g : \mathcal{F} \to [0, 1] \) be a distortion then the integral
+        for \( X \in \mathcal{X} \)
+        \[
+            \int X dc := \int_{-\infty}^0 (c(X > x) - 1) dx + \int_0^\infty c(X > x) dx
+        \]
+        is well defined and a positive linear functional. The integral on the RHS is 
+        in the Riemann sense.
+    \end{theorem}
+    \begin{proof}
+        This is a special case of Theorem 11.8 in \cite{infinitedimanalysis}.
+    \end{proof}
+    \begin{theorem}
+        For a distortion \( c_g : \mathcal{F} \to [0, 1]\) define the functional
+        \[
+            \rho_g(X) = \int - X dc,
+        \]
+        then \( \rho(X) \) is a risk measure. The family of all such risk measures are called distortion risk measures.
+    \end{theorem}
+    \begin{proof}
+        Refer to Section 2 of \cite{disentanglingdrm} for a broader introduction of this subject.
+    \end{proof}
+    \begin{corollary}
+        The acceptance sets of distortion risk measures \( \rho_g \) are cones.
+    \end{corollary}
+    \begin{proof}
+        Let \( X \in \mathcal{A}_{\rho_g} \) then for \( \lambda \geq 0 \)
+        \begin{align*}
+            \rho_g(X) &\leq 0 \\
+            \int - X dc &\leq 0 \\
+            \int - \lambda X dc &\leq 0 \\
+            \rho_g(\lambda X) &\leq 0.
+        \end{align*}
+    \end{proof}
+    \fi
+    \end{subsection}

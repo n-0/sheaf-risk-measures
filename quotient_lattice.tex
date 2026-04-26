@@ -1,0 +1,255 @@
+\begin{subsection}{Quotient Lattices} \label{quotientlatticesect}
+    In the algebro-geometric setting, we defined coordinate rings for a variety  \( V \)
+    via \( \mathbb{K}[X]/J \), where \( J = I(V) \) was the vanishing ideal.
+    Moreover, for each Zariski open subset \( U \subset V \) we associated
+    the ring of regular functions and at a specific point \( p \in V \), the 
+    local ring \( \mathcal{O}_{p} \) and the residue field \( \resf{p} \).
+    The natural question is if there are similar concepts for the lattice \( \mathcal{R} \)
+    and acceptance sets of members. As it turns out there is a less unique choice 
+    in this setting, because both ideals and filters allow for similar constructions. 
+    We will cover both here and later state in Remark \ref{dualfilterquotient}, how the constructions 
+    hold for both of them.
+
+    Let \( I \) be an ideal in a distributive lattice \( (L, \vee, \wedge) \),
+    and define the relation \( a \sim b \iff \exists i \in I,\ a \vee i = b \vee i\).
+    Naturally for any \( a \in L \) and \( i \in I \), \( a \vee i = a \vee i \),
+    so \( (\cdot \sim \cdot) \) is reflexive. By commutativity of \( \vee \) the relation is also symmetric
+    and if \( a \sim b, b \sim c \) with corresponding \( i_a, i_c \) one derives
+    \begin{align*}
+        a \vee i_a &= b \vee i_a \\
+        i_c \vee (a \vee i_a) &= i_c \vee (b \vee i_a) \\
+        a \vee (i_a \vee i_c) &= c \vee (i_c \vee i_a)
+    \end{align*}
+    by associativity and commutativity of \( \wedge \), hence \( a \sim c \) with \( i_c \vee i_a \)
+    which is in \( I \) as \( I \) is an ideal.
+    We conclude that \( (\cdot \sim \cdot) \) is an equivalence relation.
+    Moreover, let \( a_1 \sim b_1 \), \( a_2 \sim b_2 \) via \( i_1, i_2 \in I \)
+    then 
+    \begin{align*}
+        (i_1 \vee a_1) \vee (i_2 \vee a_2) = (i_1 \vee b_1) \vee (i_2 \vee b_2) \\
+        (a_1 \vee a_2) \vee (i_1 \vee i_2) = (b_1 \vee b_2) \vee (i_1 \vee i_2)
+    \end{align*}
+    so \( (a_1 \vee a_2) \sim (b_1 \vee b_2) \). Similarly
+    \begin{align*}
+        (i_1 \vee i_2) \vee \left( (i_1 \vee a_1) \wedge (i_2 \vee a_2) \right)  \\
+     \left ( (i_1 \vee i_2) \vee (i_1 \vee a_1) \right) \wedge \left( (i_1 \vee i_2) \vee (i_2 \vee a_2) \right)  \\
+     \left ( (i_1 \vee i_2) \vee a_1) \right) \wedge \left( (i_1 \vee i_2) \vee a_2) \right) \\
+     (i_1 \vee i_2) \vee (a_1 \wedge a_2)
+    \end{align*}
+    and doing the same with \( (i_1 \vee b_1) \wedge (i_2 \vee b_2) = (i_1 \vee a_1) \wedge (i_2 \vee a_2) \), gives 
+    with \( i_1 \vee i_2 \in I  \) (since it is an ideal) that \( (a_1 \wedge a_2) \sim (b_1 \wedge b_2) \), making \( (\cdot \sim \cdot) \) 
+    a compatible relation with the lattice operations and by the quotient theorem for universal algebras,
+    we have a well defined "quotient lattice" \( L / I \). On a side note, if \( \vee, \wedge \) are preserved
+    so are any inequalities between elements in the lattice under the equivalence relation.
+    \begin{definition} \label{defquotlat}
+        For an ideal \( I \) of a distributive lattice \( (L, \vee, \wedge) \)
+        we call the lattice \( (L / I, \vee, \wedge) \) the quotient lattice of \( L \)
+        by \( I \) (or just quotient lattice if it is clear from context).
+    \end{definition}
+
+    What does that mean in the case of risk measures?
+    By Proposition \ref{acceptancesetareideals} any acceptance set induces an ideal \( \acceptidealb{A} \).
+    Clearly all elements in \( \acceptidealb{A} \) are equivalent to each other in \( \extrm / \acceptidealb{A} \),
+    and since \( \rho_\bot \in \acceptidealb{A} \) it is sensible to summarize them under this representant \( [ \rho_\bot ] \).
+    All elements \( \rho \in \extrm \) which dominate members of \( \eta \in \acceptidealb{A} \) in the sense \( \eta \leq \rho \)
+    satisfy \( \rho \vee \eta = \rho \), hence they are in distinct classes.
+    The most interesting phenomenon happens for those \( \rho \in \extrm \), which neither satisfy \( \rho \leq \eta \)
+    nor \( \rho \geq \eta \). For example if two risk measures \( \rho_1, \rho_2 \) are different on some subset \( S \subset \mathcal{X} \)
+    but otherwise coincide, they could become equivalent if there's some \( \eta \in \acceptidealb{A} \), which dominates both of them on \( S \).
+    Additionally since they are not in the ideal, we know that there are \( X, Y \in A \), s.t. \( \rho_1(X) > 0, \rho_2(Y) > 0 \),
+    but \( \eta(X) \leq 0, \eta(Y) \leq 0 \), so if \( \rho_1 \sim \rho_2 \) then they must coincide for all \( X \in A \) which they
+    reject, thus we could still evaluate equivalence classes of risk measures \( \rho \) with respect to their rejection sets.
+    %A similar observation holds also for \( \extrm / \rejectidb{A} \) and the equi
+    \newline
+    For concrete computations this is somewhat inadequate, since we analyze risk measures both with respect to their values they accept and those
+    they don't. In general just because two risk measures \( \rho_1, \rho_2 \in \extrm \) agree on their rejection set when restricted \( A \), 
+    does not imply a globally the existence of some \( \eta \in \acceptidealb{A} \) with \( \eta \vee \rho_1 = \eta \vee \rho_2 \). 
+    The most valuable information which therefore can still be extracted from this setting is given less by concrete values and more by families
+    of risk measures given either by ideals and filters.
+    \newline
+    \newline
+    The behavior of ideals from our larger lattice \( \extrm \) should then translate into ideals of \( \extrm / \acceptidealb{A} \), similarly
+    how ideals from a general ring translate into ideals of a quotient ring with respect to some ideal.
+    Also we would like to have a relation between \( \text{Spec } \extrm \) and \( \text{Spec } \extrm / \acceptidealb{A}\).
+    Fortunately, this is a pattern which is shared by distributive lattices. 
+    \begin{definition}
+        Let \( L \) be a lattice and denote by \( \idl{L} \) the set of ideals in \( L \)
+        and by \( \flt{F} \) the set of filters of \( L \).
+    \end{definition}
+    \begin{proposition}
+        \( \idl{L} \) is itself a distributive lattice under the operations
+        \begin{align*}
+            I \wedge J = \{ i \wedge j | i \in I, j \in J \} \\
+            I \vee J = \{ i \vee j | i \in I, j \in J \}
+        \end{align*}
+        for \( I, J \in \idl{L} \). Moreover, the meet simplifies to setwise intersection
+        \begin{align*}
+            I \cap J = I \wedge J
+        \end{align*}
+        and if \( L \) was bounded then \( \idl{L} \) is complete.
+    \end{proposition}
+    \begin{proof}
+        See Lemma 2.5.1, Corollary 1.3.2, Corollary 1.3.15 in \cite{genlattheorygraetzer}.
+    \end{proof}
+    \begin{lemma} \label{lemmaprincipalequivalence}
+        Let \( (i)^\downarrow \subset L \) be a principal ideal with generator \( i \) in a distributive lattice \( L \).
+        Then for \( a, b \in L \) it holds
+        \[
+            [a] = [b] \iff a \vee i = b \vee i
+        \]
+    \end{lemma}
+    \begin{proof}
+        Assuming the RHS implies the LHS by Definition. For the converse, let \( j \in (i)^\downarrow \),
+        s.t. \( a \vee j = b \vee j \), applying the join with \( i \) to both sides then reduces to the statement.
+    \end{proof}
+    \begin{proposition} \label{correspondencetheorem}
+        For distributive lattices the correspondence theorem holds, that is if \( I \in \idl{L} \)
+        and \( (I)^\uparrow = \{ J \in \idl{L} | I \subseteq J \} \), then we have a bijection
+        \[
+            \Phi : (I)^\uparrow \mapsto \idl{L/I},
+        \]
+        which preserves inclusion, primeness and maximality.
+    \end{proposition}
+    \begin{proof}
+        Being bijective is a restatement of Lemma 2.6.11 in \cite{genlattheorygraetzer} (second isomorphism theorem for universal algebras) by noting that one can substitute 
+        for congruence relation the equivalence relation defined by ideals for their quotient lattices.
+        As inclusion is preserved under maps, it is in particular by the projection \( \phi : L \to L / I \)
+        and then \( \Psi \) being bijective maintains the inclusion of the ideals.
+        If inclusions are preserved so is the property of being maximal.
+        Further it holds \( \pi(J) = \pi(J)^\downarrow \) (the generated ideal by \(J\) in the quotient), because 
+        if \( [a] \leq [j] \) for some \( j \in \pi(J) \), we can write it as \( [a] = [j \wedge b] \) for some \( b \in L \)
+        but \( J \) is an ideal so \( j \wedge b \in J \) and then we have \( \pi^{-1}([a]) \in J \).
+        Let \( P \in (I)^\uparrow \) be prime, then if \( [a \wedge b] \in \pi(P) \) also \( a \wedge b \in \pi^{-1}([a \wedge b]) \)
+        is also in \( P \) and by assumption then \( a \) or \( b \) too.
+    \end{proof}
+    \begin{proposition} \label{quotientprojectionlattice}
+        For a distributive lattice \( L \) and \( I, J \in \idl{L} \) s.t. \( I \subseteq J \), there is a well-defined lattice homomorphism
+        \[
+            \varphi_{J,I} : L / I  \mapsto L / J, \quad [x]_{I} \mapsto [x]_{J},
+        \]
+        for \( x \in L \).
+    \end{proposition}
+    \begin{proof}
+        Let \( a,b \in L \) and \( [a]_{I}, [b]_{I} \in L / I \) be their projections into \( L / I \) and assume that \( [a]_{I} = [b]_{I} \),
+        by Definition there's some \( i \in I \) s.t. \( a \vee i = b \vee i \), since \( I \subseteq J \), we also have that \( [a]_{J} = [b]_{J} \)
+        making \( \varphi \) well-defined as a map. That it is also a homomorphism is a standard verification.
+    \end{proof}
+    Essentially, if \( I \subseteq J \) the equivalence relation of \( J \) is broader than the one of \( I \). Note that 
+    \( \acceptidealb{U} \) was inclusion reversing (Corollary \ref{acceptidealincrev}) , so for \( U \subseteq V \) 
+    the ideals satisfy \( \acceptidealb{U} \subseteq \acceptidealb{V} \). The intuition is that accepting \( V \) is less 
+    restrictive then it is to accept \( U \), so the ideal is larger. This motivates the next observation, which should remind the reader 
+    of something.
+    \begin{lemma} \label{triangleidealcommutes}
+        Let \( I \subseteq J \subseteq K \) be ideals in a distributive lattice \( L \), then the following 
+        diagram commutes:
+        \[
+        \begin{tikzcd}[row sep=large, column sep=large]
+            L / I \arrow[dr, "\varphi_{J, I}"] \arrow[rr, "\varphi_{K, I}"] & & L / K \\
+                                                                            & L / J \arrow[ur, "\varphi_{K, J}"]  
+        \end{tikzcd}
+        \]
+    \end{lemma}
+    \begin{proof}
+        By Proposition \ref{quotientprojectionlattice} the projections are all well defined
+        and we need to show for \( x \in L \) with \( \varphi_{I}(x) = [x]_I \), 
+        and \( \varphi_{J, I}([x]_{I}) = [x]_{J} \), that \( \varphi_{K, J}([x]_{J}) = \varphi_{K, I}([x]_{I}) \).
+        But this holds by Definition, since \( \varphi_{K, J}([x]_{J}) = [x]_{K} \) and \( \varphi_{K, I}([x]_{I}) = [x]_{K} \).
+    \end{proof}
+    While ideals have a straightfoward relation, which is symmetric to the situation for rings and their quotients, the case of  
+    filters in \( L / I \) requires more care.
+    For this purpose the following lemma comes in handy:
+    \begin{lemma} \label{filterandidealsdonotcontain}
+        Let \( L \) be a distributive lattice, for any \( I \in \idl{L} \)
+        and \( F \in \flt{L} \), neither \( I \subseteq F \) nor \( F \subseteq I \) holds.
+    \end{lemma}
+    \begin{proof}
+        Suppose the contrary, i.e. \( I \subseteq F \), by Definition
+        any \( I \) is downward closed and absorbing with respect to \( \wedge \), while \( F \)
+        is upward closed and absorbing with respect to \( \vee \). Take any \( a \in L \)
+        and \( i \in I \), if \( a \) is not already in one of them
+        then \( a \wedge i \in I \subseteq F \), but \( a \wedge i \leq a \) and \( F \)
+        is upward closed, hence \( a \in F \) and by arbitrariness of \( a \), \( F \) can not be proper
+        and therefore not a filter.
+        The converse for \( F \subseteq \) follows dually with \( a \vee f \) for \( f \in F \).
+    \end{proof}
+    Note that this does not necessarily mean that all filters and ideals are disjoint! Those who do however
+    have a special relation.
+    \begin{proposition} \label{filtersinidealquot}
+        Let \( I \in \idl{L} \) then there's an inclusion preserving bijection 
+        \[ \Psi : \satflt{I}{L} \to \flt{L / I}, \]
+        where \( \satflt{I}{L} \) is the set of filters, which are
+        disjoint and saturated with respect to I.
+        A filter \( F \) is saturated with respect to an ideal \( I \), if
+        for \( a \in F \) and \( b \in L \), 
+        \[ 
+            [a]_{L / I} = [b]_{L / I} \implies b \in F.
+        \]
+        For such filters, primeness and being an ultrafilter is preserved.
+    \end{proposition}
+    \begin{proof}
+        Let \( \varphi : L \to L / I \) be the canonical projection and define \( \Psi(F) := \varphi(F) \) in the sense of sets.
+        \begin{itemize}
+            \item \( F \in \satflt{I}{L} \implies \Psi(F) \in \flt{L / I} \).
+                \begin{itemize}
+                    \item 
+                        Take \( F \in \satflt{I}{L} \) with \( a, b \in F \)
+                        then \( \varphi(a) \wedge \varphi(b) = \varphi(a \wedge b) \)
+                        so for \( [a], [b] \in \Psi(F) \) also \( [a] \wedge [b] = [a \wedge b] \in \Psi(F) \).
+                        Similarly for \( a \in F \) and \( b \in L \), we can argue \( [a \vee b] \in \Psi(F) \).
+                        Further for \( a \in F \) and \( b \in L \), \( [a] \leq [b] \iff [a \vee b] = [b] \)
+                        and \( F \) is a filter, so \( a \vee b \in F \), but then by saturation \( b \in F \), so \( [b] \in \Psi(F) \).
+                \end{itemize}
+            \item \( F \in \satflt{I}{L} \) is prime, then \( \Psi(F) \in \flt{L / I} \) is as well.
+                \begin{itemize}
+                    \item 
+                        By the previous \( \Psi(F) \in \flt{L / I} \).
+                        If \([a \vee b] \in \Psi(F) \) for \( a, b \in L \) then there are \( f \in F \) and \( i \in I \)
+                        s.t. \( (a \vee b) \vee i = f \vee i \), \( F \) is absorbing with respect to \( \vee \), so \( f \vee i \in F \)
+                        and therefore \( (a \vee b) \vee i \in F \). Now \( F \) is prime and disjoint from \( I \), so only \( (a \vee b) \in F \)
+                        is possible and applying primeness again gives \( a \in F \) or \( b \in F \), but then one of their equivalence classes is in \( \Psi(F) \).
+                \end{itemize}
+            \item \( F' \in \flt{L / I} \implies \Psi^{-1}(F') \in \flt{L} \) and saturated with \( I \).
+                \begin{itemize}
+                    \item 
+                        Let \( F' \in \flt{L / I} \), if \( a, b \in \Psi^{-1}(F') \) then \( [a], [b] \in F' \)
+                        and as \( F' \) is a filter, \( [a \wedge b] \in F' \) but then \( a \wedge b \in \Psi^{-1}(F') \).
+                        Similarly for \( a \in \Psi^{-1}(F') \) and \( b \in L \), it holds \( [a \vee b] \in F' \),
+                        and we conclude \( a \vee b \in \Psi^{-1}(F') \). Combining the results we have that \( \Psi^{-1}(F') \) is a filter.
+                        Let \( a \in \Psi^{-1}(F') \) and \( b \in L \), s.t. 
+                        \( [a] = [b] \in F' \), trivially then also \( b \in \Psi^{-1}(F') \), making \( \Psi^{-1}(F') \) saturated.
+                \end{itemize}
+            \item \( F' \in \flt{L / I} \) is prime then \( \Psi^{-1}(F') \in \flt{L} \) is as well.
+                \begin{itemize}
+                    \item 
+                        Suppose that \( F' \in \flt{L / I} \) is also prime, by the previous \( \Psi^{-1}(F') \in \satflt{I}{L}\),
+                        assume \( a \vee b \in \Psi^{-1}(F')\), then \( [a \vee b] \in F' \) and due to assumption \( [a], [b] \in F' \)
+                        by saturation of \( \Psi^{-1}(F') \) it follows that \( a \in \Psi^{-1}(F') \) or \( b \in \Psi^{-1}(F') \).
+                \end{itemize}
+            \item \( F' \in \flt{L / I} \implies \Psi^{-1}(F') \in \satflt{I}{L} \).
+                \begin{itemize}
+                    \item 
+                        Assume for contradiction that there is an \( i \in I \cap \Psi^{-1}(F') \), then \( [i] \in F' \) and as
+                        all elements in \( I \) are in the same quotient class, also \( [j] \in F' \) for all \( j \in I \setminus \{i\}\),
+                        but then \( I \subseteq \Psi^{-1}(F') \), and \( \Psi^{-1}(F') \) can not have been a filter according to Lemma \ref{filterandidealsdonotcontain}
+                        and therefore \( I \) and \( \Psi^{-1}(F') \) are disjoint.
+                \end{itemize}
+        Hence \( \Psi \) is well defined bijective map with the asserted domain and codomain.
+        In the proof we defined \( \Psi \) even on the level of sets instead of filters hence it
+        is inclusion preserving and therefore ultrafilters in \( \satflt{I}{L} \) are preserved.
+        \end{itemize}
+    \end{proof}
+    \begin{remark} \label{dualfilterquotient}
+        All of the previous constructions also exist for filters, which one might argue is an immediate consequence by
+        the duality principle (see also the end of Section 1.1 of \cite{genlattheorygraetzer}). 
+        If \( F \subset L \) is a filter, then 
+        we can construct the quotient lattice \( L / F \) under the equivalence relation 
+        \[
+            \rho_1 \sim \rho_2 \iff \exists \eta \in F, \rho_1 \wedge \eta = \rho_2 \wedge \eta.
+        \]
+        Then everything in \( F \) is sent to \( \top \) in \( L / F \). Additionally all filters
+        containing \( F \) are sent to filters in \( L / F \) and the properties of being an ultrafilter
+        or prime (that is \( a \vee b \in F \iff a \in F \text{ or } b \in F \)) are maintained. 
+        Also for filters \( F_1 \subseteq F_2 \) there is a well-defined lattice homomorphism \( \varphi : L / F_2 \to L / F_1 \)
+        and disjoint saturated ideals from a filter correspond to ideals in the filter quotient.
+    \end{remark}
+\end{subsection}

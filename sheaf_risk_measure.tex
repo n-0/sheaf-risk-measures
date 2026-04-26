@@ -1,0 +1,322 @@
+\begin{subsection}{A Sheaf on Monetary Risk Measures}
+    Let \( \mathcal{X} = L^\infty(\Omega, \Sigma, \mathbb{P}) \) with its usual topology for this section.
+    Define a contravariant functor based on the map \( \rejectidb{\cdot} \) from Definition \ref{rejectionsetsarefilters}
+    with the signature \( \presh :\textbf{Open}(\mathcal{X}) \to \quotlat{\extrm}, U \mapsto \frac{\extrm}{\rejectidb{U}} \), where we understand 
+    \( \textbf{Open}(\mathcal{X}) \) as the category with objects the open sets \( U \subseteq \mathcal{X} \) and 
+    and morphisms being inclusions \( U_1 \subseteq U_2 \) of them. The codomain is the category with objects being the quotient lattices of \( \extrm \)
+    and morphism induced as in Remark \ref{dualfilterquotient}.
+    \begin{theorem} \label{rmpresheaf}
+        The contravariant functor \( \presh : \textbf{Open}(\mathcal{X}) \to \quotlat{\extrm} \) defines a separated presheaf on
+        \( \mathcal{X} \).
+    \end{theorem}
+    \begin{proof}
+        \begin{itemize}
+            \item \( \presh \) is a presheaf.
+                \begin{itemize}
+                    \item
+                        If \( U = \emptyset \) then \( \rejectidb{U} = \extrm \) and \( \frac{\extrm}{\rejectidb{U}} = \{0\} \) the trivial lattice, clearly all lattices have a lattice morphism 
+                        to \( \{0\} \).
+                        For each open \( U \subseteq \mathcal{X} \) with the identity morphism of sets there's also an identity morphism of lattices \( \frac{\extrm}{\rejectidb{U}} \).
+                        For open \( V \subseteq U \) we get by Lemma \ref{rejectionsetsarefilters}, that \( \rejectidb{U} \subseteq  \rejectidb{V} \) as filters in \( \extrm \)
+                        and Remark \ref{dualfilterquotient} then gives a morphism \( \varphi_{V,U} : \frac{\extrm}{\rejectidb{U}} \to \frac{\extrm}{\rejectidb{V}}, [\rho]_U \mapsto [\rho]_V \),
+                        by Lemma \ref{triangleidealcommutes} it also holds for open \( W \subseteq V \) that \( \varphi_{W,U} = \varphi_{W,V} \circ \varphi_{V,U} \).
+                \end{itemize}
+            \item \( \presh \) is separated.
+                \begin{itemize}
+                    \item
+                        Take any \( [\rho_1], [\rho_2] \in \presh(U) \), where \( \rho_1, \rho_2 \in \rejectidb{U} \), with \( [\rho_1]|_{U_i} = [\rho_2]|_{U_i} \)
+                        for all \( U_i \). This implies for each \( i \) some \( \eta_i \in \rejectidb{U_i} \) s.t. \( \rho_1 \wedge \eta_i = \rho_2 \wedge \eta_i \). 
+                        Note that \( \rho_1, \rho_2, \eta_i \in \extrm \), so we can define the risk measure \( \eta = \bigvee_{i} \eta_i \). Since \( \eta \geq \eta_i \) 
+                        for all \( i \), it follows \( \eta(X) > 0 \) for all \( X \in U \), so \( \eta \in \rejectidb{U} \). Moreover,
+                        \( \rho_1 \wedge \eta = \bigvee_{i} (\rho_1 \wedge \eta_i) = \bigvee_{i} (\rho_2 \wedge \eta_i) = \rho_2 \wedge \eta \), where we used Lemma \ref{extrmisjidandmid}
+                        for the equalities, but then \( [\rho_1] = [\rho_2] \).
+                \end{itemize}
+            
+        \end{itemize}
+    \end{proof}
+    While we were previously working mostly with \( \acceptidealb{U} \), it is quite natural to use \( \rejectidb{U} \) for the presheaf instead.
+    First of all acceptance sets are often not open, but closed, while "rejection sets" are typically open. Also we get now a close analogy
+    to the local rings. We discovered that every \( X \in \mathcal{X} \) defines an element \( \acceptidealb{\{X\}} \in \text{Spec } \extrm \), but at the same time 
+    they also define a filter via \( \rejectidb{\{X\}} \in \text{Spec } \extrm \) and it even holds \( \extrm \setminus \rejectidb{\{X\}} = \acceptidealb{\{X\}} \).
+    \begin{proposition}
+        \( \acceptidealb{\{X\}} \) is under the canonical map, \( \varphi : \extrm \to \frac{\extrm}{\rejectidb{\{X\}}} \) mapped to the unique maximal ideal
+        of \( \frac{\extrm}{\rejectidb{\{X\}}} \).
+    \end{proposition}
+    \begin{proof}
+        By Remark \ref{dualfilterquotient}, \( \varphi(\rejectidb{\{X\}}) = [\top] \), and as \( \acceptidealb{\{X\}} \) is the complement of \( \rejectidb{\{X\}} \)
+        all remaining elements of \( \frac{\extrm}{\rejectidb{\{X\}}} \) are in its image.
+    \end{proof}
+    So even though we did not have maximal ideals for each point \( X \in \mathcal{X} \) in \( \text{Spec } \extrm \), they still define unique maximal ideals in the quotient lattices
+    with respect to their filters, as do maximal ideals \( \mathfrak{p} \in \text{Spec } A \) for a commutative ring \( A \) in their local rings \( A_{\mathfrak{p}} \).
+    Therefore we could interpret such filters as analogues to the multplicative sets \( A \setminus \mathfrak{p} \) and were granted all that despite not having a concept of inverses in \( \extrm \).
+    \newline
+    Also we can now answer what the stalks of our presheaf are:
+    \begin{corollary}
+        The stalk \( \presh_X \) at a point \( X \in \mathcal{X} \) of a presheaf \( \presh \) on the topological space \( \mathcal{X} \),
+        is defined as the colimit of the image of the open neighborhoods of the point:
+        \[ 
+           \presh_{X} := \varinjlim_{x \in U} \presh(U),
+        \]
+        For the presheaf from Theorem \ref{rmpresheaf} the stalk satisfies
+        \[
+            \presh_{X} = \frac{\extrm}{\rejectidb{\{X\}}}.
+        \]
+    \end{corollary}
+    \begin{proof}
+        By Proposition \ref{colimitforquotientlattice} it suffices to verify 
+        that \( \rejectidb{\{X\}} = \cup_{x \in U} \rejectidb{U} \).
+        Take \( \rho \in \cup_{x \in U} \rejectidb{U} \), because \( X \in U \), we also have \( \rho(X) > 0 \)
+        and \( \rho \in \rejectidb{\{X\}} \).
+        Conversely, let \( \rho \in \rejectidb{\{X\}} \), then \( \rho \neq \rho_{\bot} \) and if \( \rho = \rho_{\top} \)
+        then it is already contained in all \( \rejectidb{U} \), so we can focus on \( \rho \in \mathcal{R} \). 
+        By Definition \( c := \rho(X) > 0 \), since \( \rho \in \mathcal{R} \) is Lipschitz continuous, there exists
+        \( \delta > 0 \), s.t. \( \norm{Y - X}_{\infty} < \delta \implies |\rho(Y) - \rho(X)| < \frac{c}{2} \),
+        note that if \( \rho(Y) \leq 0 \) then from \( c = \rho(X) > 0 \), the absolute value can not be smaller than \( \frac{c}{2} \)
+        (in fact no smaller than \( c \)), so \( \rho(Y) > 0 \) for all \( Y \in B_{\delta}(X)\).
+        But this means that \( \rho \) is strictly positive on some open neighborhood of \( X \), hence \( \rho \in \cup_{x \in U} \rejectidb{U} \).
+    \end{proof}
+    Let \( \textbf{BDLat} \) denote the category of bounded distributive lattices.
+    \begin{proposition} \label{sheafification}
+        %: \text{im } \presh \to \Pi \presh_x
+        There is a monomorphism \( \text{sh} : \presh \to \mathcal{F} \) of presheaves, from the presheaf \( \presh \) of Theorem \ref{rmpresheaf}
+        to a sheaf \( \mathcal{F} : \textbf{Open}(\mathcal{X}) \to \textbf{BDLat} \) on \( \mathcal{X} \), given by
+        \[
+            \mathcal{F}(U) \mapsto \left \{ (\sigma_X)_{X \in U} \in \Pi_{X \in U} \presh_X | (\sigma_X)_{X \in U} \text{ satisfies } (*)  \right \},
+        \]
+        where \( (*) \) is the property that for every \( X \in U \) there exists some open neighborhood \(V \subseteq U\) of \( X \) and a section \( [\rho] \in \presh(V) \)
+        s.t. for all \( Y \in V \), it holds \( \sigma_Y = \varphi_{\{Y\},V}([\rho]) \).
+    \end{proposition}
+    \begin{proof}
+        %Use Lemma 6.17.5 of \cite{stackprojectsheafification} and 
+        The categorical product of distributive bounded lattices coincides with the Cartesian product \cite{catprodlattice}
+        of them, so \( \prod_{X \in U} \presh_X \) is the lattice where \( \wedge, \vee \) are defined componentwise on tuples
+        \( ([\rho]_{\presh_X})_{X \in U} \). By the \( (\ast) \) property of \( (\sigma_X)_{X \in U}, (\delta_X)_{X \in U} \in \mathcal{F}(U) \) 
+        we have for any \( X \in U \) open neighborhoods \( V_{\sigma}, V_{\delta} \) over which for each \( Y \in V_{\sigma}, Z \in V_{\delta} \) it holds 
+        \begin{align*}
+            \sigma_Y = \varphi_{\{Y\},V_{\sigma}}([\rho]) = [\rho]_{\rejectidb{Y}} \\
+            \delta_Z = \varphi_{\{Z\},V_{\delta}}([\eta]) = [\eta]_{\rejectidb{Z}}
+        \end{align*}
+        Since this holds over the whole neighborhood we bend the notation a little and write \( \sigma|_{V_{\sigma}} = [\rho]_{\rejectidb{V_{\sigma}}} \),
+        \( \delta|_{V_{\delta}} = [\eta]_{\rejectidb{V_{\delta}}} \).
+        By construction \( X \in V_{\sigma} \cap V_{\delta} \), so we have an open non-empty intersection \( V' \) on which we can project 
+        \( [\rho] \), \( [\eta]_{} \) and take the meet and join there. In the succeeding we express this with the meet but the argument with the join is identical.
+        Therefore locally one can express the meet as:
+        \begin{align} \label{eqwedgeinsheaf}
+            (\sigma_X)_{X \in V'} \wedge (\delta_X)_{X \in V'} = 
+            \varphi_{V', V_{\sigma}}([\rho]) \wedge \varphi_{V', V_{\sigma}}([\eta]) = [\eta \wedge \rho]_{V'}.
+        \end{align}
+        Let \( (\gamma_{X})_{X \in U} := (\sigma_X)_{X \in U} \wedge (\delta_X)_{X \in U}\), to verify that \( \mathcal{F}(U) \)
+        is a sublattice of \( \prod_{X \in U} \presh_X \), 
+        we need to show that \( (\gamma_{X})_{X \in U} \) still satisfies \( (\ast) \), but this follows from the previous, since for each \( X \in U \) 
+        we constructed an open \( V' \) on which \( (\gamma_{X})_{X \in U} \) restricts for each \( Y \in V' \) to the expression from Equation \ref{eqwedgeinsheaf}.
+        Any sublattice of a distributive lattice is also distributive and the bounds are of course
+        \(\top := ([\top]_{\presh_X})_{X \in U}, \bot := ([\bot]_{\presh_X})_{X \in U} \).
+        \newline
+        \newline
+        We will proceed with verifying the monomorphism but leave the sheaf property of \( \mathcal{F}(U) \) to the reader (who alternatively can convince
+        themself of it by looking up the official term of this subject, provided after the proof).
+        To be a morphism the following diagram should commute for \( U \subseteq \mathcal{X} \) and open \( V \subseteq U \):
+        \[
+        \begin{tikzcd}[row sep=large, column sep=large]
+            \presh(U) \arrow[r, "\text{sh}"] \arrow[d, "\varphi_{V,U}"]& \mathcal{F}(U) \arrow[d, "\psi_{V,U}"] \\
+            \presh(V) \arrow[r, "\text{sh}"] & \mathcal{F}(V),
+        \end{tikzcd}
+        \]
+        where \( \psi_{V,U} \) is the restriction in \( \mathcal{F}(U) \), given by \( ([\rho])_{\presh_X})_{X \in U} \mapsto ([\rho])_{\presh_X})_{X \in V} \).
+        %dropping all indices \( X \in U \setminus V \) of \( (\sigma_X)_{X \in U} \).
+        Take \( [\rho] \in \presh(U) \) , s.t. we restrict
+        \( [\rho] \) onto \( \presh(V) \), via \( \varphi_{V,U} : \extrm / \rejectidb{U} \to \extrm / \rejectidb{V} \).
+        Apply then the map to get \( \text{sh} \circ \varphi_{V,U}([\rho])) = ([\rho]_{\presh_X})_{X \in V} \),
+        but pointwise this is simply \( \varphi_{\{X\},V} : \extrm / \rejectidb{V} \to \extrm / \rejectidb{\{ X \} } \),
+        so we have the equality 
+        \[
+            \varphi_{\{X\},V} \circ \varphi_{V,U}([\rho]) = (\text{sh} \circ \varphi_{V,U}([\rho])))_X,
+        \]
+        where the subscript \( X \) denotes the component of \( \text{sh} \circ \varphi_{V,U}([\rho]) \in \mathcal{F}(V) \) at \( X \).
+        Since \( \presh \) is a presheaf the LHS simplifies:
+        \[
+         \varphi_{\{X\}, U}([\rho]) = (\text{sh} \circ \varphi_{V,U}([\rho])))_X
+        \]
+        which is precisely \( (\psi_{V,U} \circ \text{sh}([\rho]))_X \) and as \( X \) was arbitrary, the diagram commutes.
+        That the morphism is injective follows, because if
+        we have \( ([\rho_1]_{\presh_X})_{X \in U} = ([\rho_2]_{\presh_X})_{X \in U} \), we get for each \( X \) an \( \eta_X \in \rejectidb{\{X\}} \)
+        s.t. \( \rho_1 \wedge \eta_X = \rho_2 \wedge \eta_X \) and similar to the proof from Theorem \ref{rmpresheaf} for separatedness we get 
+        an \( \eta = \bigvee_{X \in U} \eta_X \) in \( \rejectidb{U} \) which satisfies \( \rho_1 \wedge \eta = \rho_2 \wedge \eta \).
+    \end{proof}
+    The previous map is in fact the sheafification of \( \presh \) whose concatentation with the map is denoted by \( \mathcal{F} \), which satisfies the universal property that for any sheaf \( \mathcal{G} \) and map of presheaves \( \psi : \presh \to \mathcal{G} \), there is a unique map \( \psi^\sharp : \mathcal{F} \to \mathcal{G} \) s.t. 
+    \( \psi^\sharp \circ \text{sh} = \psi \).
+    Without going full abstract nonsense (if we haven't done so already),
+    it resolves the obstruction of gluing our local sections to a global section. This introduces objects which we will refer to as local risk measures.
+    \begin{definition} \label{deflocalrm}
+        A local risk measure \( \rho : U \to \extreals \) with open \( U \subseteq \mathcal{X} \) is a map 
+        s.t. for each \( X \in U \), there is some open \( V \subseteq U \) on which \( \rho \)  restricts to an element in \( \extrm \).
+    \end{definition}
+    \begin{remark} \label{analoglocalrm}
+        Definition \ref{deflocalrm} already looks similar to the sections of the sheaf from Proposition \ref{sheafification}
+        in regard to local behavior. That they in fact specify the same object is however not immediate.
+        First one needs to define the local analogues \( \extrmloc, \rejidbloc{U}, \accidbloc{U} \) verify 
+        that \( \extrmloc \) is indeed a distributive bounded lattice which is in addition complete, JID/MID
+        and that \( \rejidbloc{U} \) is a filter. This task is left to the reader, if they wish to do so.
+        The actual isomorphism is something we will cover later.
+    \end{remark}
+    %(TODO it is not immediate how such objects can be used to match sections in the sheaf from \ref{sheafification}) \newline
+    As concrete example why we need such objects for a sheaf and a counterexample that \( \presh \) from Theorem \ref{rmpresheaf}
+    is only a presheaf, take any disjoint open sets \( U_1, U_2 \) in \( \mathcal{X} \) s.t. \( \rho_1 = \text{VaR}_{\lambda} > 0 \) on \( U_1 \) and 
+    \( \rho_2 = \mathbb{E}[-X] > 0 \) on \( U_2 \), so \( \rho_1 \in \rejectidb{U_1}, \rho_2 \in \rejectidb{U_2} \), since \( U_1 \cap U_2 = \emptyset \) and \( \rho_1, \rho_2 \) 
+    restrict to \( \rho_{\top} \) on \( \rejectidb{\emptyset} \), there must be a risk measure \( \rho \in \rejectidb{U_1 \cup U_2} \), if \( \presh \) would be a sheaf, 
+    restricting to \( \rho_i \) on \( U_i \), but this seems impossible for non trivial \( \Omega, \mathbb{P} \). There are also more realistic examples:
+    \begin{example}
+        Let \( \rho_1 = \text{ess sup} - X \), the worst case risk measure. We will define some intermediate 
+        risk measures for the actual counter example:
+        \begin{align*}
+            \eta_i(X) = \begin{cases}
+                \text{ess sup} (- X) + i\cdot 100, \text{ for } i \leq 2 \\
+                 \expv{-X} + i \cdot 1000, \text{ else}
+            \end{cases}
+        \end{align*}
+        we combine them to risk measures 
+        \begin{align*}
+            \rho_2 &= \rho_1 \wedge (\eta_1 \vee \eta_5) \\
+            \rho_3 &= (\rho_1 \vee \eta_3) \wedge (\eta_2 \vee \eta_4)
+        \end{align*}
+        with corresponding acceptance sets
+        \begin{align*}
+            \mathcal{A}_{\eta_i} = \begin{cases}
+                \{ X \in \mathcal{X} | X \geq i \cdot 100 \text{ a.s. } \}, \text{ for } i \leq 2 \\
+                \{ X \in \mathcal{X} | \expv{X} \geq i \cdot 1000 \}, \text{ else}
+            \end{cases}
+        \end{align*}
+        and \( \mathcal{A}_{\rho_2}, \mathcal{A}_{\rho_3} \) the corresponding intersections and unions of them (recall \ref{acceptanceoperations}):
+        \begin{align*}
+            \mathcal{A}_{\rho_2} &= \mathcal{A}_{\rho_1} \cup (\mathcal{A}_{\eta_1} \cap \mathcal{A}_{\eta_5}) \\
+            \mathcal{A}_{\rho_3} &= \left(\mathcal{A}_{\rho_1} \cap \mathcal{A}_{\eta_3} \right) \cup \left(\mathcal{A}_{\eta_2} \cap \mathcal{A}_{\eta_4} \right)
+        \end{align*}
+
+        Let \( U := B_{100}(1) \) then all \( X \in U \) are naturally in \( \mathcal{A}_{\rho_1} \) 
+        and then also in \( \mathcal{A}_{\rho_2} \). By assumption \( 99 < \expv{X} < 101  \)
+        so \( X \notin \mathcal{A}_{\eta_5} \), therefore \( \rho_2 \) coincides with \( \rho_1 \) on \( U \).
+        Further \( X \notin \mathcal{A}_{\eta_3} \) and \( X \notin \mathcal{A}_{\eta_4} \), and therefore \( X \notin \mathcal{A}_{\rho_3} \)
+        implying \( \rho_3 \in \rejectidb{U} \).
+        Observe, that \( \rho_1 \wedge \eta_1 = \rho_1 \), and therefore \( \rho_1 \wedge (\eta_1 \vee \eta_5) = \rho_1 \).
+        This enables the following set of equivalences:
+        \begin{align*}
+            \rho_1 \wedge (\eta_2 \vee \eta_4) &= \rho_1 \wedge (\eta_2 \vee \eta_4) \\
+            \rho_1 \wedge (\rho_1 \vee \eta_3) \wedge (\eta_2 \vee \eta_4) &= \rho_1 \wedge (\eta_1 \vee \eta_5) \wedge (\eta_2 \vee \eta_4) \\
+            \rho_1 \wedge \rho_3 &= \rho_1 \wedge (\rho_1 \vee \eta_3) \wedge (\eta_1 \vee \eta_5) \wedge (\eta_2 \vee \eta_4) \\
+            \rho_1 \wedge \rho_3 &= \rho_2 \wedge \rho_3
+        \end{align*}
+        In particular, this means that \( [\rho_2] = [\rho_1] \) in \( \presh(U) \), but they can't be extended to a global risk measure
+        in \( \extrm = \presh(\mathcal{X}) \), since they are distinct.
+        The intuition behind the individual risk measures is that the viewpoint \( \rho_2 \) is also content with risky positions which have a high return 
+        as opposed to \( \rho_1 \) which only takes on safe positions. \( \rho_3 \) requires a higher return then \( \rho_1 \) on safe positions, but is more lenient
+        than \( \rho_2 \) for risky ones.
+    \end{example}
+
+    With the Definitions from Remark \ref{analoglocalrm} we now show the direct approach to our sheaf.
+    \begin{theorem}
+        There is an isomorphism \( \Psi : \extrmloc / \rejidbloc{U} \to \mathcal{F}(U) \) of bounded distributive lattices
+        for each \( U \subseteq \mathcal{X} \).
+    \end{theorem}
+    \begin{proof}
+        As an intuition of what is to come, one might refresh their repertoire on partitions of unity.
+        %We will utilize a common trick in the construction of sheafs, which is conceptually the same as a partition of unity.
+        Let \( \psi \in \extrmloc \) be a local risk measure and define \( \Psi([\psi]) \) as the section \( (\sigma_X)_{X \in U} \in \mathcal{F}(U) \)
+        s.t. for each \( X \in U \) and corresponding neighborhood \( V \subseteq \) of \( X \) on which \( \psi \) restricts to a standard risk measure \( \rho \in \extrm \)
+        we have \( \sigma_Y = \varphi_{\{Y\}, V}([\rho]) \). This already fullfills the \( (\ast) \) condition of Proposition \ref{sheafification}.
+        \newline
+        \newline
+        We will show well-definedness of \( \Psi \) with injectivity at once.
+        Take \( \psi_1, \psi_2 \in \extrmloc \) and assume \( \Psi([\psi_1]) = \Psi([\psi_2]) \) in \( \mathcal{F}(U) \),
+        implying for each \( Z \in U \) and corresponding neighborhood \( V \) and restrictions \( \rho_1, \rho_2 \)
+        of \( \psi_1, \psi_2 \) some \( \gamma_Z \in \rejectidb{V_Z} \) s.t. \( \gamma_Z \wedge \psi_1 = \gamma_Z \wedge \psi_2 \)
+        and we can construct an open cover \( \{V_Z\}_{Z \in U} \) of \( U \) with them.
+        As \( \mathcal{X} = L^\infty(\Omega, \mathcal{F}, \mathbb{P}) \) is a metric space, so is every open subset of it, 
+        whence every \( U \) is paracompact yielding some locally finite refinement \( \{W_Z\}_{Z \in U'} \) of \( \{V_Z\}_{Z \in U} \).
+        Define 
+        \begin{align} \label{patchedlocalrm}
+            \gamma(X) := \inf_{\{Z | X \in W_Z \}} \gamma_Z(X).
+        \end{align}
+        since \( X \) is covered by at least one \( W_Z \) the set over which we take infimum is non-empty 
+        and for every included \( W_Z \) it holds \( \gamma_Z(X) > 0 \). Since \( \{W_Z\}_{Z \in U'} \) is locally finite,
+        only finitely many \( W_Z \) are taken into account and therefore this is even a minimum, so \( \gamma(X) > 0 \).
+        Since the set of \( W_Z \) over which we take the infimum is constant over some neighborhood of \( X \), by Definition
+        of local finiteness, \( \gamma \) is a risk measure there and by arbitrariness of \( X \), it follows \( \gamma \in \rejidbloc{U} \).
+        \iffalse
+        Since for every \( X \in U \) there is some open neighborhood \( V \), which intersects only finitely many \( W_Z \), call them active, 
+        which is again an open, we can focus on the intersection of \( V \) and all active \( W_Z \), which by construction is non-empty. 
+        Here \( \gamma \) restricts just to a regular risk measure, namely \( \bigwedge_{Z^\ast} \gamma_{Z^\ast}(X) \), where \( Z^\ast \)
+        correspond to the active \( W_Z \). As we could do this for each \( X \in U \), we have .
+        \fi
+        Moreover, we have 
+        \[
+            \psi_1 \wedge \gamma = \psi_1 \wedge \left (\bigwedge_{Z \in U'} \gamma_{Z} \right) = \bigwedge_{Z \in U'} \psi_1 \wedge \gamma_{Z}
+        \]
+        and in any specific \( W_Z \) it holds \( \psi_1 \wedge \gamma_Z = \psi_2 \wedge \gamma_Z \). Therefore the term rewrites to
+        \[
+            \bigwedge_{Z \in U'} \psi_2 \wedge \gamma_{Z} = \psi_2 \wedge \gamma,
+        \]
+        yielding \( [\psi_1] = [\psi_2] \) in \( \extrmloc / \rejidbloc{U} \).
+        \newline
+        \newline
+        Let \( (\sigma_X)_{X \in U} \in \mathcal{F}(U) \) and extract a locally finite cover \( \{W_Z\}_{Z \in U'}\) from the cover induced by the defining \( V \)
+        of the \( (\ast) \) property. 
+        %On each \( W_Z \) we get at least one representative \( \rho \in \extrm \) with \( \sigma_Y = \varphi_{\{Y\}, V}([\rho]) \)
+        %for \( Y \in W_Z \).
+        Use the axiom of choice to pick a representative from each class \( [\rho_Z] \in \mathcal{F}(W_Z) \) with \( [\rho_Z] = \sigma |_{W_Z} \) and define
+        \[
+            \psi(X) := \inf_{\{Z | X \in W_Z\}} \rho_Z(X),
+        \]
+        deduce analogously to the construction of Equation \ref{patchedlocalrm}, that \( \psi \in \extrmloc / \rejidbloc{U} \).
+        Suppose \( \sigma|_{V_X} = [\rho] \) with \( \rho \in \rejectidb{V_X} \), we then have for each \( Y \in V_X \) either \( \rho(Y) \leq 0 \)
+        or \( \rho(Y) > 0 \). In the first case, also \( \rho_Z(X) = \rho(Y) \) for all \( \rho_Z \) with \( W_Z \cap V_X \neq \emptyset \), 
+        since they are in the same equivalence class, therefore \( \psi(Y) = \rho(Y) \) and \( [\psi]_{Y} = \sigma_Y \). Otherwise all \( \rho_Z(X) > 0 \),
+        but not necessarily with the same value. Regardless, it follows \( [\psi]_{Y} = [\top] = \sigma_Y \), and therefore \( [\psi]|_{V_X} = \sigma \mid_{V_X} \).
+        By arbitrariness of \( X \), we conclude with \( \Psi(\psi) = \sigma \).
+    \end{proof}
+
+    \begin{corollary}
+        There exists a sheaf \( \mathcal{F} : \textbf{Open}(\mathcal{X}) \to \textbf{BDLat} \) on \( \mathcal{X} \),
+        which we call the rejection risk sheaf of \( \mathcal{X} \).
+    \end{corollary}
+    \begin{proof}
+        This is just a restatement of Proposition \ref{sheafification}.
+    \end{proof}
+    %As noted before the presheaf \( \presh \) and \( \mathcal{F} \) produce for general \( U \subseteq \mathcal{X} \) not the same 
+    Local risk measures are interesting in their own right, since they could reflect the fact that locally the behavior of an actor
+    appear rational or consistent, but globally they contradict themselves. Meaning they are willing to take on unnecessary risk in some situations.
+    But there's a special case, where we can guarantee a clear risk profile globally.
+    %There's a special case
+    %with the 
+    %There is a special case when local risk measures are forced to be a global risk measure.
+    \begin{proposition}
+        Let \( U \subseteq \mathcal{X} \) be convex, then any local risk measure \( \psi : U \to \extreals \) coincides with a global risk measure
+        on \( U \).
+    \end{proposition}
+    \begin{proof}
+        Define for each \( X \in U \), the function \( f(m) = \psi(X + m) + m \) and let \( V \) be the corresponding neighborhood of \( X \)
+        in which \( \phi \) restricts to some member of \( \extrm \). In \( V \) we have \( \partial_m f(m) = 0 \) therefore \( \psi \) is locally constant.
+        As any convex \( U \) is connected, a locally constant function is globally constant, hence \( \psi(X + m) = \psi(X) - m \) for all \( m \in \mathbb{R} \)
+        s.t. \( X + m \in U \).
+        \newline
+        \newline
+        Let \( X, Y \in U \) s.t. \( X \leq Y \) and by definition the path \( Z_\lambda := \lambda Y + (1 - \lambda)X \) is contained in \( U \) for all \( \lambda \in [0, 1] \).
+        For fixed \( \omega \in \Omega \) we have \( \partial_\lambda Z_\lambda(\omega) = Y(\omega) - X(\omega) \geq 0 \), so \( Z_\lambda \) is a.s. inreasing.
+        Let \( \{ V_\lambda \}_{\lambda \in [0, 1]} \) be an open covering of the path \( Z_\lambda \) in its subspace topology with the \( V_\lambda \) 
+        corresponding to the restriction neighborhoods of \( \psi \). Since the map \( \lambda \mapsto Z_\lambda \) is a.s. continuous, we obtain some open cover
+        \( \{I_\lambda\}_{\lambda \in [0, 1]} \) of \( [0, 1] \) via its inverse. By compactness of \( [0, 1] \) this has some finite subcover \( \{I_\lambda\}_{\lambda \in \Lambda} \)
+        and in each interval \( Z|_{I_\lambda} \) it holds for \( \lambda_1 \leq \lambda_2 \), \( \varphi(Z_{\lambda_1}) \geq \varphi(Z_{\lambda_2}) \). Since 
+        the restrictions of \( \varphi \) coincide on overlaps of the \( Z_{I_\lambda} \), we obtain \( \varphi(Z_0) \geq \varphi(Z_1) \), so \( \varphi \) is a global risk measure
+        on \( U \).
+    \end{proof}
+
+    In the following sections, we will discuss the meaning of robust representations from a lattice point of view and 
+    by doing so stay very close to the underlying geometric interpretation. However, our sheaf construction won't re-enter the stage anymore. 
+    The reader might wonder what they takeaway of this should be then. First, there are not many existing sheafs in literature 
+    which map into the category of lattices, so this is a new addition to this collection. Secondly, it shows that modern tools of algebraic geometry
+    can be translated to non-polynomial settings aside from the usual algebraic number theory. The obstruction to study the geometry of acceptance and rejection sets, 
+    here is essentially that the ideals and filters are a very one-sided perspective. In algebraic geometry we have the luxury to be able to still evaluate sections on the underlying space,
+    while for our quotient lattices this was only possible for the elements, which were accepted. Essentially one would need to consider two sheafs, 
+    one for the rejection filters and another for acceptance ideals (which have not built here, but the motivated reader can translate the previous proofs to this setting) 
+    to get the full picture, but the author perceived this as adding more unnecessary complexity than insight. A better behaved version might be the sheaf of local risk measures
+    that is \( U \mapsto \extrmloc(U) \), where \( \extrmloc(U) = \{ \psi|_U | \psi \in \extrmloc \} \), but this is out of the scope of this thesis.
+\end{subsection}

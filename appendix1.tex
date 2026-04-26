@@ -1,0 +1,77 @@
+\begin{lemma}[Hahn-Banach alike for Riesz spaces] \label{hahnbanachriesz}
+    For compact convex disjoint \( A, B \subset \mathcal{X} \), \( \mathcal{X} \) a Riesz-space, which can not be ordered relative to each other,
+    meaning there are no \( a \in A \), \( b \in B \) with \( a \leq b \) or \( b \leq a \), there is a continuous linear
+    order preserving \( f : \mathcal{X} \to \mathbb{R} \) and \( s, t \in \mathbb{R} \), s.t. 
+    \begin{align*}
+        f(a) < s < t < f(b)
+    \end{align*}
+    for all \( a \in A \), \( b \in B \). If in addition \( \mathcal{X} \) is a Banach algebra and has a unit then \( f(1) \neq 0 \).
+\end{lemma}
+\begin{proof}
+    Let \( K = B - A \) be the Minkowski difference of \( A \) and \( B \), which is also convex and compact.
+    Since \( A, B \) are not ordered relative to each other we have \( b - a \notin - \mathcal{X}_{+} \) or put differently
+\( K \cap (- \mathcal{X}_{+}) = \emptyset \). As \( - \mathcal{X}_{+} \) is a convex linear cone, which is closed (\( X_{+} = \{X \in \mathcal{X} | X \geq 0 \} \)), we can apply the standard Hahn-Banach separation theorem to \( K \) and \( \mathcal{X}_{+} \) to find a continuous linear 
+    \( f : \mathcal{X} \to \mathbb{R} \) and \( s, t \in \mathbb{R} \) s.t.
+    \[
+        f(x) < s < t < f(k)
+    \]
+    for all \( k \in K \) and \( x \in - \mathcal{X}_{+} \). Further \( f(x) \leq 0 \) (so it is order-preserving) 
+    for all \( x \in - \mathcal{X}_{+} \), because if \( f(x) > 0 \) for some \( x \), 
+    then we can find some \( \lambda \in \mathbb{R}_{+} \), s.t. \( f(\lambda x) > s \) and as \( - \mathcal{X}_{+} \) is a linear cone, 
+    \( \lambda x \in - \mathcal{X}_{+} \).  Hence \( 0 < s \) and also 
+    every \( k \in K \) can be written as \( k = b - a \), so we have 
+    \begin{align*}
+        f(k) &> 0 \\
+        f(b - a) &> 0 \\
+        f(b) &> f(a)
+    \end{align*}
+    by linearity. Since for any distinct real numbers there are infinitely many numbers in between them,
+    we can find \( s, t \) as desired from \( \inf_{b \in B} f(b) > \sup_{a \in A} f(a) \).
+    In case that \( \mathcal{X} \) is a Banach algebra, \( 0 < 1 \) and \( f(x) \leq 0 \) on \( \mathcal{X}_{+} \),
+    where the equality is by linearity also achieved, imply that \( f(1) > 0 \) by order-preservation. 
+\end{proof}
+
+This Lemma enables us to derive a fact that comes often in handy to stipulate the existence of a risk measure with some restrictions on the acceptance set.
+\begin{theorem} \label{riskmeasureseparatepoints}
+    For every \( X, Y \in \mathcal{X} = L^p(\Omega, \mathcal{F}, \mathbb{P}) \) for \( 1 \leq p \leq \infty \) with 
+    neither \( X \leq Y \) nor \( Y \leq X \) is satisfied, we can 
+    find \( \rho_1, \rho_2 \in \mathcal{R} \) s.t. 
+    \[ \rho_1(X) < 0, \quad \rho_1(Y) > 0 \]
+    \[ \rho_2(X) > 0, \quad \rho_2(Y) < 0. \]
+\end{theorem}
+\begin{proof}
+    \( \{X\}, \{Y\} \) are closed, trivially convex and even compact
+    so by the order version of the Hahn-Banach separation from Theorem \ref{hahnbanachriesz},
+    we can find some order preserving continuous linear \( \ell_1' : \mathcal{X} \to \mathbb{R} \) and \( \beta \in \mathbb{R} \), 
+    s.t. 
+    \[ \ell_1'(Y) < \alpha < \ell_1'(X) \]
+    and by changing the roles of \( X \) and \( Y \) also a 
+    \( \ell_2' : \mathcal{X} \to \mathbb{R} \) with
+    \[ \ell_2'(X) < \beta < \ell_2'(Y) \]
+    and both satisfy \( \ell_i(1) > 0 \).
+    "Normalizing" \( \ell_i' \) with \( \ell_i := \frac{\ell_i'}{\ell_i'(1)} \) also yields a linear cont. monotone functional,
+    which in addition satisfies for real constants \( c \in \mathbb{R} \), 
+    \[ \ell_i(X + c) =  \ell_i(X) + \ell_i(c\cdot 1) = \ell_i(X) + c \cdot\ell_i(1) = \ell_i(X) + c. \]
+    As \( \ell_i \) was order monotone, \( -\ell_i(X) = \ell_i(-X) \) is order antitone
+    and therefore a coherent risk measure and \( \ell_i(-X) + c \) is still a monetary risk measure.
+    Thus we can construct the risk measures 
+    \begin{align*}
+        \rho_1(Z) = \ell_1(-Z) + \frac{\alpha}{\ell_1(1)} \\
+        \rho_2(Z) = \ell_2(-Z) + \frac{\beta}{\ell_2(1)}.
+    \end{align*}
+    From which we deduce,
+    \begin{align*}
+        \rho_1(Y) = \ell_1(- Y) + \frac{\alpha}{\ell_1(1)} > 0 > \ell_1(- X) + \frac{\alpha}{\ell_1(1)} \\
+        \rho_2(X) = \ell_2(- X) + + \frac{\beta}{\ell_2(1)} > 0 > \ell_2(-Y) + \frac{\beta}{\ell_2(1)}.
+    \end{align*}
+\end{proof}
+\begin{remark} \label{separationremark}
+    Let \( X < Y \) then it is also no issue to find a risk measures that accepts \( Y \) but not \( X \).
+    Take any risk measure \( \rho \in \mathcal{R} \), then define \( \rho'(Z) = \rho(Z) - c \) with \( c = \rho(Y) \in \mathbb{R} \)
+    and \( \rho' \in \mathcal{R} \). It holds \( 0 = \rho'(Y) < \rho'(X) \). 
+    However, \( \mathcal{R} \) has only antitone members, so there's no risk measure that accepts
+    \( X \), but not \( Y \).
+    Combined with Theorem \ref{riskmeasureseparatepoints} one can express this as \( \mathcal{R} \) separating points by acceptance,
+    when \( \mathcal{X} \) is a Banach lattice. 
+    The same results hold also for \( \extrm \) since the proofs are not dependent on any boundedness properties in regard to the risk measures.
+\end{remark}

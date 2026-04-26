@@ -1,0 +1,107 @@
+\begin{subsection}{Lattice Topologies}
+    As stated before we loose Lipschitz continuity, if we complete the risk measure lattice,
+    since expressions such as \( | \rho_{\top}(X) - \rho_{\top}(Y) | \) are undefined.
+    Generally risk measures are, as far as the author is informed, not typically studied under the aspect
+    of their own topology. 
+    \newline
+    The extended real numbers \( \extreals \) are second countable, compact, metrizable and \( \mathbb{R} \) is dense in \( \extreals \) 
+    (Example 2.75 in \cite{infinitedimanalysis}).
+    One way (there are more) to grant them a metric is by noting that there is a homeomorphism 
+    \[\psi : \extreals \to [0, 1], x \mapsto \frac{x}{1 + |x|} \]
+    and then to define \( d_{\extreals}(x, y) = d_{\mathbb{R}}(\psi(x), \psi(y)) = |\psi(x) - \psi(y)| \).
+    Similarly we can proceed to endow \( \extrm \) with a metric.
+    \begin{theorem} \label{unifconvrm}
+        One can define a metric on \( \extrm \) via
+        \[
+        \dextrm{\rho_1}{\rho_2} = \sup_{X \in \mathcal{X}} d_{\extreals}(\rho_1(X), \rho_2(X)),
+        \]
+        where \( d_{\extreals}(\cdot, \cdot) \) is the metric of the extended real numbers.
+        \( \extrm \) is with respect to the induced topology a complete space 
+        in which \( \mathcal{R} \) is dense.
+    \end{theorem}
+    \begin{proof}
+    Clearly \( \dextrm{\rho}{\rho} = 0 \) and \( \dextrm{\rho_1}{\rho_2} = \dextrm{\rho_2}{\rho_1} \), since \( d_{\extreals}(\cdot, \cdot) \) is a metric.
+    Further if \( \dextrm{\rho_1}{\rho_2} = 0 \), then \( \rho_1(X) = \rho_2(X) \) for all \( X \in \mathcal{X} \) (as \( \psi \) is injective),
+        and \( \rho_1 = \rho_2 \). Moreover,
+        \begin{align*}
+            \sup_{X \in \mathcal{X}} d_{\extreals}(\rho_1(X), \rho_3(X)) 
+            &\leq \sup_{X \in \mathcal{X}} d_{\extreals}(\rho_1(X), \rho_2(X)) + d_{\extreals}(\rho_2(X), \rho_3(X)) \\
+            &\leq \sup_{X \in \mathcal{X}} d_{\extreals}(\rho_1(X), \rho_2(X)) + \sup_{X \in \mathcal{X}} d_{\extreals}(\rho_2(X), \rho_3(X)) \\
+            &= \dextrm{\rho_1}{\rho_2} + \dextrm{\rho_2}{\rho_3},
+        \end{align*}
+            where the triangle inequality of \( d_{\extreals}(\cdot, \cdot) \) is applied pointwise for the first inequality.
+            Thus \( \dextrm{\cdot}{\cdot} \) is a metric.
+            \newline
+            Take a convergent sequence \( \{ \rho_n \}_{n \in \mathbb{N}} \subset \extrm \), 
+            and any \( X, Y \in \mathcal{X} \) s.t. \( X \leq Y \), for each \( n \) it holds
+            \begin{align*}
+                \rho_n(Y) &\leq \rho_n(X) \\
+                \psi(\rho_n(Y)) &\leq \psi(\rho_n(X)) \\
+                \lim_{n \to \infty} \psi(\rho_n(Y)) &\leq \lim_{n \to \infty} \psi(\rho_n(X)) \\
+                \psi(\lim_{n \to \infty} \rho_n(Y)) &\leq \psi(\lim_{n \to \infty} \rho_n(X)) \\
+                \psi(\rho(Y)) &\leq \psi(\rho(X)) \\
+                \rho(Y) &\leq \rho(X)
+            \end{align*}
+            due to \( \psi \) being monotone, continuous, invertible and non-strict inequalities being preserved by taking limits.
+            As \( \rho(X + m) = \lim_{n \to \infty} \rho_n(X + m) = \lim_{n \to \infty} \rho_n(X) - m = \rho(X) - m \),
+            \( \rho \in \extrm \), whence \( \extrm \) is complete.
+            Consider the sequence \( \{ \rho_n \}_{n \in \mathbb{N}},\ \rho_n = \rho + n \) for some \( \rho \in \mathcal{R} \),
+            clearly \( \lim_{n \to \infty} \rho_n = \rho_\top \) and similarly we can construct a sequence for \( \rho_\bot \)
+            hence the closure of \( \mathcal{R} \) is \( \extrm \).
+    \end{proof}
+    As in the case of the continuous functions, the metric from Theorem \ref{unifconvrm} can be interpreted as being induced by uniform convergence
+    of risk measures. As opposed to robustness in regard to the probability measure, risk measures which are close in this space, are in so far
+    robust that it shouldn't matter much, which risk measure we use.
+    The application of this analysis is that we can ensure that our lattice structure is compatible with a desirable topology 
+    on \( \extrm \).
+    \begin{lemma} \label{maxminarecont}
+        The \( \max, \min : \extreals \times \extreals \to \extreals \) are continuous.
+    \end{lemma}
+    \begin{proof}
+        We show the result for \( \max \), the proof for \( \min \) is similar.
+        A subbasis for the topology of \( \extreals \) is given by all intervals of the form \( (x)^\upuparr \)
+        and \( (x)^\dodoarr \) (see Example 2.2.6 in \cite{infinitedimanalysis}).
+        We have \[ 
+            (\max)^{-1} ((x)^\upuparr) = ((x)^\upuparr \times (x)^\downarrow) \cup ((x)^\downarrow \times (x)^\upuparr),
+        \]
+        and as each part of the union contains the open set \( (x)^\upuparr \) so is its product with any set
+        and the union of two open sets is open as well.
+    \end{proof}
+    \begin{corollary}
+        The lattice \( \extrm \) is a topological lattice.
+    \end{corollary}
+    \begin{proof}
+        Since \( \extreals \) is compact, any continuous function on $\extreals \times \extreals$ is 
+        uniformly continuous, in particular the \( \max, \min \) by Lemma \ref{maxminarecont}.
+        Therefore, for every \(\epsilon > 0\), there exists a \(\delta > 0\) such that for any \(a, b, a', b' \in \extreals\):
+        \[
+        d_{\extreals}(a, b) < \delta \quad \text{and} \quad d_{\extreals}(a', b') < \delta 
+        \]
+        so by continuity \( d_{\extreals}(\max(a, a'), \max(b, b')) < \epsilon \).
+        \newline
+
+        Assume \(d_{\extrm}(\rho_{0}, \rho_{1}) < \delta\) and \(d_{\extrm}(\rho_0', \rho_1') < \delta\). 
+        By the definition of \( \dextrm{\cdot}{\cdot} \), this implies that for all \(X \in \mathcal{X}\):
+        \[
+            d_{\extreals}(\rho_{0}(X), \rho_1(X)) < \delta \quad \text{and} \quad d_{\extreals}(\rho_0'(X), \rho_1'(X)) < \delta
+        \]
+
+        Using the uniform continuity from \( \extreals \), it follows that for all $X \in \mathcal{X}$:
+        \[
+            d_{\extreals}\big(\max(\rho_0(X), \rho_0'(X)), \max(\rho_1(X), \rho_1'(X))\big) < \epsilon.
+        \]
+        Taking the supremum over all \( X \in \mathcal{X}\):
+        \[
+            d_{\extrm}(\rho_0 \vee \rho_0', \rho_1 \vee \rho_1') \le \epsilon,
+        \]
+        and the result holds vis-à-vis for \( \wedge \).
+    \end{proof}
+
+   
+    Now we can also give some topological classification to some algebraic results from before.
+    For example Lemma \ref{necessaryhilbert} now also requires that any ideal \( P \)  
+    in \( \extrm \) for which it holds \( \acceptidealb{\riskidealb{P}} = P \), is a closed convex set in \( \extrm \),
+    meaning it is the intersection of the kernel of the linear functions \( f_X : \extrm \to \extreals, \rho \mapsto \rho(X) \)
+    for \( X \in S \).
+    %This could potentially be an analogue to the concept of convex ideals from real algebraic geometry (Definition \ref{defconvexideal}).
+\end{subsection}

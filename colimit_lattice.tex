@@ -1,0 +1,110 @@
+\begin{subsection}{Colimits in Filter Quotient Lattices}
+    The colimit has multiple definitions which are mostly equivalent, however
+    the most useful one in this context is the categorical one with a universal property, because
+    it automatically ensures that the objects in question are in the same category and we can make sense
+    of operations in the colimit.
+    \begin{definition} \label{indexcategory}
+        Let \( \mathcal{I} \) be a small category (the objects and morphisms are sets), 
+        which is filtered, meaning
+        \begin{enumerate}
+            \item for each \( x, y \in \mathcal{I} \) there is a \( z \in \mathcal{I} \) and morphisms \( x \to z \), \( y \to z \),
+            \item for distinct morphisms \( \alpha : x \to y \), \( \beta : x \to y \) there is a morphism \( \gamma : y \to z \) 
+                s.t. \( \gamma \circ \alpha = \gamma \circ \beta \),
+        \end{enumerate}
+        then we call \( \mathcal{I} \) an index category.
+    \end{definition}
+    Note that for a topological space \( \mathcal{X} \) the category of open sets \( U \subseteq \mathcal{X} \) and 
+    morphisms being the inclusions, is an index category.
+    Given a functor \( \mathcal{F} : \mathcal{I} \to \mathcal{C} \) into some category \( \mathcal{C} \), we
+    can associate pictorially a diagram with the image of \( \mathcal{F}(\mathcal{I}) \) (alternatively just a subcategory),
+    which is called a diagram indexed by \( \mathcal{I} \)
+    \begin{definition} \label{defcolimit}
+        The colimit of a diagram in  \( \mathcal{C} \) indexed by \( \mathcal{I} \) via a functor \( \mathcal{F} \),
+        is an object \( \varinjlim_{\mathcal{I}} C_i \) along with morphisms \( \{\varphi_{k}\} \) denoted by 
+        \( (\varinjlim_{\mathcal{I}} C_i, \varphi_k) \),
+        s.t. for each object \( i \in \mathcal{I} \) there is a morphism \( \varphi_i : \mathcal{F}(i) \to \varinjlim_{\mathcal{I}} C_i \)
+        and for each pair of objects \( i, j \in \mathcal{I} \) and morphism \( f_{i,j} \in \text{Mor}_{\mathcal{I}}(i, j) \), 
+        it holds \( \varphi_j \circ \mathcal{F}(f_{i,j}) = \varphi_i \).
+        Moreover \( \varinjlim_{\mathcal{I}} C_i  \) is universal in these requirements, meaning for any other \( T \in \mathcal{C} \) 
+        satisfying the above, there is a unique \( \theta : \varinjlim_{\mathcal{I}} C_i \to T \) s.t. \( \theta \) commutes with the
+        the morphisms of \( T \).
+    \end{definition}
+    We will also denote \( \mathcal{F}(f_{i,j}) \) with \( f_{i,j} \) for readability.
+    The following Proposition is a verification which is a bit tedious. 
+    The main idea is dependent on \( \mathcal{I} \) being an index category, which behaves similarly like the category of subsets of a set under inclusion, for which the analoguous result holds and how a filter contained in another projects almost like the identity in their quotient lattices.
+    \begin{proposition} \label{colimitforquotientlattice}
+        Let \( \mathcal{I} \) be an index category of filters in a bounded distributive lattice \( L \)
+        with morphisms the inclusions as sets, then we can associate a functor \( \mathcal{F} \) to the category \( \quotlat{L} \) 
+        of quotient lattices of \( \mathcal{L} \), sending each inclusion \( F_i \subseteq F_j \) to the morphism 
+        \( f_{i,j} : \frac{L}{F_i} \to \frac{L}{F_j} \).
+        The corresponding colimit satisfies 
+        \[ 
+            \varinjlim_{\mathcal{I}} \frac{L}{F_i} = \frac{L}{F},
+        \]
+        where \( F = \bigcup_{i \in \mathcal{I}} F_i \).
+    \end{proposition}
+    \begin{proof}
+        By Remark \ref{dualfilterquotient} and more specifically Proposition \ref{quotientprojectionlattice}
+        we have a well defined projection \( f_{i,j} : \frac{L}{F_i} \to \frac{L}{F_j}, [a]_{F_i} \mapsto [a]_{F_j} \) for \( F_i \subseteq F_j \),
+        so the (covariant) functor exists.
+        Also any such index category \( \mathcal{I} \) satisfies the second property \ref{indexcategory} vacously, 
+        since between any two filters there can be at most one inclusion.
+        \newline
+        In general the union of filters in a lattice is not a filter, since the meet of elements in distinct filters
+        are not necessarily in the union anymore, but \( \mathcal{I} \) being an index category circumvents this.
+        Namely, let \( a \in F_i, b \in F_j  \) as \( \mathcal{I} \) is indexed, there is some 
+        \( F_k \) s.t. \( F_j, F_i \subseteq F_k \) and as \( F_k \) is a filter it follows that \( a \wedge b \in F_j \).
+        Hence the maps \( \varphi_i : \mathcal{F}(F_i) \to \frac{L}{F} \) are indeed lattice homomorphisms 
+        and that they commute with the inclusions \( f_{i,j} : \mathcal{F}(F_i) \to \mathcal{F}(F_j) \) is by design
+        (again Proposition \ref{quotientprojectionlattice}).
+        We will also need the following observation:
+        \begin{lemma} \label{utillemmacolim}
+            For any \( a, b \in L \) s.t. \( [a]_F, [b]_F \in L / F \) are distinct, \( [a]_{F_i}, [b]_{F_i} \)
+            are distinct for all \( F_i \).
+        \end{lemma}
+        \begin{proof}
+             Assume the contrary, then there's some \( c \in F_i \) s.t. \( c \wedge b = c \wedge a \)
+            but \( F_i \subseteq F \) so \( c \in F \) implying \( [a]_F = [b]_F \).
+        \end{proof}
+        The universal property is then verified as follows: Given another lattice quotient \( L / T \)
+        with morphisms \( \psi_i : L / F_i \to L / T \) for all \( F_i \in \mathcal{I} \), define for \( a \in L \) and \( [a]_F \in \frac{L}{F} \),
+        \( \theta([a]_F) := \psi_i([a]_{F_i}) \) for any \( F_i \). This is indeed independent of the choice of \( F_i \), let \( F_j \)
+        be another object in \( \mathcal{I} \), since \( \mathcal{I} \) is filtered, there is some \( F_k \), s.t. \( F_i, F_j \subset F_k \)
+        and as \( (L / T, \psi_i) \) must satisfy \( \psi_k \circ f_{i,k} = \psi_i \) and similar for \( F_i \), we have
+        \begin{align*}
+            \psi_i([a]_{F_i}) &= \psi_k \circ f_{i,k}([a]_{F_i}) = \psi_{k}([a]_{F_k}) \\
+            \psi_j([a]_{F_j}) &= \psi_k \circ f_{j,k}([a]_{F_i}) = \psi_{k}([a]_{F_k}),
+        \end{align*}
+        hence \( \psi_i([a]_{F_i}) = \psi_j([a]_{F_j}) \). Note that this argument goes exactly the same to show that 
+        \( \phi_j([a]_{F_i}) = \phi_i([a]_{F_j}) \) for any \( F_i, F_j \).
+        \newline
+        Take \( a, b \in L \) s.t. \( [a]_F = [b]_F \), then there is \( F_j \) with \( j \in F_j \), s.t. \( a \wedge j = b \wedge j \)
+        (since any \( j \in F \) is in some \( F_j \)) and \( [a]_{F_j} = [b]_{F_j} \).
+        By the preceeding it already holds \( \psi_i([a]_{F_i}) = \psi_j([b]_{F_j}) \) so 
+        \[ 
+            \theta([a]_{F}) = \psi_i([a]_{F_i}) = \psi_j([b]_{F_j}) = \theta([b]_{F}),
+        \]
+        hence \( \theta \) is a well defined map.
+        \newline
+        Take \( a, b \in L \) s.t. \( [a]_F \neq [b]_F \) then 
+        \( \theta([a]_F \wedge [b]_F) = \theta([a \wedge b]_F) = \psi_i([a \wedge b]_{F_i}) \)
+        and by Lemma \ref{utillemmacolim} \( [a \wedge b]_{F_i} = [a]_{F_i} \wedge [b]_{F_i} \), hence
+        \( \psi_i([a \wedge b]_{F_i}) = \psi_i([a]_{F_i}) \wedge \psi_i([b]_{F_i}) = \theta([a]_{F}) \wedge \theta([b]_{F}) \).
+        The argument for \( [a \vee b]_F \) is similar, so \( \theta \) is indeed a lattice homomorphism.
+        \newline
+        By construction it holds \( \theta \circ \phi_i([a]_{F_i}) = \theta([a]_{F}) = \psi_i(a_{F_i}) \) and for \( F_j \neq F_i \), 
+        combine \( \phi_j([a]_{F_i}) = \phi_i([a]_{F_j}) \) and \( \psi_i(a_{F_i}) = \psi_j(a_{F_i}) \) to 
+        \begin{align*}
+            \theta \circ \phi_j([a]_{F_i}) = \theta \circ \phi_i([a]_{F_i}) = \psi_i([a]_{F_i}) = \psi_j(a_{F_i})
+        \end{align*}
+        Consequentially, \( \theta \circ \phi_j = \psi_i \) is true for all \( [a]_{F_j} \).
+        \newline
+        Suppose there is a homomorphism \( \tilde{\theta} : L / F \to L / T \) doing as desired and distinct from \( \theta \).
+        Then there's some \( [a]_F \in L / F \), s.t. \( \tilde{\theta}([a]_F) \neq \theta([a]_F) \), 
+        but \( [a]_F \) has a preimage \( [a]_{F_i} \) under \( \phi_i \),
+        and then \( \tilde{\theta} \circ \phi_i ([a]_{F_i}) \neq \theta \circ \phi_i([a]_{F_i}) = \psi_{i}([a]_{F_i} \), 
+        contradicting the hypothesis. 
+    \end{proof}
+    One might be able to argue in abstract nonsense, that the quotient lattices are subcategory of \( \textbf{DLat} \),
+    which itself is also a variety in the sense of universal algebra and any such category is cocomplete, hence colimits exist \cite{univalgarecocomplete}.
+\end{subsection}

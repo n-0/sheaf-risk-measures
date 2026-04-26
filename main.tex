@@ -1,0 +1,160 @@
+\documentclass[11pt,a4paper,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools}
+
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+\usepackage{epigraph}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newtheorem{openquestion}[theorem]{Open Question}
+
+\newtheoremstyle{example}
+  {\topsep}   % ABOVESPACE
+  {\topsep}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {.}         % HEADPUNCT
+  {\newline} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+\theoremstyle{example}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\pp}[1]{\mathbb{P}[#1]}
+\newcommand{\indf}[1]{\mathbf{1}_{\{#1\}}}
+\newcommand{\qq}[1]{\mathbb{Q}[#1]}
+\newcommand{\stt}{\text{ s.t }}
+\newcommand{\extreals}{\overline{\mathbb{R}}}
+\newcommand{\extrm}{\overline{\mathcal{R}}}
+
+\newcommand{\drmrm}{\overline{\mathcal{R}_{\text{DRM}}}}
+\newcommand{\extrmcv}{\overline{\mathcal{R}_{\text{cv}}}}
+\newcommand{\extrmch}{\overline{\mathcal{R}_{\text{ch}}}}
+
+\newcommand{\extrmloc}{\overline{\mathcal{R}_{\text{loc}}}}
+
+
+\newcommand{\convh}[1]{\text{ch}\left ( #1 \right)}
+\newcommand{\cconvh}[1]{\overline{\text{ch}}\left ( #1 \right)}
+\newcommand{\cenv}{\text{cv}}
+\newcommand{\ccenv}{\overline{\text{cv}}}
+
+%\newcommand{\comcore}[1]{\text{ComCore} \left ( #1 \right )}
+%\newcommand{\comconvh}[1]{\text{ComCH} \left ( #1 \right )}
+\newcommand{\comint}[1]{\text{ComInt} \left ( #1 \right )}
+\newcommand{\comhull}[1]{\text{ComHull} \left ( #1 \right )}
+\newcommand{\maxhs}[2]{\text{MaxHS}_{#1} \left ( #2 \right )}
+\newcommand{\minhs}[2]{\text{MinHS}_{#1} \left ( #2 \right )}
+
+\newcommand{\dextrm}[2]{d_{\extrm} \left (#1, #2 \right)}
+\newcommand{\acceptidealb}[1]{\overline{R}\left (#1 \right)}
+\newcommand{\acceptideal}[1]{R \left (#1 \right)}
+\newcommand{\accidbloc}[1]{\overline{R_{\text{loc}}}\left (#1 \right)}
+\newcommand{\accidb}[2]{\overline{R}_{#1}\left (#2 \right)}
+%\newcommand{\accidbl}{R \left (#1 \right)}
+
+\newcommand{\rejectidb}[1]{\overline{F}\left (#1 \right)}
+\newcommand{\rejidbloc}[1]{\overline{F_{\text{loc}}}\left (#1 \right)}
+\newcommand{\rejectid}[1]{F\left (#1 \right)}
+\newcommand{\rejidb}[2]{\overline{F}_{#1}\left (#2 \right)}
+%\newcommand{\rejidbl}{\overline{F}_{#2}\left (#1 \right)}
+
+\newcommand{\riskidealb}[1]{\overline{A}\left (#1 \right)}
+\newcommand{\riskideal}[1]{A \left (#1 \right)}
+
+
+\newcommand{\evalrmf}[1]{\textnormal{EVF}\left( #1 \right)}
+\newcommand{\evalrmr}[1]{\textnormal{EVR}\left( #1 \right)}
+
+\newcommand{\pmom}{\rho_{\text{mom}}}
+\newcommand{\ppop}{\rho_{\text{pop}}}
+\newcommand{\expv}[1]{\mathbb{E} \left [#1 \right]}
+\newcommand{\pexpv}[2]{\mathbb{E}_{#1} \left [#2 \right]}
+\newcommand{\prob}[1]{\mathbb{P} \left [#1 \right]}
+\newcommand{\var}[1]{\text{Var}[#1]}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\ind}{\perp\!\!\!\!\perp} 
+\newcommand{\spec}[1]{\text{Spec } #1} 
+\newcommand{\aff}[2]{\mathbb{A}^{#1}_{#2}}
+\newcommand{\norm}[1]{\left|\left| #1 \right| \right|}
+\newcommand{\cl}[1]{\text{cl}\left(#1\right)}
+\newcommand{\innerpr}[2]{\langle {#1}, {#2} \rangle}
+\def\resf#1{\kappa(\mathfrak{#1})}
+\def\code#1{\texttt{#1}}
+
+\newcommand{\idl}[1]{\text{Idl}\left (#1 \right)}
+\newcommand{\upuparr}{ {\uparrow \uparrow }}
+\newcommand{\dodoarr}{ {\downarrow \downarrow }}
+
+\def\esssup{\textnormal{ess sup }}
+\def\essinf{\textnormal{ess inf }}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newcommand{\opencat}{\textbf{Open}}
+\newcommand{\quotlat}[1]{\textbf{QLat}\left (#1 \right)}
+\newcommand{\presh}{\mathcal{F}^{\text{pre}}}
+\newcommand{\flt}[1]{\textnormal{Flt}({#1})}
+\newcommand{\satflt}[2]{\textnormal{SatFlt}_{#1}({#2})}
+
+\newcounter{coneofringscounter}
+
+
+\title{Sheafs Of Risk Measure Lattices}
+\author{N.J. Lohmann, 10064840}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+
+\input{intro}
+\newpage
+\input{sheaf}
+\newpage
+\begin{section}{Risk Measures}
+\input{risk_measure}
+\end{section}
+\newpage
+\begin{section}{Algebraic Structures On Risk Measures}
+\input{lattice_riskm}
+\input{ideals_lattice_riskm}
+\input{quotient_lattice}
+\input{sheaf_risk_measure}
+\end{section}
+\newpage
+\appendix
+\begin{section}{Appendix A}
+  \input{lattice_topology}
+  \input{appendix1}
+  \input{colimit_lattice}
+\end{section}
+
+\bibliographystyle{plain} % We choose the "plain" reference style
+\bibliography{refs} % Entries are in the refs.bib file
+\end{document}
+
+
+
