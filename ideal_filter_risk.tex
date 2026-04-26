@@ -1,0 +1,75 @@
+\begin{subsection}{Ideals and Filters in Lattices} 
+The subject of this section is the analog of ideals and their properties, such as being prime or principal in rings for distributive lattices. 
+There are actually two structures in lattices that fit the concept: ideals and filters, and both will be relevant.
+\begin{definition}
+        An ideal of a semilattice \( (L, \vee) \) is a non-empty set \( I \subseteq L \) s.t.
+        \begin{itemize}
+            \item \( a, b \in I \implies a \vee b \in I \) 
+            \item \( a \in I \) and \( b \leq a \implies b \in I \).
+        \end{itemize}
+        If \( L \) is bounded with element \( e \), we additionally require \( e \in I \).
+        The dual notion of an ideal of a bounded semilattice is a filter \(F \subseteq L \) with \( F \neq \emptyset \), namely
+        \begin{itemize}
+            \item \( a, b \in F \implies a \wedge b \in F \) 
+            \item \( a \in F \) and \( b \geq a \) imply \( b \in F \).
+        \end{itemize}
+        If \( L \) is bounded, we also require \( e \in F \).
+        An ultrafilter \( U \) is a filter, that is proper and is not contained in any other proper filter.
+        An ideal \( P \subset L \) is a prime ideal if its complement is a filter.
+        For a bounded lattice, a set \( F \subset L \) is a filter if it is one for \( (L, \vee, \bot) \),
+        similarly an ideal of a bounded lattice is one for \( (L, \wedge, \top) \).
+        In particular, the second defining property for ideals is equivalent 
+        to the more familiar \( a \in I, b \in L \implies a \wedge b \in I \).
+    \end{definition}
+    \begin{remark}
+        For further use, denote by \( \text{Spec } L \) the set of prime ideals of a semilattice, also called the spectrum of \( L \).
+    \end{remark}
+
+    \begin{proposition} \label{propositionprime}
+        For \( L \) a distributive lattice an ideal \( P \subset L \) being prime is equivalent to:
+        \begin{itemize}
+            \item  \( P \) is proper (\( P \subsetneq L \)) and \( a \wedge b \in P \implies a \in P \text{ or } b \in P \).
+        \end{itemize}
+        If \( L \) is also bounded, \( P \) being prime is equivalent to the following: 
+        \begin{itemize} 
+            \item \( \top \notin P \) and \( a \wedge b \in P \implies a \in P \text{ or } b \in P\).
+            \item \( P \) is the kernel of a lattice homomorphism \( f : A \to \{0, 1\} \), where \( \{0, 1\} \) is the binary lattice.
+        \end{itemize}
+    \end{proposition}
+    \begin{proof}
+        Theorem 9.8 of \cite{birkhoff1948lattice}.
+    \end{proof}
+     Especially the first property reminds us of classical prime ideals from rings. 
+        Standard examples of an ideals are sets of the form \( (-\infty, a] \) in \( \mathbb{R} \), and the reader may convince themself that it is also prime (yielding a specimen of a filter too). 
+        Filters are a very flexible tool that can be used to give an alternative axiomatic foundation for topology by leveraging the fact that the power set forms a lattice with intersections as the meet and union as the join.
+        Ultrafilters are the dual concept of maximal ideals and encode in the topology setting convergence to a point.
+
+    \begin{proposition} \label{meetirreducibleprime}
+        Let \( L \) be a distributive lattice, then the principal ideal \( (a)^\downarrow  \)
+        is prime if and only if \( a \) is meet irreducible,
+        meaning there are no \( b, c \in L \setminus \{a\} \) s.t. \( a = b \wedge c \).
+    \end{proposition}
+    \begin{proof}
+        Exercise 9.6.4(a) in \cite{birkhoff1948lattice}.
+    \end{proof}
+    We will later study "meet irreducible" elements of \( \extrm \), although the reader is invited to already make their own guesses.
+    There will be a natural interpretation, what makes them irreducible in terms of risk.
+
+    \begin{proposition} \label{separationlatspec}
+        In a distributive lattice \( L \), every ideal is contained in a prime ideal.
+        Moreover prime ideals can distinguish points of the lattice, meaning for distinct \( a, b \in L \),
+        there is a prime ideal \( P \) s.t. only one of \( a,b \) is in \( P \).
+    \end{proposition}
+    \begin{proof}
+        Corollary 2.1.17 in \cite{genlattheorygraetzer}.
+    \end{proof}
+    \begin{remark}
+        A consequence of Proposition \ref{separationlatspec} is that if we endow 
+        \( \spec{L} \) with the direct analog of the Zariski topology,
+        meaning a subbasis of open sets is given by \( D(a) := \{ \mathfrak{p} \in \spec{L} | a \notin \mathfrak{p} \} \)
+        for \( a \in L \), referred to as Stone topology, then \( \spec{L} \) is a \( T_0 \)-space.
+        In classical lattice theory, this is the basis for a series of celebrated representation theorems
+        such as that of Stone and Birkhoff. We won't leverage this topology on \( \spec \extrm \), because
+        there are far more prime ideals than our use cases would permit.
+    \end{remark}
+\end{subsection}

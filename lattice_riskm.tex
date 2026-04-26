@@ -1,20 +1,11 @@
     \begin{subsection}{Lattices}
-    So far the connections between risk measures and algebraic geometry were mostly specific and in the broader cases 
-    as with POPs indirect. While those applications are already a productive development one might still wish for a mostly
-    algebraic classification of risk measures.
-    The obstructions to such unifications were made clear in the Propositions \ref{acceptancesetisnotideal}, \ref{acceptanceisnotcone},
-    \ref{probspaceisnotfield}.
-    However if one leaves the familiar ground of polynomial rings in algebraic geometry and moves more in the direction
-    of designs ala Grothendieck such as Sheaves with the goal of obtaining conceptually similar objects one might discover at least
-    some structure. While those lend themselves probably not to application, they can be appealing for their shift of perspective.
     As far as the author knows, this domain also hasn't been covered in literature yet.
-    \newline
     \newline
     Recall the definition of lattices:
 
     \begin{definition}
         A semilattice \( (S, \otimes ) \) is a set \( S \) with a binary operation which is 
-        commutative, associative and idempotent. It is called bounded if there's an element 
+        commutative, associative, and idempotent. It is called bounded if there's an element 
         \( e \in S \) s.t. \( x \otimes e = x \) for all \( x \in S \).
         Given two semilattices \( (L, \wedge), (L, \vee) \) on a set \( S \), whose operations
         satisfy the absorption laws:
@@ -23,7 +14,7 @@
             a \wedge (a \vee b) = a,
         \end{align*}
         the resulting structure \( (L, \wedge, \vee) \) is called a lattice and the operations \( \wedge \), \( \vee \) join and meet respectively.
-        If both semilattices are bounded the corresponding elements are denoted by \( \bot,\top \) respectively.
+        If both semilattices are bounded, the corresponding elements are denoted by \( \bot,\top \) respectively.
         A lattice is distributive if it in addition satisfies
         \begin{align*}
          a \vee (b \wedge c) = (a \wedge b) \vee (a \wedge c)  \\
@@ -38,8 +29,7 @@
             (a)^{\upuparr} &= \{ b \in L | a < b\} \quad (a)^{\dodoarr} = \{ b \in L | b < a\}  
         \end{align*}
         are semilattices, which we call the (strict) upward and (strict) downward of "\( a \)" respectively.
-        If \( L \) is bounded so are the semilattices.
-        %\( ((a)^\uparrow, \vee), ((a)^\downarrow, \wedge) \),
+        If \( L \) is bounded, so are the semilattices.
     \end{lemma}
     \begin{proof}
         Let \( b_1, b_2 \in (a)^\uparrow \) then \( b_1 \leq b_1 \vee b_2 \) and \( b_2 \leq b_1 \vee b_2 \)
@@ -58,13 +48,14 @@
     \end{proof}
 
     \begin{definition}
-        A lattice is complete, if each subset \( S \subset L \), has a greatest lower bound and least upper bound in \( L \),
+        A lattice is complete if each subset \( S \subset L \) has a greatest lower bound and least upper bound in \( L \),
         given by \( \bigvee_{s \in S} s \), \( \bigwedge_{s \in S} s \) respectively.
     \end{definition}
     It might appear that when a lattice is bounded, it is also complete. The two definitions coincide
-    for finite \( L \), however the meet and join of a lattice are only defined on pairs of elements and with that on finite \( S \), 
+    for finite \( L \), the meet and join of a lattice are only defined on pairs of elements and with that on finite \( S \), 
     while in general \( S \) might be an uncountable set. Similar distinctions should be noted for distributivity, where the counterpart 
-    is completely distributive. There is an intermediate form, which can be helpful:
+    is completely distributive.
+
     \begin{definition}
         A complete distributive lattice \( L \) is join infinite distributive (JID) if it holds for any \( S \subset L \) and \( a \in L \)
         \[
@@ -76,31 +67,10 @@
         \]
     \end{definition}
 
-    \begin{definition} \label{atomisticlattice}
-        An element \( a \) of a bounded lattice \( L \) is called an atom or atomic 
-        if \( b < a \implies b = \bot \). An atomistic lattice is a complete lattice
-        in which every element is the supremum of a collection of atomic elements.
-    \end{definition}
-
-    The statement to be an atomistic lattice has some parallels to the statement of being 
-    a unique factorization domain as a ring (e.g. the prime numbers and the integers). 
-    In fact this relation is made exact by the notion of the Division lattice \( \mathbb{N}_{0} \),
-    where \( a \wedge b = \text{gcd}(a, b), a \vee b = \text{lcm}(a, b) \), where the atoms are precisely the prime numbers.
-    After defining what irreducible elements and prime ideals are in lattices, 
-    the relation to other algebraic concepts becomes even more evident.
-    \newline
-    There's also a notion of compatibility between lattices and a pre-existing topology.
-    \begin{definition}
-        A semilattice \( (L, \otimes) \), where the set \( L \) is also a topological space, is topological, if the operation \( \otimes : L \times L \to L \), 
-        is continuous with respect to the product topology. A lattice is topological if it is with respect to \( \vee \) and \( \wedge \).
-    \end{definition}
-
-    While the random variables \( \mathcal{X} : \Omega \to \mathbb{R} \) formed a ring, risk measures importantly do not with respect to the same operations,
-    e.g. \( \rho_1(X + m) + \rho_2(X + m) = \rho_1(X) + \rho_2(X) - 2m \), so cash-invariance is not maintained. Hence risk measures in relation to random variables 
-    can not play the same role in this setting as ring of polynomials with its variables in relation to points in the affine space. But with the preceeding tooling 
-    we can find something different, keep in mind that the ring of \( \mathcal{X} \) also comes with a natural partial order given by \( X \leq Y \iff \)
-    \( X(\omega) \leq Y(\omega) \) for all \( \omega \in \Omega \).
-
+    While the random variables \( \mathcal{X} : \Omega \to \mathbb{R} \) formed a ring, risk measures importantly do not with respect to 
+    the same operations, e.g. \( \rho_1(X + m) + \rho_2(X + m) = \rho_1(X) + \rho_2(X) - 2m \), so cash-invariance is not maintained. 
+    If risk measures are supposed to have a relation to random variables like \( \mathbb{K}[\mathbf{x}] \) has to \( \aff{\mathbb{K}}{n} \),
+    as in Example \re{algstructuresheaf}, we need a different structure, and lattices are a promising candidate.
     \begin{theorem} \label{monrmarelattice}
         The space of monetary risk measures \( \mathcal{R} \), that is functionals \( \rho : \mathcal{X} \to \mathbb{R} \), which satisfy
         the monotonicity and cash invariance from Definition \ref{defriskmeasure}, are a distributive lattice under the operations 
@@ -125,11 +95,9 @@
     \end{proof}
     \begin{remark} \label{completionofriskmeasures}
         One can turn \( \mathcal{R} \) into a complete lattice by adding 
-        \( \rho_{\top}(X) = -\infty,\ \rho_{\bot}(X) = \infty \) and the codomain of the risk measures being 
+        \( \rho_{\bot}(X) = -\infty,\ \rho_{\top}(X) = \infty \) and modifying the codomain of the risk measures to
         the extended reals \( \extreals = \mathbb{R} \cup \{ -\infty, \infty \} \), we will denote this bounded lattice by \( \extrm \).
-        There is a nice intuitive interpretation to these measures, but it comes at the loss of Lipschitz continuity,
-        however topollogically we will find a resolution.
-        % Dedekind–MacNeille completion
+        There is a nice, intuitive interpretation of these measures, but it comes at the cost of Lipschitz continuity, which is not too much of a burden, since we have to keep only two special cases in mind. Otherwise, we do not allow \( \rho \in \extrm \) to take on the value \( - \infty \).
     \end{remark}
     \begin{lemma}
         \( \mathcal{R} \) is an unbounded lattice.
@@ -139,9 +107,9 @@
         Consider the functional \( \rho' = \rho_{\top} + \varepsilon \) for any \( \varepsilon > 0 \), this is monetary as \( \rho_{\top} \) is
         and clearly \( \rho' \wedge \rho_{\top} = \rho' \). The same goes for \( \vee \) via \( \rho' = \rho_{\bot} - \varepsilon \).
     \end{proof}
-    \begin{lemma}
+    \begin{corollary}
         The normalized risk measures are a distributive sublattice of \( \mathcal{R} \).
-    \end{lemma}
+    \end{corollary}
     \begin{proof}
         Trivial.
     \end{proof}
@@ -149,9 +117,8 @@
         The lattice \( (\extrm, \vee, \wedge, \rho_{\bot}, \rho_{\top}) \) is complete.
     \end{lemma}
     \begin{proof}
-        Let \( I \subset \extrm \), if \( I \) is finite this follows by Definition, hence assume \( I \) is infinite.
-        Define the infimum/supremum pointwise as the infimum/supremum of the correspond set of extended real numbers (which are a complete lattice
-        themselves):
+        Let \( I \subset \extrm \), if \( I \) is finite, this follows by Definition, hence assume \( I \) is infinite.
+        Define the infimum/supremum pointwise as the infimum/supremum of the corresponding set of extended real numbers (which is a complete lattice):
         \[ 
             (\inf I)(X) := \bigwedge_{\rho \in I} \rho(X), \qquad (\sup I)(X) = \bigvee_{\rho \in I} \rho(X).
         \]
@@ -165,9 +132,10 @@
         Assume \(\forall \omega \in \Omega, X(\omega) \leq Y(\omega) \), then for all \( \rho \in I \)
         \( \rho(X) \geq \rho(Y) \), so in particular \( (\inf I)(X) \geq (\inf I)(Y) \).
         Note that for unbounded \( I \), such as \( \mathcal{R} \subsetneq \extrm \) we have 
-        \( (\inf \mathcal{R}) = \bot \) and \( \sup \mathcal{R} = \top \).
+        \( (\inf \mathcal{R}) = \rho_\bot \) and \( \sup \mathcal{R} = \rho_\top \).
         We conclude \( (\inf I) \in \extrm \) and vis-à-vis \( (\sup I) \in \extrm \).
     \end{proof}
+
     \begin{lemma} \label{extrmisjidandmid}
        The lattice \( \extrm \) is JID and MID.
     \end{lemma}
@@ -187,14 +155,16 @@
         The argument then goes analogously for MID.
     \end{proof}
 
+   As C.G. Jung already said, "Life calls not for perfection, but for completeness" we shall 
+    focus our study on \( \extrm \) from hereon as complete lattices are better behaved 
+    regarding algebraic analysis. A hint at this is Definition \ref{atomisticlattice}, and as we will see, the definition or verification of ideals becomes easier if we grant ourselves this freedom. To give a taste of the intuitiveness of our construction and why lattices are a natural analog for algebraic geometry, let us turn to the geometric side:
 
-    There's an interplay with these operations and the acceptance sets of the risk measures.
     \begin{corollary} \label{acceptanceoperations}
-        The operations in \( (\mathcal{R}, \vee, \wedge) \) correspond to intersections and unions of acceptance sets
+        The operations in \( (\extrm, \vee, \wedge) \) correspond to intersections and unions of acceptance sets
         and vice-versa.
     \end{corollary}
     \begin{proof}
-        For \( \rho_1, \rho_2 \in \mathcal{R} \) let \( \mathcal{A}_{\rho_1}, \mathcal{A}_{\rho_2} \) be their corresponding acceptance sets.
+        For \( \rho_1, \rho_2 \in \extrm \) let \( \mathcal{A}_{\rho_1}, \mathcal{A}_{\rho_2} \) be their corresponding acceptance sets.
         Suppose \( (\rho_1 \vee \rho_2)(X) \leq 0 \) then \( \rho_2(X) \leq 0\) and \(\rho_1(X) \leq 0 \), hence 
         \( X \in \mathcal{A}_{\rho_1} \) and \( X \in \mathcal{A}_{\rho_2} \). Conversely if \( X \in \mathcal{A}_{\rho_1} \) and \( X \in \mathcal{A}_{\rho_2} \),
         the same must be the case, whence \( \mathcal{A}_{(\rho_1 \vee \rho_2)} = \mathcal{A}_{\rho_1} \cap \mathcal{A}_{\rho_2} \).
@@ -203,81 +173,13 @@
         The result follows similarly for \( (\rho_1 \wedge \rho_2) \) and \( \mathcal{A}_{\rho_1} \cup \mathcal{A}_{\rho_2} \).
     \end{proof}
     \begin{corollary} \label{orderreversingofrm}
-        \( \rho_1 \leq \rho_2 \) for \( \rho_1, \rho_2 \in \mathcal{R} \) if and only if \( \mathcal{A}_{\rho_2} \subseteq \mathcal{A}_{\rho_1} \).
+        \( \rho_1 \leq \rho_2 \) for \( \rho_1, \rho_2 \in \extrm \) if and only if \( \mathcal{A}_{\rho_2} \subseteq \mathcal{A}_{\rho_1} \).
     \end{corollary}
     \begin{proof}
         \( \rho_1 \leq \rho_2 \iff \rho_1 \vee \rho_2 = \rho_1 \), Corollary \ref{acceptanceoperations} asserts this is equivalent to 
         \( \mathcal{A}_{\rho_1} \cup \mathcal{A}_{\rho_2} = \mathcal{A}_{\rho_1} \).
     \end{proof}
         In particular for \( \extrm \) the same holds and \( \mathcal{A}_{\rho_\bot} = \mathcal{X} \), \( \mathcal{A}_{\rho_\top} = \emptyset \), 
-        so an intuitive interpretation would be  that \( \rho_\bot \) is the risk measure which accepts all risks, while \( \rho_\top \) is the risk measure which rejects all.
+        so an intuitive interpretation would be that \( \rho_\bot \) is the risk measure which accepts all risks, while \( \rho_\top \) is the risk measure which rejects all.
 
-        One natural choice of an unbounded lattice for \( \mathcal{X} \) would be the partial ordering \( (X \vee Y)(\omega) = \max \{ X(\omega), Y(\omega) \}  \)
-        and \( (X \wedge Y)(\omega) = \min \{ X(\omega), Y(\omega) \} \) which in fact are still measurable functions (Theorem 4.27 \cite{infinitedimanalysis}). However, this has 
-        significant drawbacks, if we would try to consider this to be in some sense dual to the lattice of \( \mathcal{R} \). Without spoiling too much,
-        the question of, \( X, Y \) being acceptable, then also \( X \wedge Y \) being acceptable is for many risk measures and good reasons negative.
-        In general, we prefer not to force too much structure on \( \mathcal{X} \) than the one already existing, in a similar fashion
-        how the affine space \( \aff{\mathbb{K}}{n} \) is related to \( \mathbb{K}[X] \).
-        Still there is a structure, which is interesting, because it distills the correspondence.
-    \begin{proposition} \label{acceptancesetlattice}
-        The space \( \mathfrak{A} \subset 2^{\mathcal{X}} \) of all acceptance sets of members in \( \extrm \) is a bounded distributive lattice under the operations
-        \begin{align*}
-            (\mathcal{A}_1 \vee \mathcal{A}_2) &= \mathcal{A}_1 \cup \mathcal{A}_2 \\
-            (\mathcal{A}_1 \wedge \mathcal{A}_2) &= \mathcal{A}_1 \cap \mathcal{A}_2
-        \end{align*}
-        with \( \mathcal{A}_\top = \mathcal{X} \) and \( \mathcal{A}_\bot = \emptyset \).
-    \end{proposition}
-    \begin{proof}
-        That \( \cup, \cap \) are associative, distributive and commutative with respect to sets is well known.
-        Corollary \ref{acceptanceoperations} established that these operations between acceptance sets give again an acceptance set
-        for a risk measure in \( \extrm \).
-    \end{proof}
-        This "inverse" relation between acceptance sets and risk measures is reminiscent of the vanishing set \( V(J) \) and \( I(W) \) from
-        Definition \ref{affinealgeodefs} or the relation between algebraic cones and semialgebraic sets from Definitions \ref{coneofrings}, \ref{semialgset}.
-        This is by no means a coincidence. The pattern shared by both is the one of an antitone Galois Connection.
-    \begin{definition}
-    Let \( F : A \to B \) and \( G : B \to A \) be antitone (order reversing) functions between the posets \( (A, \leq) \) and \( (B, \leq) \), 
-    such that
-    \[  b \leq F(A) \iff a \leq G(b), \]
-    then the quadruple \( ((A, \leq),  (B, \leq), F, G) \) is called an antitone Galois connection.
-    The functions \( F,G \) are also referred to as adjoints or polarities.
-    The composite operators \( G \circ F : A \to A \) and \( F \circ G : B \to B \) are referred to as closures.
-    %Each polarity uniquely determines the other, since
-    \end{definition}
-    \begin{proposition} \label{galoisclosure}
-        The closures \( G \circ F \), \( F \circ G \) are indeed closure operators for \( 2^A, 2^B \). A closure operator
-        \( \text{cl} : 2^S \to 2^S \) satisfies for a set \( S \) and subsets \( X, Y \subseteq S \):
-        \begin{align*}
-            X &\subseteq \text{cl}(X) \\
-            X \subseteq Y &\implies \cl{X} \subseteq \cl{Y} \\
-            \cl{\cl{X}}& = \cl{X}
-        \end{align*}
-    \end{proposition}
-    \begin{proof}
-        See Remark 1.9.5 in \cite{latttheoryspectopsandapps}.
-    \end{proof}
-    \begin{lemma} \label{idempotencyclosure}
-        For the closure \( G \circ F \) of a Galois connection and \( X \subset A \) it holds
-        \[
-           F(G(F(A))) = F(A),
-        \]
-        and analogously for \( Y \subset B \) and \( F \circ G \).
-    \end{lemma}
-    \begin{proof}
-        From the first identity of \ref{galoisclosure}, we know \( F(A) \subseteq F(G(F(A))) \).
-        Conversely the identity also gives us \( A \subseteq G(F(A)) \), as \( F \) is order reversing
-        \( F(G(F(A))) \subseteq F(A) \). The argument is symmetric for \( F \circ G \).
-    \end{proof}
-    
-    
-    The essential difference between an order reversing isomorphism and a Galois connection is that \( F \) and \( G \) don't need to be bijective 
-    and if one of them is, then the other becomes in fact the inverse. This makes \( V(J), I(W) \) such a connection, which is not inverse (e.g.
-    \( V(\sqrt{J}) = V(J) \)). However, for risk measures this distinction does not matter.
-    \begin{proposition} \label{galoisconnrm}
-        Let \( \mathfrak{A} \) be the lattice from Proposition \ref{acceptancesetlattice}, 
-        then the map \( F : \extrm \to \mathfrak{A},\ \rho \mapsto \mathcal{A}_{\rho} \) is an order reversing isomorphism.
-    \end{proposition}
-    \begin{proof}
-        \( F \) being order reversing follows from Corollary \ref{orderreversingofrm} and it is bijective due to Proposition \ref{acceptancesetpropisriskprop}.
-    \end{proof}
 \end{subsection}

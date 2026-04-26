@@ -1,140 +1,14 @@
-\begin{section}{Algebraic Geometry}
-\begin{subsection}{Varieties, Coordinate Rings and the Spectrum}
-Algebraic Geometry started out with the fundamental question of finding the solutions to polynomial equations or statements.
-Interpreting solution sets geometrically has more than aesthetical and intuitive value, but also opens the door to many
-unexpected results and challenging problems such as resolving Fermat's last theorem.
-Moreover the modern approach, which was set in motion by Alexander Grothendieck and his "Éléments de géométrie algébrique" (EGA) had  
-not only a profound impact to this subfield, but changed the way, we practice mathematics as a whole. For example the axiomatic use 
-of categories, the reinterpretation of logic via topoi and topology without points are due to him. 
-%For our concrete applications we will mostly need classical algebraic geometry
-%(that is analyzing solution sets of polynomials in analoga of \( \mathbb{K}^n \) and their corresponding coordinate rings). 
+\begin{section}{Sheaves}
+Sheaves are ubiquitous in mathematics and even though the reader might not had the opportunity
+to apply them knowingly they can be sure to have used their structure implicitly in different categories.
+From historic perspective, they originate in the domain of algebraic topology, where their ability to capture
+consistenly the local behavior of objects such as continuous functions allowed an accessable
+treatment of rather involved topological spaces. Over the course of time one of the greatest 
+extensions of this \textit{tracking idea} has been achieved by Alexander Grothendieck, who used
+them in his work EGA \cite{egatransl} in their specialized version as schemes to generalize algebraic geometry to the spectrum 
+of rings, unifying geometric perspectives from the polynomial and number theoretic settings.
+The sheaves in this work have a similar spirit, so without further ado:
 
-For the algebraic
-version of the geometry of risk measures the modern approach is more viable (that is using general spectra of algebraic structures and categorical notions).
-Of course we can cover only a small set of subjects of this vast field, so we assume the reader to know some algebra,
-such as the theory of rings, ideals, morphisms and field theory, as well as some basic topology and functional analysis.
-A little category theory also comes in handy, but not too much beyond the basic definitions. 
-For a broader introduction, the author recommends Cox's et al. "Ideal, Varieties and Algorithms" \cite{cox2008ideals} and for those who feel also inclined
-to a more abstract interpretation, Milne's "Algebraic Geometry" \cite{milne2012algebraic}.
-\begin{definition}[Algebro-Geometric Objects] \label{affinealgeodefs}
-    The central definitions are:
-\begin{enumerate}
-    \item The \( n \)-dimensional affine space over a field \( \mathbb{K} \) is \(\mathbb{A}^n_{\mathbb{K}} = \mathbb{K}^n\).
-    \item The ring of polynomials in \( n \) variables over \( \mathbb{K} \) is \( \mathbb{K}[x_1, \ldots, x_n] \).
-    \item Given an ideal \( I \subseteq \mathbb{K}[x_1, \ldots, x_n] \), the algebraic set defined by \( I \) is  
-        \[ V(I) = \{\, a \in \mathbb{K}^n : f(a) = 0 \text{ for all } f \in I \,\} \]
-    \item For \( S \subseteq \mathbb{K}^n \), its vanishing ideal is  
-       \[
-       I(S) = \{\, f \in \mathbb{K}[x_1, \ldots, x_n] : f(a) = 0 \text{ for all } a \in S \,\}
-       \]
-    \item An affine variety is a non-empty, algebraic set in \( \mathbb{A}^n_\mathbb{K} \).
-    \item An algebraic set \( V \) is irreducible if it cannot be written as the union of two proper algebraic subsets.
-   \item The quotient ring \( \frac{\mathbb{K}[x_1, \ldots, x_n]}{I(V)} \) for an irreducible affine variety is 
-       also referred to as the coordinate ring \( \mathbb{K}[V] \).
-   \item A function \( f : V \to \mathbb{K} \) is regular if \( f \in k[V] \).
-   \item The ring of the following rational polynomials 
-       \[ 
-           \mathbb{K}(V) := \{ \frac{f}{g} | f, g \in \in \mathbb{K}[V] \text{ and } g \notin I(V) \} 
-       \]
-       is the function field on \( V \).
-   \item One can construct the Zariski Topology on \(\mathbb{A}^n_\mathbb{K}\), where the closed sets in this topology on \( \mathbb{A}^n_k \) are the algebraic sets.
-\end{enumerate}
-\end{definition}
-\begin{remark}
-We are mainly interested in the cases \( \mathbb{K} = \mathbb{R} \) or \( \mathbb{K} = \mathbb{C}\).
-Unless otherwise stated, the term "variety" will refer to affine irreducible varieties. One should be cautious how an author defines a variety, since there are different
-restrictions which in some contexts simplify analysis and complicate it in others. There also different terminologies which sometimes mean the same such as 
-algebraic spaces.
-\end{remark}
-
-\begin{example}
-The simplest algebraic objects are arguably the whole space, represented by the ideal \(J_1 = (0)\), and the empty set, represented by a constant ideal \(J_2 = (c)\). 
-Considering the affine space \(\mathbb{A}_\mathbb{K}\), the corresponding quotient rings are 
-\[
-\frac{\mathbb{K}[x_1]}{J_1} \simeq \mathbb{K}[x_1] \quad \text{and} \quad \frac{\mathbb{K}[x_1]}{J_2} \simeq 0,
-\]
-since \(\mathbb{K}\) is a field, so \( c \) is invertible. Indeed, if \(c c^{-1} = 1\) but \(c = 0\), then all scalars must vanish as well.
-
-Next, consider points; for example, in \(\mathbb{A}^2_\mathbb{R}\), every \((c_1, c_2)\in \mathbb{R}^2\) corresponds to the ideal \(J = \langle x_1 - c_1, x_2 - c_2 \rangle\), 
-so that \(V(J) = \{ (c_1, c_2) \}\). The quotient ring satisfies \(\frac{\mathbb{R}[x_1, x_2]}{J} \simeq \mathbb{R}\), since \(x_i - c_i = 0\) forces each polynomial 
-to be evaluated at the point \((c_1, c_2)\). Note that every polynomial vanishing at \((c_1, c_2)\) is sent to \( 0 \). 
-This motivates the construction of \(\mathbb{K}[V]\), which consists of all polynomial maps \(V \to \mathbb{K}\), and also identifies functions that are equivalent on \( V \); 
-e.g., \(h(x_1, x_2) = 2\) and \(g(x_1, x_2) = 2 + (x_1 - c_1)(x_2 - c_2)\) agree on \( V \) .
-
-It is interesting to note that the only prime or maximal ideal in this ring (in fact, a field) is \((0)\). A similar analysis applies to the line \(x_1 = x_2\) in \(\mathbb{C}^2\), 
-cut out by the vanishing locus of \(f(x_1, x_2) = x_1 - x_2\). The quotient ring is 
-\[
-\frac{\mathbb{C}[x_1, x_2]}{\langle f \rangle} \simeq \mathbb{C}[x_1],
-\]
-whose nontrivial prime ideals are generated by points \((x_1 - c_1)\). Interestingly, one can pair each prime ideal \( (x_1 - c_1) \) to a point \( (c_1, c_2) \) on the variety 
-specified by \(f(x_1, x_2) = 0\).
-\end{example}
-
-To direct the attention more to the prime ideal aspect of the previous example, 
-we add a definition which is central in the modern treatment of algebraic geometry,
-and matters to us, because we will need it to properly state the positive Nullstellensaetze.
-
-\begin{definition}
-   Let \( R \) be a commutative unital ring (as are all rings in this work).
-   The set of all prime ideals in \( R \), is called the spectrum, denoted \( \spec{R} \).
-\end{definition}
-
-To do geometry in \( \spec{R} \) one requires some degree of understanding of how points are spaced to each other:
-\begin{definition}
-    There is a topology on \( \spec{R} \), the Zariski topology, whose basis of open sets,
-    is given by \( D_f \subseteq \spec{R} \) with \( D_f = \{ \mathfrak{p} \in \text{Spec } R | f \notin \mathfrak{p} \} \) 
-    for some \( f \in R \) (the \( D \) stands for domain). Conversely a basis of closed sets is given by
-    \( V(E) = \{ \mathfrak{p} \in \spec{R} | \forall f \in E,  f \in \mathfrak{p} \} \), (\( V \) for vanishing set).
-\end{definition}
-
-While we have a topology a more concrete notion of distance couldn't come from the Zariski topology,
-which satisfies the \( T_1 \)-separation axioms and fullfills quasicompactness for closed sets, but never Hausdorfness 
-(except if \( \mathbb{K} \) is finite), 
-so by the Nagata–Smirnov metrization theorem there can not be a metric. However, the Zariski topology is rather coarse,
-and the finer Euclidean topology enables often a metric for subsets of varieties, which is at least continuous in the Zariski sense. 
-Why is it sensible to consider points \( \mathfrak{p} \) in \( \spec{R} \) s.t. \( f \in \mathfrak{p} \) instead of
-\( p \in \aff{\mathbb{K}}{n} \) s.t. \( f(p) = 0 \)? First one notices that in \( \mathbb{K}[X] / \mathfrak{p} \), 
-the equivalence class of \( [f] \) is precisely \( [0] \) if \( f \in \mathfrak{p} \), secondly we have
-Hilbert's weak Nullstellensatz.
-\begin{theorem} \label{weakhilbertnull}
-    If \( \mathbb{K} \) is an algebraically closed field, then the maximal ideals of \( \mathbb{K}[x_1, \dots, x_n] \)
-    are precisely those ideals of the form \( \langle x_1 - p_1, \dots, x_n - p_n \rangle \), where \( p_i \in \mathbb{K} \).
-\end{theorem}
-As any maximal ideal is already prime, we see that \( V(f) \) already entails the points \( p \) such that \( f(p) = 0 \) as maximally ideals.
-Moreover, it allows us to encode points which are not in \( \mathbb{K}^n \) via their minimal irreducible  polynomials, e.g.
-if \( \aff{\mathbb{K}}{1} = \mathbb{R} \) and \( f(x) = x^4 - 1 \), then the roots in the algebraic closure are precisely \( \{1, -1, i, -i\} \),
-but of course in \( \aff{\mathbb{R}}{1} \) there are only \( \{ 1, -1 \} \), however \( \mathfrak{p} = \langle x^2 + 1 \rangle \in \mathbb{R}[x] \) 
-is prime and also \( f \in \mathfrak{p} \), so we retain some information about roots even if there are not available in the underlying field.
-
-
-\begin{definition}[Local ring at \( \mathfrak{p} \)]
-    The local ring at a point \( \mathfrak{p} \in \spec{R} \) is the localization \( R_{\mathfrak{p}} := S^{-1} R  \)
-    with the multiplicative set \( S := R \setminus \mathfrak{p} \).
-\end{definition}
-There is a bijection \( \spec{ S^{-1} R } \leftrightarrow T \subset \spec{R} \), where \( T \) is the subset of prime ideals disjoint of \( S \).
-For a multiplicative set \( S \) induced by a prime ideal \( \mathfrak{p} \) as above, it then follows that the ring \( R_{\mathfrak{p}} \)
-has a unique maximal ideal which is the image of \( \mathfrak{p} \) under the map \( R \to R_{\mathfrak{p}} \).
-Keep in mind that a homomorphism \( \phi : R_{\mathfrak{p}} \to A_{\mathfrak{q}} \) between local rings, means that 
-\( \phi(\mathfrak{p}) = \mathfrak{q} \).
-
-This unique maximal ideal allows to construct a field out of \( R_{\mathfrak{p}} \):
-\begin{definition}[Residue field]
-    The residue field \( \resf{\mathfrak{p}} \) at a point \( \mathfrak{p} \in \spec{R} \) is the quotient ring \( \frac{R_{\mathfrak{p}}}{\mathfrak{p}} \) of the local ring \( R_{\mathfrak{p}} \).
-\end{definition}
-This insight also affects the language involved, meaning geometers tend to express certain relations of functions on varieties in \( \aff{\mathbb{K}}{1} \) via their analogues in \( \spec{R} \). For example, a function \( f \in \mathbb{K}[V] \) vanishes at the point \( \mathfrak{p} \) 
-if \( f \in \mathfrak{p} \) or equivalently \( [f] = 0 \) under the map \( \mathbb{K}[V] \to \resf{\mathfrak{p}} \), more broadly the "value" of \( f \)
-at \( \mathfrak{p} \) refers to the image of \( f \) under \( \mathbb{K}[V] \to \resf{\mathfrak{p}} \). This convention is evident for the case
-\( \mathbb{K} = \mathbb{C} \) and \( R = \mathbb{C}[X] \), since the spectrum coincides with the maximal spectrum 
-\( \text{Specm } R \) (the set of maximal ideals), and by the Hilbert weak Nullstellensatz for any \( \mathfrak{p} \in \spec{R} \), 
-\[ 
-\resf{\mathfrak{p}} = \frac{(\mathbb{C}[X] \setminus \langle x_1 - p_1, \dots, x_n - p_n \rangle)^{-1}\mathbb{C}[X]}{\langle x_1 - p_1, \dots, x_n - p_n \rangle} \]
-therefore each \( f \in R \) is sent to \( f(p_1, \dots, p_n) \), which is the same as the classical notion of the value of a function.
-
-In fact all inspection of varieties and solution sets to polynomial equations can be purely done on \( \spec{R} \), which has many benefits 
-of handling certain phenomena better and is less "forgetful" about certain properties of the vanishing sets and can even be transfered to objects,
-which might not appear to be algebraic sets initially. Though, one requires a bit more construction to do so properly. 
-%a collection of mappings \( \mathcal{O} \to \textbf{Set} \), 
-% for all open \( U, V \subseteq X \), there is a map  s.t. \( V \subseteq U \), 
 \begin{definition}[Presheaves and Sheaves]
     Given a topological space \( X \), a sheaf is a structure s.t. 
     for all open \( U \subseteq X \), there is a map of sets \( \mathcal{O} : U \to \mathcal{O}(U) \) 
@@ -153,9 +27,51 @@ which might not appear to be algebraic sets initially. Though, one requires a bi
     \end{enumerate}
     A structure which only satisfies the first two properties is a presheaf. If it also satisfies locality it is separated.
 \end{definition} 
-The quite general definition hints already at the fact that sheaves are ubiquitous in mathematics, e.g. smooth functions over a manifold
-form a sheaf, the sheaf of Schwartz distributions over a space and there is even a sheaf of measures on Borel spaces \cite{sheafmeasures}.
-In the affine case here, there is a particular choice of sheaf, which got its own name. For this we also need to define morphisms.
+%The quite general definition hints already at the fact that sheaves are ubiquitous in mathematics, e.g. smooth functions over a manifold
+%form a sheaf, the sheaf of Schwartz distributions over a space and there is even a sheaf of measures on Borel spaces \cite{sheafmeasures}.
+%In the affine case here, there is a particular choice of sheaf, which got its own name. For this we also need to define morphisms.
+
+\begin{example} \ref{algstructuresheaf}
+    Consider the affine space \( \aff{n}{\mathbb{K}} = \mathbb{K}^n\) over some field \( \mathbb{K} \) 
+    and the associated commutative ring of multivariate polynomials \( \mathbb{K}[\mathbf{X}] \).
+    One can define the Zariski topology (a \( T_1 \)-topology) over \( \aff{n}{\mathbb{K}} \), whose subbasis of closed sets is induced through 
+    \( J \subseteq \mathbb{K}[\mathbf{X}] \) via their vanishing sets, that is 
+    \[ V(J) = \{\, a \in \mathbb{K}^n : f(a) = 0 \text{ for all } f \in J \,\}. \]
+    Clearly, one also obtains a subbasis of open sets by taking the complements of vanishing sets (denoted by \( D(J) \)
+    traditionally), which are points over which collection of polynomials do not vanish.
+    Define then for an open set \( U \subset \aff{n}{\mathbb{K}} \) the set of \( \mathcal{O}(U) \) regular functions over \( U \), that is 
+    \( f : U \to \mathbb{K} \), s.t. for every \( x \in U \) there is some open neighborhood \( V \subset U \) of it on which it holds
+    \( f|_{V} \neq 0 \) and \( f(x) = \frac{h(x)}{g(x)} \) for \( h, g \in \mathbb{K}[\mathbf{X}] \).
+    This mapping \( \mathcal{O} : \text{Open}(\aff{n}{\mathbb{K}}) \to \mathcal{O}(U) \) defines in fact a sheaf over \( \aff{n}{\mathbb{K}} \)
+    with the restriction being the standard domain restriction of functions as the reader can verify. Moreover, the 
+    \( \mathcal{O}(U) \) are also rings, since adding or multiplying two non-vanishing functions \( f_1, f_2 \) yields another one 
+    over the intersection \( U_1 \cap U_2 \) of their domains, turning \( \aff{n}{\mathbb{K}} \) into a locally ringed space.
+\end{example}
+
+This example hopefully illuminates how the construction of the sheaf of smooth functions over a smooth manifold would look like.
+As is apparent from the Definition, the local behavior of functions can be tracked through the restriction morphism. If we continue this 
+zoom into smaller and smaller open sets indefinitely and end up at a point (which is more than often not an open set in the topology of the underlying space \( X \)) the result is often something similar to an evaluation. The formal construction of this idea requires the colimit 
+from category theory, which can be found in the Appendix \ref{defcolimit}, the main challenge is to properly handle that it doesn't matter
+from which open set we initialize our restrictions to the point. This idea has its own name for sheaves: 
+
+\begin{definition}
+    The stalk at a point \( x \in X \) is the colimit of the sheaf sections \( \mathcal{O}(U) \) of the open neighborhoods \( U \) of the point,
+    denoted by
+    \[
+        \mathcal{O}_{X,x} = \varinjlim_{U\ni x} \mathcal{F}(U).
+    \]
+\end{definition}
+\begin{example}
+    For the sheaf of regular functions over \( \aff{n}{\mathbb{K}} \) the stalk at a point \( x \) is given by the ring 
+    of rational polynomial functions \( f = \frac{g}{h} \) with \( h(x) \neq 0 \).
+\end{example}
+\end{section}
+
+Everything is a matter of perspective and there is rarely one canonical choice over some space and its 
+topology. Already for smooth manifolds we can assign for each \( k \in \mathbb{N} \) to an open set
+the set of \( k \)-differentiable functions over it, giving a plethora of sheaves. It can be useful to inspect
+how this different sheaves relate to each other as long as there is a consistent way of translating between their sections
+which is made precise by the following idea.
 \begin{definition}[Morphism of sheaves] \label{sheafmorphism}
     A morphism \(\varphi : \mathcal{F} \to \mathcal{G}\) of sheaves on \(X\) is a rule which assigns to each open \(U \subseteq X\) 
     a map of sets \(\varphi : \mathcal{F}(U) \to \mathcal{G}(U)\) compatible with restriction maps, i.e., whenever \(V \subseteq U \subseteq X\) are open 
@@ -175,7 +91,7 @@ In the affine case here, there is a particular choice of sheaf, which got its ow
 \end{definition}
 Note that if there exists a homeomorphism \( \pi : X \to Y \) between topological spaces, we can
 also define morphisms of sheaves with different underlying spaces, namely if \( (X, \mathcal{F}) \) and \( (Y, \mathcal{G}) \)
-are sheaves, then for a open sets \( U \subseteq X, V \subseteq Y \) then one could construct maps 
+are sheaves, then for a open sets \( U \subseteq X, V \subseteq Y \) one could construct maps 
 \( \varphi : \mathcal{F}(U) \to \mathcal{G}(\pi(U)) \), \( \varphi' : \mathcal{F}(\pi^{-1}(V)) \to \mathcal{G}(V)  \)
 and if for all \( U \) (respectively \( V \)) these maps satisfy the definition of \ref{sheafmorphism},
 we get a morphism between sheaves with different underlying space. Unfortunately, these can't be the same
@@ -183,40 +99,3 @@ we get a morphism between sheaves with different underlying space. Unfortunately
 (due the adjointness of the preimage sheaf and pushfoward sheaf functor). In case that \( \pi \)
 is just a continuous map, one refers typically to morphisms of sheaves to the direction \( \varphi' : \mathcal{F}(\pi^{-1}(V)) \to \mathcal{G}(V) \) 
 (so it is a morphism of sheaves on \( Y \)).
-
-\begin{definition} \label{basisstructsheaf}
-    Define for each basic open set \( D_f \subset \spec{R} \), where \( f \in R \)
-    the map \( \mathcal{O}_{\spec{R}}(D_f) = R_f \), where \( R_f := S^{-1}R \) is the localization 
-    of \( R \) with the multiplicative set \( S = \{f, f^2, f^3, \dots \} \) and the if \( D_g \subset D_f \)
-    we use as the restriction \( r_{D_f, D_g}  \) the canonical map \( R_f \to R_g \).
-    We call this the basis of the structure sheaf of \( \spec{R} \).
-\end{definition}
-
-\begin{theorem}[Affine scheme] \label{affinescheme}
-    The basis of Definition \ref{basisstructsheaf} can be extended to all open subsets of \( \spec{R} \)
-    and is called the structure sheaf 
-    \[ 
-        (\mathcal{O}_{\spec{R}}, \spec{R}) 
-    \]
-    or the affine scheme of \( R \).
-\end{theorem}
-\begin{proof}
-    %The construction requires the use of stalks and projective limits, which are beyond the scope of standard algebra courses, so
-    The interested reader is referred to Theorem 6.3 of \cite{boschag}.
-\end{proof}
-
-\begin{definition}[General Schemes] \label{defscheme}
-    A sheaf \( (X, \mathcal{O}_X) \) s.t. for each \( x \in X \), there's an open set \( U \),
-    s.t. there exists an isomorphism of sheaves \( \varphi : (U, \mathcal{O}_X(U)) \to (R_U, \mathcal{O}_{\spec{R_U}}) \)
-    for rings \( R_U \) is called a scheme.
-\end{definition}
-
-In particular when the \( R_U \) are of the shape \( \mathbb{K}[X] / I \) for some ideal 
-\( I = \langle f_1, \dots, f_n \rangle \) generated by polynomials \( f \in \mathbb{K}[X] \) we obtain not only a variety, but always a scheme too.
-Later on, we will need so called stalks. The definition won't be used in the next sections, so we prefer to just state what it breaks down to for schemes. 
-\begin{example}
-    For an affine scheme, the stalk \( \mathcal{O}_{\spec{R}, \mathfrak{p}} \) at a point \( \mathfrak{p} \in \spec{R} \) is the local ring \( R_{\mathfrak{p}} \) at \( \mathfrak{p} \).
-\end{example}
-%\input{reg_morph}
-\end{subsection}
-\end{section}
