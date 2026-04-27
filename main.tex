@@ -62,10 +62,6 @@
 
 %\newcommand{\comcore}[1]{\text{ComCore} \left ( #1 \right )}
 %\newcommand{\comconvh}[1]{\text{ComCH} \left ( #1 \right )}
-\newcommand{\comint}[1]{\text{ComInt} \left ( #1 \right )}
-\newcommand{\comhull}[1]{\text{ComHull} \left ( #1 \right )}
-\newcommand{\maxhs}[2]{\text{MaxHS}_{#1} \left ( #2 \right )}
-\newcommand{\minhs}[2]{\text{MinHS}_{#1} \left ( #2 \right )}
 
 \newcommand{\dextrm}[2]{d_{\extrm} \left (#1, #2 \right)}
 \newcommand{\acceptidealb}[1]{\overline{R}\left (#1 \right)}
@@ -97,6 +93,8 @@
 \newcommand{\ind}{\perp\!\!\!\!\perp} 
 \newcommand{\spec}[1]{\text{Spec } #1} 
 \newcommand{\aff}[2]{\mathbb{A}^{#1}_{#2}}
+\newcommand{\stdaff}{\mathbb{A}^{n}_{\mathbb{K}}}
+\newcommand{\stdpolyr}{\mathbb{K}[\mathbf{X}]}
 \newcommand{\norm}[1]{\left|\left| #1 \right| \right|}
 \newcommand{\cl}[1]{\text{cl}\left(#1\right)}
 \newcommand{\innerpr}[2]{\langle {#1}, {#2} \rangle}
@@ -122,14 +120,17 @@
 \newcounter{coneofringscounter}
 
 
-\title{Sheafs Of Risk Measure Lattices}
+\title{Sheaves Of Risk Measure Lattices}
 \author{N.J. Lohmann, 10064840}
 \begin{document}
 \maketitle
 %\tableofcontents
 \input{intro}
 \newpage
+\begin{section}{Sheaves}
 \input{sheaf}
+\input{alg_geo_1}
+\end{section}
 \newpage
 \begin{section}{Risk Measures}
 \input{risk_measure}
@@ -138,8 +139,8 @@
 \begin{section}{Algebraic Structures On Risk Measures}
 \input{lattice_riskm}
 \input{ideal_filter_risk}
-%\input{quotient_lattice}
-%\input{sheaf_risk_measure}
+\input{quotient_lattice}
+\input{sheaf_risk_measure}
 \end{section}
 \newpage
 \appendix

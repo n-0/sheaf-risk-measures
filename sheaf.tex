@@ -1,4 +1,5 @@
-\begin{section}{Sheaves}
+\begin{subsection}{Bundling sections into Sheafs}
+    
 Sheaves are ubiquitous in mathematics and even though the reader might not had the opportunity
 to apply them knowingly they can be sure to have used their structure implicitly in different categories.
 From historic perspective, they originate in the domain of algebraic topology, where their ability to capture
@@ -13,12 +14,12 @@ The sheaves in this work have a similar spirit, so without further ado:
     Given a topological space \( X \), a sheaf is a structure s.t. 
     for all open \( U \subseteq X \), there is a map of sets \( \mathcal{O} : U \to \mathcal{O}(U) \) 
     and for all open \( V \subseteq U \) with their respective inclusion \( \iota : V \to U  \),
-    corresponds a map \( r_{U,V} : \mathcal{O}(U) \to \mathcal{O}(V) \).
-    The \( r \) stands for restriction and we use the notation \( f|_V := r_{U, V}(f) \) for \( f \in \mathcal{O}(U) \). Additionally 
+    corresponds a map \( r_{V, U} : \mathcal{O}(U) \to \mathcal{O}(V) \).
+    The \( r \) stands for restriction and we use the notation \( f|_V := r_{V, U}(f) \) for \( f \in \mathcal{O}(U) \). Additionally 
     the maps should satisfy:
     \begin{enumerate}
         \item \( r_{U, U} = \text{id}_{\mathcal{O}(U)} \)
-        \item If \( U \subseteq W \) then \( r_{U, V} \circ r_{W, U} = r_{W, V} \).
+        \item If \( U \subseteq W \) then \( r_{V,U} \circ r_{U,W} = r_{V,W} \).
         \item (Locality): For a cover \( \bigcup_i U_i = U \) and  \( f, g \in \mathcal{O}(U) \), s.t. \( f|_{U_i} = g|_{U_i} \) 
             for all \( i \), then \( f = g \).
         \item (Gluing): For a cover \( \bigcup_i U_i = U \) and a collection \( \{ f_i \}_i,\ f_i \in \mathcal{O}(U_i) \), 
@@ -27,29 +28,12 @@ The sheaves in this work have a similar spirit, so without further ado:
     \end{enumerate}
     A structure which only satisfies the first two properties is a presheaf. If it also satisfies locality it is separated.
 \end{definition} 
+The sections \( f \in \mathcal{O}(U) \) are also referred to as germs, whose bundle gives the natural name of a sheaf.
 %The quite general definition hints already at the fact that sheaves are ubiquitous in mathematics, e.g. smooth functions over a manifold
 %form a sheaf, the sheaf of Schwartz distributions over a space and there is even a sheaf of measures on Borel spaces \cite{sheafmeasures}.
 %In the affine case here, there is a particular choice of sheaf, which got its own name. For this we also need to define morphisms.
 
-\begin{example} \ref{algstructuresheaf}
-    Consider the affine space \( \aff{n}{\mathbb{K}} = \mathbb{K}^n\) over some field \( \mathbb{K} \) 
-    and the associated commutative ring of multivariate polynomials \( \mathbb{K}[\mathbf{X}] \).
-    One can define the Zariski topology (a \( T_1 \)-topology) over \( \aff{n}{\mathbb{K}} \), whose subbasis of closed sets is induced through 
-    \( J \subseteq \mathbb{K}[\mathbf{X}] \) via their vanishing sets, that is 
-    \[ V(J) = \{\, a \in \mathbb{K}^n : f(a) = 0 \text{ for all } f \in J \,\}. \]
-    Clearly, one also obtains a subbasis of open sets by taking the complements of vanishing sets (denoted by \( D(J) \)
-    traditionally), which are points over which collection of polynomials do not vanish.
-    Define then for an open set \( U \subset \aff{n}{\mathbb{K}} \) the set of \( \mathcal{O}(U) \) regular functions over \( U \), that is 
-    \( f : U \to \mathbb{K} \), s.t. for every \( x \in U \) there is some open neighborhood \( V \subset U \) of it on which it holds
-    \( f|_{V} \neq 0 \) and \( f(x) = \frac{h(x)}{g(x)} \) for \( h, g \in \mathbb{K}[\mathbf{X}] \).
-    This mapping \( \mathcal{O} : \text{Open}(\aff{n}{\mathbb{K}}) \to \mathcal{O}(U) \) defines in fact a sheaf over \( \aff{n}{\mathbb{K}} \)
-    with the restriction being the standard domain restriction of functions as the reader can verify. Moreover, the 
-    \( \mathcal{O}(U) \) are also rings, since adding or multiplying two non-vanishing functions \( f_1, f_2 \) yields another one 
-    over the intersection \( U_1 \cap U_2 \) of their domains, turning \( \aff{n}{\mathbb{K}} \) into a locally ringed space.
-\end{example}
-
-This example hopefully illuminates how the construction of the sheaf of smooth functions over a smooth manifold would look like.
-As is apparent from the Definition, the local behavior of functions can be tracked through the restriction morphism. If we continue this 
+As is apparent from the Definition, the local behavior of sections can be tracked through the restriction morphism. If we continue this 
 zoom into smaller and smaller open sets indefinitely and end up at a point (which is more than often not an open set in the topology of the underlying space \( X \)) the result is often something similar to an evaluation. The formal construction of this idea requires the colimit 
 from category theory, which can be found in the Appendix \ref{defcolimit}, the main challenge is to properly handle that it doesn't matter
 from which open set we initialize our restrictions to the point. This idea has its own name for sheaves: 
@@ -61,11 +45,6 @@ from which open set we initialize our restrictions to the point. This idea has i
         \mathcal{O}_{X,x} = \varinjlim_{U\ni x} \mathcal{F}(U).
     \]
 \end{definition}
-\begin{example}
-    For the sheaf of regular functions over \( \aff{n}{\mathbb{K}} \) the stalk at a point \( x \) is given by the ring 
-    of rational polynomial functions \( f = \frac{g}{h} \) with \( h(x) \neq 0 \).
-\end{example}
-\end{section}
 
 Everything is a matter of perspective and there is rarely one canonical choice over some space and its 
 topology. Already for smooth manifolds we can assign for each \( k \in \mathbb{N} \) to an open set
@@ -99,3 +78,5 @@ we get a morphism between sheaves with different underlying space. Unfortunately
 (due the adjointness of the preimage sheaf and pushfoward sheaf functor). In case that \( \pi \)
 is just a continuous map, one refers typically to morphisms of sheaves to the direction \( \varphi' : \mathcal{F}(\pi^{-1}(V)) \to \mathcal{G}(V) \) 
 (so it is a morphism of sheaves on \( Y \)).
+
+\end{subsection}

@@ -1,82 +1,55 @@
-    \begin{subsection}{Properties, Examples and Obstructions}
-    Risk measures are now a standard tool for evaluation in actuarial science as well as in financial mathematics as a whole. 
-    One of the most basic risk measures,
-    \[ 
-        \rho(X) = \mathbb{E}[X] 
-    \] 
-    dates back as early as 1709 to Nicolaus I Bernoulli’s PhD. thesis \cite{bernoulli1709dissertatio}, in which he proposed it as the fair price for insurance contracts.
-    % https://pmc.ncbi.nlm.nih.gov/articles/PMC11928225/
-    % Roman Law on the Just Price in Nicolaus Bernoulli’s Mathematics
-    Remarkably, only a few years later, Bernoulli also suggested an adjustment based on individual preferences—a concept we would now recognize as a precursor to utility theory.
-    It took several centuries, however, until Markowitz’s portfolio theory \cite{markowitzportfolio}, which introduced variance as a measure of risk, reignited the theory and 
-    led to the early development of downside risk measures such as lower partial moments. Specifically, in 1959, Markowitz (Chapter 9 \cite{markowitzsemivariance}) proposed
-    \[
-        \mathbb{E}[(|\mathbb{E}[X] - X|\mathbf{1}_{ \{\mathbb{E}[X] - X > 0 \} })^k] 
-    \] 
-    Over the following decades, various risk measures flourished, mostly under the term "premium principle", 
-    % A General Class of Three-Parameter Risk Measures Bernell K. Stone
-    of which special mentioning deserves the value-at-risk 
-    \[ 
-        \rho(X) = \text{VaR}_{\lambda}(X) = \inf \{ m \in \mathbb{R} | \pp{X + m < 0} \leq \lambda \}
-    \]
-    and the expected shortfall, or average value at risk ,
-    \[
-        \rho(X) = \text{AVR}_{\lambda}(X) = \frac{1}{\lambda} \int_{0}^\lambda \text{VaR}_{\alpha}(X) d\alpha
-    \]
-    until in 2011 Föllmer and Schied \cite{foellmerschied} put the theory on rigorous axiomatic foundations.
-    % Risk Measures and Theories of Choice Tsanakas
-    While an algebraic approach to portfolio theory is already well developed—since it is inherently an optimization problem on an intersection of hyperplanes and a conic—
-    the algebraic aspect of risk measures still offers ample room for development, to the best of the author’s knowledge. 
-    \newline
+    \begin{subsection}{Properties}
+        We will shortly define monetary risk measures and some of the standard properties  
+        one desires in them, such as coherence and convexity. We then introduce the acceptance set,
+        which is the analog of the vanishing set from the previous section and can be used to identify a risk measure.
+        Risk measures have become a standard tool in financial mathematics, proof of which are they use as capital requirements in regulatory
+        frameworks for insurance and banking such as Solvency II/Basel III. This overview can not do them justice and for a detailled discussion 
+        the reader might consult the excellent work of Föllmer and Schied \cite{foellmerschied}.
 
-    We first give some basic definitions for risk measures.
-    Let \( \mathcal{X} = \mathcal{L}^p(\Omega, \mathcal{F}, \mathbb{P}) \) or subspace thereof, 
-    for some suitable choice of \( p \).
-    \begin{definition} \label{defriskmeasure}
-    A mapping \( \rho : \mathcal{X} \to \mathbb{R} \) is called a monetary risk measure if it satisfies
-    the following conditions for all \( X, Y \in \mathcal{X} \).
-        \begin{enumerate}
-            \item Monotonicity/Antitone: If \( X \leq Y\), then \(\rho(X) \geq \rho(Y) \).
-            \item Cash invariance: If \( m \in \mathbb{R} \), then \( \rho(X + m) = \rho(X) - m \).
-        \end{enumerate}
-        It is called normalized if \( \rho(0) = 0 \), convex if \( \rho \) is a convex functional, and coherent if it is in addition positively homogenous,
-        that is \( \rho(\lambda X) = \lambda \rho(X),\ \lambda \in \mathbb{R}_{\geq 0} \).
-    \end{definition}
-    \begin{remark}
-    If we say risk measure, we mean monetary risk measure, if not otherwise stated. The concept of coherence could be referred to as a sublinear 
-    risk measure in functional analytic terminology.
-    \end{remark}
-    \begin{definition}
-        A risk measure \( \rho \) is
-        \begin{enumerate}
-            \item sensitive, if \( \rho(-X) > \rho(0) \) for \( X \in L^\infty_{+}(\Omega, \mathcal{F}, \mathbb{P}) \) and \( \pp{X > 0} > 0 \),
-            \item law-invariant, if \( \rho(X) = \rho(Y) \) for \( X \sim Y\) under \( \mathbb{P} \),
-            \item continuous from below, if \( X_n \nearrow X \implies \rho(X_n) \searrow \rho(X) \),
-            \item continuous from above, if \( X_n \searrow X \implies \rho(X_n) \nearrow \rho(X) \).
-        \end{enumerate}
-    \end{definition}
+        We first give some basic definitions for risk measures.
+        Let \( \mathcal{X} = \mathcal{L}^p(\Omega, \mathcal{F}, \mathbb{P}) \) or subspace thereof, 
+        for some suitable choice of \( p \).
+        \begin{definition} \label{defriskmeasure}
+        A mapping \( \rho : \mathcal{X} \to \mathbb{R} \) is called a monetary risk measure if it satisfies
+        the following conditions for all \( X, Y \in \mathcal{X} \).
+            \begin{enumerate}
+                \item Monotonicity/Antitone: If \( X \leq Y\), then \(\rho(X) \geq \rho(Y) \).
+                \item Cash invariance: If \( m \in \mathbb{R} \), then \( \rho(X + m) = \rho(X) - m \).
+            \end{enumerate}
+            It is called normalized if \( \rho(0) = 0 \), convex if \( \rho \) is a convex functional, and coherent if it is in addition positively homogenous,
+            that is \( \rho(\lambda X) = \lambda \rho(X),\ \lambda \in \mathbb{R}_{\geq 0} \).
+        \end{definition}
+        \begin{remark}
+        If we say risk measure, we mean monetary risk measure, if not otherwise stated. The concept of coherence could be referred to as a sublinear 
+        risk measure in functional analytic terminology.
+        \end{remark}
+        \begin{definition}
+            A risk measure \( \rho \) is
+            \begin{enumerate}
+                \item sensitive, if \( \rho(-X) > \rho(0) \) for \( X \in L^\infty_{+}(\Omega, \mathcal{F}, \mathbb{P}) \) and \( \pp{X > 0} > 0 \),
+                \item law-invariant, if \( \rho(X) = \rho(Y) \) for \( X \sim Y\) under \( \mathbb{P} \),
+                \item continuous from below, if \( X_n \nearrow X \implies \rho(X_n) \searrow \rho(X) \),
+                \item continuous from above, if \( X_n \searrow X \implies \rho(X_n) \nearrow \rho(X) \).
+            \end{enumerate}
+        \end{definition}
 
-    \begin{definition}[Linear cones]
-    A set \( S \) in a real vector space \( \mathcal{X} \) is a cone if \( x \in S \implies \lambda x \in S \) for \( \lambda \in \mathbb{R}_{>0} \).
-    \end{definition}
-    \begin{remark}
-       To differentiate cones as in the previous from the ones such as in Definition \ref{coneofrings}
-       we call the first linear cones and the latter algebraic cones.
-    \end{remark}
-    \begin{definition}
-        The acceptance set of a risk measure \( \rho \) is 
-        \[ \mathcal{A}_\rho = \{ X \in \mathcal{X} | \rho(X) \leq 0 \}. \]
-    \end{definition}
-    \begin{proposition} \label{acceptancesetpropisriskprop}
-        Assume \( \mathcal{A}_{\rho} \neq \emptyset \), it holds:
-        \begin{enumerate}
-            \item \( \rho(X) := \inf \{ m \in \mathbb{R} | m + X \in \mathcal{A}_{\rho} \}   \) 
-            \item \( \rho \) is a convex risk measure if and only if \( \mathcal{A}_{\rho} \) is convex.
-            \item \( \rho \) is positive homogenous if and only if \( \mathcal{A}_{\rho} \) is a cone.
-            \item \( \rho \) is coherent if and only if \( \mathcal{A}_{\rho} \) is a convex cone 
-        \end{enumerate}
-    \end{proposition}
-    \begin{proof}
-        \cite{foellmerschied} Proposition 4.6
-    \end{proof}
-    \end{subsection}
+        \begin{definition}[Linear cones]
+        A set \( S \) in a real vector space \( \mathcal{X} \) is a cone if \( x \in S \implies \lambda x \in S \) for \( \lambda \in \mathbb{R}_{>0} \).
+        \end{definition}
+        \begin{definition}
+            The acceptance set of a risk measure \( \rho \) is 
+            \[ \mathcal{A}_\rho = \{ X \in \mathcal{X} | \rho(X) \leq 0 \}. \]
+        \end{definition}
+        \begin{proposition} \label{acceptancesetpropisriskprop}
+            Assume \( \mathcal{A}_{\rho} \neq \emptyset \), it holds:
+            \begin{enumerate}
+                \item \( \rho(X) := \inf \{ m \in \mathbb{R} | m + X \in \mathcal{A}_{\rho} \}   \) 
+                \item \( \rho \) is a convex risk measure if and only if \( \mathcal{A}_{\rho} \) is convex.
+                \item \( \rho \) is positive homogenous if and only if \( \mathcal{A}_{\rho} \) is a cone.
+                \item \( \rho \) is coherent if and only if \( \mathcal{A}_{\rho} \) is a convex cone 
+            \end{enumerate}
+        \end{proposition}
+        \begin{proof}
+            \cite{foellmerschied} Proposition 4.6
+        \end{proof}
+\end{subsection}

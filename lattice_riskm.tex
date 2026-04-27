@@ -1,7 +1,9 @@
     \begin{subsection}{Lattices}
-    As far as the author knows, this domain also hasn't been covered in literature yet.
-    \newline
-    Recall the definition of lattices:
+    In this section we will provide the preliminaries from the theory of lattices for the sheaf construction
+    on \( \mathcal{X} = L^\infty(\Omega, \mathcal{F}, \mathbb{P}) \), such as their definition, properties
+    such as completeness and distributivity, which allow for a well-defined theory of ideals. Further a impression 
+    of the geometric correspondence to acceptance sets is given, whose extension is explored in the subsequent sections.
+    For the full proofs the reader may refer to the thesis \cite{mymaster}, which was the initial motivation of this work. 
 
     \begin{definition}
         A semilattice \( (S, \otimes ) \) is a set \( S \) with a binary operation which is 
@@ -31,13 +33,6 @@
         are semilattices, which we call the (strict) upward and (strict) downward of "\( a \)" respectively.
         If \( L \) is bounded, so are the semilattices.
     \end{lemma}
-    \begin{proof}
-        Let \( b_1, b_2 \in (a)^\uparrow \) then \( b_1 \leq b_1 \vee b_2 \) and \( b_2 \leq b_1 \vee b_2 \)
-        and as \( a_1 \leq b_1 \), \( a_1 \leq b_2 \), \( (a)^\uparrow \) is closed under \( \vee \).
-        If \( L \) is bounded, then \( (a)^\uparrow \) must contain \( \top \), so \( (a)^\uparrow \) is bounded.
-        The argument can be done symmetrically for \( (a)^\downarrow \) and their strict versions.
-    \end{proof}
-    
 
     \begin{proposition}
         There exists a unique partial order on a semilattice and for a lattice these orders agree.
@@ -70,71 +65,22 @@
     While the random variables \( \mathcal{X} : \Omega \to \mathbb{R} \) formed a ring, risk measures importantly do not with respect to 
     the same operations, e.g. \( \rho_1(X + m) + \rho_2(X + m) = \rho_1(X) + \rho_2(X) - 2m \), so cash-invariance is not maintained. 
     If risk measures are supposed to have a relation to random variables like \( \mathbb{K}[\mathbf{x}] \) has to \( \aff{\mathbb{K}}{n} \),
-    as in Example \re{algstructuresheaf}, we need a different structure, and lattices are a promising candidate.
+    as in Example \ref{algstructuresheaf}, we need a different structure, and lattices are a promising candidate.
     \begin{theorem} \label{monrmarelattice}
         The space of monetary risk measures \( \mathcal{R} \), that is functionals \( \rho : \mathcal{X} \to \mathbb{R} \), which satisfy
-        the monotonicity and cash invariance from Definition \ref{defriskmeasure}, are a distributive lattice under the operations 
+        the monotonicity and cash invariance from Definition \ref{defriskmeasure}, are a distributive unbounded lattice under the operations 
         \begin{align*}
             (\rho_1 \vee \rho_2)(X) &:= \max \{\rho_1(X), \rho_2(X) \} \\
             (\rho_1 \wedge \rho_2)(X) &:= \min \{\rho_1(X), \rho_2(X) \}.
         \end{align*}
+        By modifying the codomain of risk measures to the extended real numbers \( \extreals = \mathbb{R} \cup \{ -\infty, \infty \} \)
+        and adding the risk measures \( \rho_{\bot}(X) = -\infty,\ \rho_{\top}(X) = \infty \) to \( \mathcal{R} \) one obtains a distributive,
+        bounded, complete lattice \( \extrm \) of which \( \mathcal{R} \) is a sublattice.
     \end{theorem}
-    \begin{proof}
-        \( \max, \min \) pointwise applied are clearly associative, commutative, idempotent and distributive.
-        Moreover if \( \rho_1, \rho_2 \in \mathcal{R} \) are monetary then for \( m \in \mathbb{R} \)
-        \begin{align*}
-            (\rho_1 \vee \rho_2)(X + m) &= \max \{\rho_1(X + m), \rho_2(X + m) \} \\ &=  \max \{\rho_1(X) - m, \rho_2(X) - m \} = (\rho_1 \vee \rho_2)(X) - m
-        \end{align*}
-        If \(\forall \omega \in \Omega, X(\omega) \leq Y(\omega) \) then
-        \begin{align*}
-            (\rho_1 \vee \rho_2)(X) &= \max \{\rho_1(X), \rho_2(X) \} \\ 
-                                    &\geq \max \{\rho_1(Y), \rho_2(X) \} \\
-                                    &\geq \max \{\rho_1(Y), \rho_2(Y) \} = (\rho_1 \vee \rho_2)(Y).
-        \end{align*}
-        The argument for \( \min \) is symmetric.
-    \end{proof}
     \begin{remark} \label{completionofriskmeasures}
-        One can turn \( \mathcal{R} \) into a complete lattice by adding 
-        \( \rho_{\bot}(X) = -\infty,\ \rho_{\top}(X) = \infty \) and modifying the codomain of the risk measures to
-        the extended reals \( \extreals = \mathbb{R} \cup \{ -\infty, \infty \} \), we will denote this bounded lattice by \( \extrm \).
-        There is a nice, intuitive interpretation of these measures, but it comes at the cost of Lipschitz continuity, which is not too much of a burden, since we have to keep only two special cases in mind. Otherwise, we do not allow \( \rho \in \extrm \) to take on the value \( - \infty \).
+        There is a nice, intuitive interpretation of these measures, but it comes at the cost of Lipschitz continuity, which is not too much of a burden, 
+        since we have to keep only two special cases in mind. Otherwise, we do not allow \( \rho \in \extrm \) to take on the value \( - \infty \).
     \end{remark}
-    \begin{lemma}
-        \( \mathcal{R} \) is an unbounded lattice.
-    \end{lemma}
-    \begin{proof}
-        Suppose there's some \( \rho_{\top} \) s.t. \( (\rho \wedge \rho_{\top}) = \rho_{\top} \) for all \( \rho \in \mathcal{R} \).
-        Consider the functional \( \rho' = \rho_{\top} + \varepsilon \) for any \( \varepsilon > 0 \), this is monetary as \( \rho_{\top} \) is
-        and clearly \( \rho' \wedge \rho_{\top} = \rho' \). The same goes for \( \vee \) via \( \rho' = \rho_{\bot} - \varepsilon \).
-    \end{proof}
-    \begin{corollary}
-        The normalized risk measures are a distributive sublattice of \( \mathcal{R} \).
-    \end{corollary}
-    \begin{proof}
-        Trivial.
-    \end{proof}
-    \begin{lemma} \label{extrmiscomplete}
-        The lattice \( (\extrm, \vee, \wedge, \rho_{\bot}, \rho_{\top}) \) is complete.
-    \end{lemma}
-    \begin{proof}
-        Let \( I \subset \extrm \), if \( I \) is finite, this follows by Definition, hence assume \( I \) is infinite.
-        Define the infimum/supremum pointwise as the infimum/supremum of the corresponding set of extended real numbers (which is a complete lattice):
-        \[ 
-            (\inf I)(X) := \bigwedge_{\rho \in I} \rho(X), \qquad (\sup I)(X) = \bigvee_{\rho \in I} \rho(X).
-        \]
-        We then have for cash-invariance,
-        \begin{align*}
-            (\inf I)(x + m) &= \inf\{f(x + m) : f \in I\} \\
-            &= \inf\{f(x) - m : f \in I\}  \\
-            &= \inf\{f(x) : f \in I\} - m \\
-            &= (\inf I)(x) - m.
-        \end{align*}
-        Assume \(\forall \omega \in \Omega, X(\omega) \leq Y(\omega) \), then for all \( \rho \in I \)
-        \( \rho(X) \geq \rho(Y) \), so in particular \( (\inf I)(X) \geq (\inf I)(Y) \).
-        Note that for unbounded \( I \), such as \( \mathcal{R} \subsetneq \extrm \) we have 
-        \( (\inf \mathcal{R}) = \rho_\bot \) and \( \sup \mathcal{R} = \rho_\top \).
-        We conclude \( (\inf I) \in \extrm \) and vis-à-vis \( (\sup I) \in \extrm \).
-    \end{proof}
 
     \begin{lemma} \label{extrmisjidandmid}
        The lattice \( \extrm \) is JID and MID.
@@ -155,31 +101,14 @@
         The argument then goes analogously for MID.
     \end{proof}
 
-   As C.G. Jung already said, "Life calls not for perfection, but for completeness" we shall 
-    focus our study on \( \extrm \) from hereon as complete lattices are better behaved 
-    regarding algebraic analysis. A hint at this is Definition \ref{atomisticlattice}, and as we will see, the definition or verification of ideals becomes easier if we grant ourselves this freedom. To give a taste of the intuitiveness of our construction and why lattices are a natural analog for algebraic geometry, let us turn to the geometric side:
-
+    To give a taste of the intuitiveness of our construction and why lattices are a natural analog for algebraic geometry, let us turn to the geometric side:
     \begin{corollary} \label{acceptanceoperations}
         The operations in \( (\extrm, \vee, \wedge) \) correspond to intersections and unions of acceptance sets
-        and vice-versa.
+        and vice-versa. Further the lattice order translates into acceptance sets as: \( \rho_1 \leq \rho_2 \) for \( \rho_1, \rho_2 \in \extrm \) if and only if \( \mathcal{A}_{\rho_2} \subseteq \mathcal{A}_{\rho_1} \).
     \end{corollary}
-    \begin{proof}
-        For \( \rho_1, \rho_2 \in \extrm \) let \( \mathcal{A}_{\rho_1}, \mathcal{A}_{\rho_2} \) be their corresponding acceptance sets.
-        Suppose \( (\rho_1 \vee \rho_2)(X) \leq 0 \) then \( \rho_2(X) \leq 0\) and \(\rho_1(X) \leq 0 \), hence 
-        \( X \in \mathcal{A}_{\rho_1} \) and \( X \in \mathcal{A}_{\rho_2} \). Conversely if \( X \in \mathcal{A}_{\rho_1} \) and \( X \in \mathcal{A}_{\rho_2} \),
-        the same must be the case, whence \( \mathcal{A}_{(\rho_1 \vee \rho_2)} = \mathcal{A}_{\rho_1} \cap \mathcal{A}_{\rho_2} \).
-        That \( \mathcal{A}_{\rho_1} \cap \mathcal{A}_{\rho_1} \) induces the risk measure \( (\rho_1 \vee \rho_2) \) follows from 
-        Proposition \ref{acceptancesetpropisriskprop} and the preceeding \( \mathcal{A}_{(\rho_1 \vee \rho_2)} = \mathcal{A}_{\rho_1} \cap \mathcal{A}_{\rho_2} \)  . 
-        The result follows similarly for \( (\rho_1 \wedge \rho_2) \) and \( \mathcal{A}_{\rho_1} \cup \mathcal{A}_{\rho_2} \).
-    \end{proof}
-    \begin{corollary} \label{orderreversingofrm}
-        \( \rho_1 \leq \rho_2 \) for \( \rho_1, \rho_2 \in \extrm \) if and only if \( \mathcal{A}_{\rho_2} \subseteq \mathcal{A}_{\rho_1} \).
-    \end{corollary}
-    \begin{proof}
-        \( \rho_1 \leq \rho_2 \iff \rho_1 \vee \rho_2 = \rho_1 \), Corollary \ref{acceptanceoperations} asserts this is equivalent to 
-        \( \mathcal{A}_{\rho_1} \cup \mathcal{A}_{\rho_2} = \mathcal{A}_{\rho_1} \).
-    \end{proof}
-        In particular for \( \extrm \) the same holds and \( \mathcal{A}_{\rho_\bot} = \mathcal{X} \), \( \mathcal{A}_{\rho_\top} = \emptyset \), 
-        so an intuitive interpretation would be that \( \rho_\bot \) is the risk measure which accepts all risks, while \( \rho_\top \) is the risk measure which rejects all.
-
+    \iffalse
+    As C.G. Jung already said, "Life calls not for perfection, but for completeness" we shall 
+    focus our study on \( \extrm \) from hereon as complete lattices are better behaved 
+    regarding algebraic analysis. A hint at this is Definition \ref{atomisticlattice}, and as we will see, the definition or verification of ideals becomes easier if we grant ourselves this freedom. 
+    \fi
 \end{subsection}

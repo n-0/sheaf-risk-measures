@@ -1,0 +1,200 @@
+\begin{subsection}{Put a ring on it: Varieties and their local study}
+    In this section we define the basic tools of algebraic geometry, such as 
+    vanishing sets/ideals, varieties and the structure sheaf of a variety. 
+    All of these constructions have an analoge in the setting of risk measures as we will see in the latter chapters.
+    We won't cover the information, which can be extracted from the structure sheaf and its constitutents, such as the dimension
+    of the variety, tangent space and singularities, since we won't be able to do this for the risk measure case, but the interested
+    reader is referred to Milne's excellent lecture \cite{milne2012algebraic} or Bosch's \cite{alggeoandcom}.
+
+    %Thus in the subsequent section we will first speak in some generality of subrings 
+    Let \( R \) be a commutative ring resulting from taking a quotient of \( \stdpolyr \) with respect to some ideal \( I \).
+    \begin{definition}
+        For a subset \( J \subset \stdpolyr \) and \( W \subset \stdaff \) define
+        \begin{align*}
+            V(J) &:= \left\{ x \in \stdaff \mid \forall f \in J,\ f(x) = 0 \right\}  \\
+            I(W) &:= \left\{ f \in \stdpolyr \mid \forall x \in W,\ f(x) = 0 \right\}
+        \end{align*}
+        as the vanishing set and vanishing ideal respectively. Complementarily, let
+        \( D(J) = \stdaff \setminus V(J) \) be the non-vanishing set. In the case of principal ideals \( J = (f) \)
+        we call \( D(f) := D((f)) \) a distinguished open set and it holds \( D(fg) = D(f) \cap D(g) \).
+    \end{definition}
+    That \( I(W) \) is indeed an ideal in \( \stdpolyr \) is a standard verification.
+    \begin{proposition}
+        The operation \( V \) is inclusion reversing, meaning for \( J_1 \subseteq J_2 \)
+        it holds \( V(J_2) \subseteq V(J_1) \) . 
+        Further for any collection \( \{J_n\}_{n \in N} \) with \( J_n \subset \stdpolyr \)
+        \begin{align*}
+            V\left(\bigcup_{n \in N} J_n \right) = \bigcap_{n \in N} V\left(J_n \right),
+        \end{align*}
+        but in general only
+        \begin{align*}
+            V\left(\bigcap_{n \in N} J_n \right) \subseteq \bigcup_{n \in N} V\left(J_n \right).
+        \end{align*}
+        The same is true of \( I \) with sets in \( \stdaff \). The dual statements hold for the non-vanishing sets \( D(J) \).
+    \end{proposition}
+    \begin{proof}
+        Proposition 6.1.1 of \cite{alggeoandcom}.
+    \end{proof}
+    
+    \begin{definition}
+        An algebraic set \( W \subseteq \stdaff \) is a set of the form \( W = V(J) \) for some \( J \subset \stdpolyr \).
+        A variety \( W \) is an irreducible algebraic set, meaning there are no algebraic sets \( W_1, W_2 \), s.t.
+        \( W = W_1 \cup W_2 \).
+    \end{definition}
+    \begin{proposition} \label{primenessandradicalag}
+        We have \( W \subseteq \stdaff \) is a variety if and only if \( I(W) \) is a prime ideal or the whole ring \( \stdpolyr \).
+        Further for any ideal \( J \subseteq \stdpolyr \) it holds \( V(\sqrt{J}) = V(J) \).
+    \end{proposition}
+    \begin{proof}
+        Corollary 6.1.7 of \cite{alggeoandcom} and Corollary 6.1.16 of \cite{alggeoandcom}.
+    \end{proof}
+    
+    \begin{example}
+        Consider \( \aff{\mathbb{R}}{2} \) then the unit circle is an algebraic variety induced by the principal ideal \( (x_1^2 + x_2^2 - 1) \),
+        while the cross of the coordinate axes, denoted by \( W \), is not since \( W = V(\{x_1\}) \cup V((x_2)) \). Note also that the affine space
+        itself is a variety, since it is induced by the ideal \( (0) \), which is naturally prime and any point \( c \in \stdaff \) via 
+        \( \{c\} = V((x_1 - c_1), \dots (x_n - c_n)) \). The fact that points are themselves varieties leads to the more general study
+        of algebraic geometry, where the prime ideals are taken as the points of the "geometric space" spectrum \( \spec{\stdaff} \).
+        We won't do this abstraction as we will later see in the case of risk measure, that this gives much more points then we're interested in.
+    \end{example}
+    \begin{definition}
+        The Zariski topology on \( \stdaff \) is the topology induced by the distinguished open sets \( D(f) \)
+        as a subbasis of open sets.
+    \end{definition}
+    \newline
+    Now an implicit abstraction that might be confusing should be pointed out. Studying the local behavior
+    of some algebraic structure around a geometric object is always a relative matter. Meaning
+    there are two different positions involved, first the one of the geometric object and second the one were the local study
+    is conducted. In the simplest case the geometric space is the whole space thus the local study is unperturbed by any effects 
+    propagated by any special geometry of its overall surroundings. Thus we have one algebraic structure of the whole space which needs 
+    to be adjusted when focusing on geometric object. However, in both cases the procedure of localizing it should be the same mechanism.
+    More concretely, we have to differentiate between the local study on the whole affine space \( \stdaff \)
+    vs. the study restricted on some variety \( W \subset \stdaff \). On the algebraic 
+    side this is reflected if we \textit{localize} on the whole multivariate polynomial ring \( \stdpolyr \) or the quotient ring
+    \( \mathbb{K}[W] := \stdpolyr / I(W) \) of it. Taking the quotient ring is natural, because all the polynomials which vanish over \( W \) can not add  
+    any further information, so we would like to concentrate on those elements of the ring unaffected by them. Note also, that there is no issue
+    in evaluating elements \( g_1, g_2 \) in the same equivalence class \( [g] \in \mathbb{K}[W] \) on points in \( W \), since by assumption there
+    is some \( h \in I(W) \) s.t. \( g_1 + h = g_2 \) and for any point \( x \in W \), \( g_1(x) + h(x) = g_1(x) + 0 = g_2(x) \).
+    Further \( W \) inherits naturally the subspace topology of \( \stdaff \) and one can verify this is the same as inducing it by the subbasis \( D([g]) \)
+    for \( [g] \in \mathbb{K}[W] \). Thus we can introduce relative notions of the operations \( V, I, D \) as follows 
+    \begin{align*}
+        V_{W}(J) &:= \left\{ x \in W \mid \forall [f] \in J,\ [f(x)] = 0 \right\}  \\
+        I_{W}(U) &:= \left\{ [f] \in \mathbb{K}[W] \mid \forall x \in U,\ [f(x)] = 0 \right\},
+    \end{align*}
+    where \( J \subset \mathbb{K}[W] \), \( U \subset W \) and \( D_W(J) \) as the complement of \( V_{W}(J) \) in \( W \).
+    \begin{definition}
+        Let \( W \subset \stdaff \) be a variety and  \( S \subset \mathbb{K}[W] \) a set that is multiplicatively closed meaning \( S \cdot S = S \).
+        %Let \( S_W = \stdpolyr \setminus I(\{ W \}) \) 
+        The localization at \( U \subseteq W \) is defined as the ring, denoted by \( \mathbb{K}[W]_{U} \), resulting from the localization of \( \mathbb{K}[W] \) 
+        with the set \( S_U := \mathbb{K}[W] \setminus I_{W}(U) \), if it is multiplicative.
+    \end{definition}
+    One can make a set \( S \) multiplicatively closed by taking its saturation, which means adding all elements from the ring s.t. their product is in \( S \).
+    A standard fact of algebra is that the prime ideals in \( \mathbb{K}[W]_{U} \) are all prime ideals in \( \mathbb{K}[W] \) which are contained in \( I_W(U) \),
+    thus by Proposition \ref{primenessandradicalag} the concept of subvarieties inside \( W \) is well-defined algebraically in \( \mathbb{K}[W]_{U} \).
+    %Note that in the special case of \( U = D_W([f]) \) this is precisely the ring \( S^{-1}_{U} \mathbb{K}[W] \) where all elements of the form \( [f^m] \)
+    %are invertible.
+    \begin{theorem}[Structure Sheaf] \label{sheafofvariety}
+        % TODO is this well-defined since we are localizing at general U (whose ideals are not necessarily complements of prime ideals)
+        Let \( W \subset \stdaff \) be a variety with its inherited Zariski topology, the map 
+        \begin{align*}
+            \mathcal{O}_W : \text{Open}(W) & \to \text{Ring} \\
+            U & \mapsto \varinjlim_{U' \in \mathcal{I}} \mathbb{K}[W]_{D_W([f])}
+        \end{align*}
+        defines a sheaf of rings on \( W \), where \( \mathcal{I} \) is the set of distinguished open sets \( D_W([f]) \) s.t. \( D_W([f]) \subset U \). 
+        Sections of \( \mathcal{O}(U) \) are referred to as regular functions. 
+    \end{theorem}
+    \begin{proof}
+        A special case of Theorem 6.6.3 and Lemma 6.6.4 in \cite{alggeoandcom}.
+    \end{proof}
+    Explicitely, one can describe \( \mathcal{O}_W(U) \) as the set of functions \( \varphi \) s.t. for some \( x \in U \) there is some open neighborhood \( U' \subseteq U \)
+    s.t. \( \varphi|_{U'} = \frac{f}{g} \) where \( f, g \in \stdpolyr \) and \( g \notin V(U') \). 
+    A non-trivial intermediate in the proof of Theorem \ref{sheafofvariety} is that for \( U = D_W([f]) \) we have \( \mathbb{K}[W]_{D_W([f)]} = (f)^{-1} \mathbb{K}[W] \),
+    meaning that the sections are simply fractions \( \left[\frac{h}{f^k}\right] \), fitting the previous description.
+    Further for distinguished open sets \( D_W([g]) \subset D_W([f]) \) one can derive from Proposition \ref{primenessandradicalag} 
+    that \( [g^m] = [h \cdot f] \) for some \( h \in \stdpolyr \) and therefore any \( \left[\frac{b}{f^k}\right] \in \mathcal{O}_W(D_W([f])) \) can be written as 
+    \( \frac{b h^k}{g^{mk}} \) and the restriction morphism \( r_{D_W([g]),D_W([f])} \) simply rewrites fractions with \( f \) in the denominator into ones with \( g \).
+    Taking the colimit corresponds roughly to writing all fractions in the individual distuingished sets in terms of their common denominators, which do not vanish over \( U \),
+    resulting in the ring of regular functions. The matter that the \( \varphi \) are only locally of this form is precisely the side-effect of taking this limit.
+    Moreover, the stalk \( \mathcal{O}_{W,x} \) are all rational polynomials \( \frac{f}{g} \) s.t. \( g(x) \neq 0 \), the stalk is in fact a local ring,
+    whose unique maximal ideal \( \mathfrak{m}_x \) is given by all polynomials which vanish at \( x \).
+    Effectively, these rational polynomials are only defined with respect to a point we could identify them with their value there and this 
+    is the idea of the residue field.
+    %In the case of algebraic geometry there is one further technique possible for the sheaf of Theorem \ref{sheafofvariety}, namely the residue field,
+    %which are the aforementioned evaluations.
+    \begin{definition}
+        The residue field at \( x \in W \) is defined as the quotient field obtained from \( \kappa(x) = \mathcal{O}_W(x) / \mathfrak{m}_x  \).
+    \end{definition}
+    Since taking the quotient field with respect to the ideal of a point \( (x_1 - c_1, \dots, x_n - c_n) \), replaces each variable in a polynomial
+    by the corresponding \( c_n \), we obtain the value of \( \frac{f}{g} \) at \( x \).
+
+    \iffalse
+
+    In the case of the variety \( W = \stdaff \), the whole space, the quotient ring coincides with \( \stdpolyr \) thus we do not have to be careful about the  
+    equivalence classes. In fact this is also not much of an issue in the case of a variety \( W \) as one can see below 
+    \begin{corollary}
+        For a variety \( W \subset \stdaff \) and any open \( U \subset \stdaff \) the map 
+        \[ \mathcal{I}_W(U) = \left\{f \in \mathcal{O}_{\stdaff}(U) \mid \forall x \in U \cap W, [f(x)] = 0 \right\} \] 
+        for some open \( U \subset \stdaff \) in the Zariski topology, defines a sheaf of rings as well.
+        Let \( W \subset \stdaff \) be a variety, then for any \( U \subseteq \stdaff \) there is a short exact sequence 
+        \begin{align}
+            0 \to \mathcal{I}_{\stdaff}(U) \to \mathcal{O}_{\stdaff}(U) \to i_\ast \mathcal{O}_W(U \cap W) \to 0
+        \end{align}
+        where \( i_\ast \) is the pushforward of the sheaf \( \mathcal{O}_W \) via the inclusion map \( i : W \to \stdaff \), 
+        in other words \( \mathcal{O}_W(U) \simeq \mathcal{O}_{\stdaff}(U) / \mathcal{I}_{\stdaff}(U) \).
+    \end{corollary}
+    \begin{proof}
+        By Definition \( \mathcal{I}_{\stdaff}(U) \) is a subring of \( \mathcal{O}_{\stdaff}(U) \), thus the injective part of the sequence is clear.
+        Since any open \(  \)
+        The morphism \( \mathcal{O}_{\stdaff}(U) \to i_\ast \mathcal{O}_W(U) \) is defined on distuingished opens \( D(f) \) 
+        For the surjective one 
+    \end{proof}
+
+    The previous observation is made precise by the following
+
+    \begin{corollary}
+        Let \( W \subset \stdaff \) be a variety, then there is a short exact sequence 
+        \begin{align}
+            0 \to \mathcal{I}_W \to \mathcal{O}_{\stdaff} \to i_\ast \mathcal{O}_W \to 0
+        \end{align}
+        where \( i_\ast \) is the pushforward of the sheaf \( \mathcal{O}_W \) via the inclusion map \( i : W \to \stdaff \)
+    \end{corollary}
+
+    \begin{definition}
+        Let \( W \susbet \stdaff \) be a variety, then we call the localization at \( \mathcal{O}_{\stdaff}(W) \) the coordinate ring of \( W \), denoted by \( \mathcal{O}_{\stdaff} \).
+        be the multiplicative closed set induced by a set \( W \subseteq \stdaff \).
+        The localization \( \mathcal{O}_{\stdaff}(W) \) at \( W \subseteq \stdaff \) is defined as the ring resulting from the localization of the ring \( \stdpolyr \) 
+        with the set \( S \). 
+    \end{definition}
+    
+
+    \begin{theorem}
+
+    \end{theorem}
+    One can then show 
+    \begin{definition}
+        For a subset \( J \subset \stdpolyr \) and \( W \subset \stdaff \) define
+        \begin{align*}
+            V(J) := \left\{ \mathfrak{p} \in \spec{\stdpolyr} \mid \forall f \in J, f \in \spec{\stdpolyr} \right\}  \\
+            I(W) := \left\{ f \in \stdpolyr \mid \forall x \in W,\ f(x) = 0 \right\}
+        \end{align*}
+        as the vanishing set and vanishing ideal respectively. Complementarily, let
+        \( D(J) = \stdaff \setminus V(J) \) be the non-vanishing set.
+    \end{definition}
+    \begin{definition}
+        Call \( D(f) \) for fixed \( f \in \stdpolyr \) an elementary non-vanishing set.
+        The Zariski topology on \( \spec{\stdpolyr} \) is the topology induced by the \( D(f) \)
+        as a subbasis of open sets.
+    \end{definition}
+    \iffalse
+    In particular for the one can deduce from 
+    the relative version of 
+    \( D([g]) \subset D([f]) \) it holds  that 
+
+    \( \mathcal{O}_W(U) \) are also rings, since adding or multiplying two non-vanishing functions \( f_1, f_2 \) yields another one over the intersection \( U_1 \cap U_2 \) of their domains, 
+    turning \( \aff{n}{\mathbb{K}} \) into a locally ringed space. In fact this is the inspiration of schemes, which are sheaves of rings that are isomorphic to the previous sheaf  
+    construction but for more general rings then \( \stdpolyr \) or its quotient rings.
+    %One could define schemes in the sense of Grothendieck as exactly these objects (which is far less general than the usual definition into the category of rings, which is isomorphic  
+    \fi
+    \fi
+
+\end{subsection}
